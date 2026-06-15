@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ClickOferta | Ofertas y Novedades</title>
+
+<meta name="description" content="Productos destacados, ofertas temporales y novedades todas las semanas.">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f5f5f5;
+color:#333;
+}
+
+header{
+background:#ff6600;
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:white;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+}
+
+.menu a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:bold;
+}
+
+.banner{
+height:500px;
+background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+url('banner.jpg');
+background-size:cover;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding:20px;
+}
+
+.banner-content h1{
+font-size:60px;
+margin-bottom:15px;
+}
+
+.banner-content p{
+font-size:22px;
+margin-bottom:20px;
+}
+
+.btn{
+display:inline-block;
+background:#ff6600;
+color:white;
+padding:15px 30px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.section-title{
+text-align:center;
+font-size:36px;
+margin:50px 0 30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+padding:0 5%;
+margin-bottom:50px;
+}
+
+.card{
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+.card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.card-body{
+padding:15px;
+text-align:center;
+}
+
+.card-body h3{
+margin-bottom:10px;
+}
+
+.precio{
+font-size:22px;
+font-weight:bold;
+color:#ff6600;
+}
+
+.ofertas{
+background:white;
+padding:50px 0;
+}
+
+.beneficios{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+padding:50px 5%;
+background:#fff;
+text-align:center;
+}
+
+.beneficio{
+padding:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:40px 20px;
+}
+
+footer h3{
+margin-bottom:15px;
+}
+
+footer p{
+margin:8px 0;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25d366;
+color:white;
+padding:18px 25px;
+border-radius:50px;
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+z-index:9999;
+}
+
+.whatsapp:hover{
+transform:scale(1.05);
+}
+
+@media(max-width:1024px){
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.beneficios{
+grid-template-columns:repeat(2,1fr);
+}
+
+.banner-content h1{
+font-size:45px;
+}
+
+}
+
+@media(max-width:768px){
+
+header{
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+margin:0 10px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.beneficios{
+grid-template-columns:1fr;
+}
+
+.banner{
+height:400px;
+}
+
+.banner-content h1{
+font-size:34px;
+}
+
+.banner-content p{
+font-size:18px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+CLICKOFERTA
+</div>
+
+<nav class="menu">
+<a href="#">Inicio</a>
+<a href="#">Productos</a>
+<a href="#">Ofertas</a>
+<a href="#">Contacto</a>
+</nav>
+
+</header>
+
+<section class="banner">
+
+<div class="banner-content">
+
+<h1>CLICKOFERTA</h1>
+
+<p>
+🔥 Ofertas que vuelan<br>
+📦 Envíos a todo el país
+</p>
+
+<a href="https://wa.me/5491112345678" class="btn">
+Consultar por WhatsApp
+</a>
+
+</div>
+
+</section>
+
+<h2 class="section-title">Productos Destacados</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="producto1.jpg">
+<div class="card-body">
+<h3>Luces LED RGB</h3>
+<p class="precio">$15.000</p>
+</div>
+</div>
+
+<div class="card">
+<img src="producto2.jpg">
+<div class="card-body">
+<h3>Auriculares Bluetooth</h3>
+<p class="precio">$20.000</p>
+</div>
+</div>
+
+<div class="card">
+<img src="producto3.jpg">
+<div class="card-body">
+<h3>Cámara WiFi</h3>
+<p class="precio">$35.000</p>
+</div>
+</div>
+
+<div class="card">
+<img src="producto4.jpg">
+<div class="card-body">
+<h3>Mini Aspiradora</h3>
+<p class="precio">$18.000</p>
+</div>
+</div>
+
+</div>
+
+<section class="ofertas">
+
+<h2 class="section-title">🔥 Ofertas de la Semana</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="oferta1.jpg">
+<div class="card-body">
+<h3>Smart Watch</h3>
+<p class="precio">$29.999</p>
+</div>
+</div>
+
+<div class="card">
+<img src="oferta2.jpg">
+<div class="card-body">
+<h3>Parlante Bluetooth</h3>
+<p class="precio">$14.999</p>
+</div>
+</div>
+
+<div class="card">
+<img src="oferta3.jpg">
+<div class="card-body">
+<h3>Aro de Luz LED</h3>
+<p class="precio">$12.500</p>
+</div>
+</div>
+
+<div class="card">
+<img src="oferta4.jpg">
+<div class="card-body">
+<h3>Teclado Gamer</h3>
+<p class="precio">$24.900</p>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="beneficios">
+
+<div class="beneficio">
+🚚 Envíos a todo el país
+</div>
+
+<div class="beneficio">
+🔒 Compra segura
+</div>
+
+<div class="beneficio">
+💳 Mercado Pago y Transferencia
+</div>
+
+<div class="beneficio">
+📦 Nuevos productos cada semana
+</div>
+
+</section>
+
+<footer>
+
+<h3>CLICKOFERTA</h3>
+
+<p>Instagram: @clickoferta</p>
+
+<p>Facebook: ClickOferta</p>
+
+<p>WhatsApp: 11 1234-5678</p>
+
+<p>© 2026 Todos los derechos reservados</p>
+
+</footer>
+
+<a class="whatsapp" href="https://wa.me/5491112345678">
+💬 WhatsApp
+</a>
+
+</body>
+</html>
