@@ -275,18 +275,4 @@ padding:15px 18px;
 font-size:16px;
 }
 }
-.comprar{
-display:block;
-margin-top:12px;
-background:#25d366;
-color:white;
-padding:12px;
-border-radius:8px;
-text-decoration:none;
-font-weight:bold;
-text-align:center;
-}
 
-.comprar:hover{
-opacity:.9;
-}
