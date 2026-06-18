@@ -1,0 +1,33 @@
+{
+  "destacados":[
+    {
+      "nombre":"Luces LED RGB",
+      "precio":"$15.000",
+      "imagen":"producto1.jpg",
+      "link":"https://wa.me/5491112345678?text=Quiero%20las%20Luces%20LED"
+    },
+    {
+      "nombre":"Auriculares Bluetooth",
+      "precio":"$20.000",
+      "imagen":"producto2.jpg",
+      "link":"https://wa.me/5491112345678?text=Quiero%20los%20Auriculares"
+    }
+  ],
+
+  "ofertas":[
+    {
+      "nombre":"Smart Watch",
+      "precio":"$29.999",
+      "imagen":"oferta1.jpg",
+      "stock":5,
+      "link":"https://wa.me/5491112345678?text=Quiero%20el%20Smart%20Watch"
+    },
+    {
+      "nombre":"Parlante Bluetooth",
+      "precio":"$14.999",
+      "imagen":"oferta2.jpg",
+      "stock":0,
+      "link":"https://wa.me/5491112345678?text=Quiero%20el%20Parlante"
+    }
+  ]
+}
