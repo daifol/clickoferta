@@ -1,431 +1,139 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ClickOferta | Ofertas y Novedades</title>
-
-<meta name="description" content="Productos destacados, ofertas temporales y novedades todas las semanas.">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-background:#f5f5f5;
-color:#333;
-}
-
-header{
-background:#ff6600;
-padding:15px 5%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-color:white;
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-.logo{
-font-size:28px;
-font-weight:bold;
-}
-
-.menu a{
-color:white;
-text-decoration:none;
-margin-left:20px;
-font-weight:bold;
-}
-
-.banner{
-height:500px;
-background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
-url('banner.jpg');
-background-size:cover;
-background-position:center;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-color:white;
-padding:20px;
-}
-
-.banner-content h1{
-font-size:60px;
-margin-bottom:15px;
-}
-
-.banner-content p{
-font-size:22px;
-margin-bottom:20px;
-}
-
-.btn{
-display:inline-block;
-background:#ff6600;
-color:white;
-padding:12px 25px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-margin-top:10px;
-}
-
-.section-title{
-text-align:center;
-font-size:36px;
-margin:50px 0 30px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:25px;
-padding:0 5%;
-margin-bottom:50px;
-}
-
-.card{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 10px 20px rgba(0,0,0,.2);
-}
-
-.card img{
-width:100%;
-height:250px;
-object-fit:cover;
-}
-
-.card-body{
-padding:15px;
-text-align:center;
-}
-
-.card-body h3{
-margin-bottom:10px;
-}
-
-.precio{
-font-size:22px;
-font-weight:bold;
-color:#ff6600;
-margin-bottom:10px;
-}
-
-.stock-agotado{
-color:red;
-font-weight:bold;
-margin-top:10px;
-}
-
-.ofertas{
-background:white;
-padding:50px 0;
-}
-
-.beneficios{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:20px;
-padding:50px 5%;
-background:#fff;
-text-align:center;
-}
-
-.beneficio{
-padding:20px;
-font-size:18px;
-font-weight:bold;
-}
-
-footer{
-background:#222;
-color:white;
-text-align:center;
-padding:40px 20px;
-}
-
-footer h3{
-margin-bottom:15px;
-}
-
-footer p{
-margin:8px 0;
-}
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25d366;
-color:white;
-padding:18px 25px;
-border-radius:50px;
-text-decoration:none;
-font-size:18px;
-font-weight:bold;
-box-shadow:0 5px 15px rgba(0,0,0,.3);
-z-index:9999;
-}
-
-@media(max-width:1024px){
-
-.grid{
-grid-template-columns:repeat(2,1fr);
-}
-
-.beneficios{
-grid-template-columns:repeat(2,1fr);
-}
-
-.banner-content h1{
-font-size:45px;
-}
-
-}
-
-@media(max-width:768px){
-
-header{
-flex-direction:column;
-gap:10px;
-}
-
-.grid{
-grid-template-columns:1fr;
-}
-
-.beneficios{
-grid-template-columns:1fr;
-}
-
-.banner{
-height:400px;
-}
-
-.banner-content h1{
-font-size:34px;
-}
-
-.banner-content p{
-font-size:18px;
-}
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClickOferta | Ofertas y Novedades</title>
+  <meta name="description" content="Ofertas y productos seleccionados de ClickOferta. Consultá por WhatsApp.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: #f5f5f5; color: #333; }
+    header {
+      background: #ff6600; padding: 16px 5%; display: flex;
+      justify-content: space-between; align-items: center; color: white;
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .logo { font-size: 28px; font-weight: 800; letter-spacing: .5px; }
+    .menu a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; }
+    .banner {
+      min-height: 390px;
+      background: linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+                  linear-gradient(135deg, #7d2c00, #ff6600 55%, #ffb347);
+      display: flex; justify-content: center; align-items: center;
+      text-align: center; color: white; padding: 35px 20px;
+    }
+    .banner-content h1 { font-size: clamp(38px, 6vw, 60px); margin-bottom: 15px; }
+    .banner-content p { font-size: clamp(18px, 2.5vw, 22px); line-height: 1.5; margin-bottom: 20px; }
+    .btn {
+      display: inline-block; background: #ff6600; color: white;
+      padding: 12px 24px; border-radius: 30px; text-decoration: none;
+      font-weight: bold; margin-top: 10px; transition: .2s;
+    }
+    .btn:hover { background: #e65300; transform: translateY(-2px); }
+    .section-title { text-align: center; font-size: clamp(28px, 4vw, 36px); margin: 45px 0 30px; }
+    .offers { padding: 1px 0 55px; }
+    .grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 25px; max-width: 1100px; padding: 0 5%; margin: 0 auto;
+    }
+    .card {
+      background: white; border-radius: 14px; overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,.10); transition: .25s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 9px 22px rgba(0,0,0,.15); }
+    .card img { display: block; width: 100%; height: 330px; object-fit: contain; background: #fff; padding: 12px; }
+    .card-body { padding: 20px; text-align: center; }
+    .card-body h3 { font-size: 21px; margin-bottom: 10px; }
+    .description { color: #666; line-height: 1.5; min-height: 48px; margin-bottom: 12px; }
+    .precio { font-size: 27px; font-weight: 800; color: #ff6600; margin: 12px 0; }
+    .stock { display: inline-block; color: #187a36; background: #e8f7ed; padding: 7px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+    .beneficios {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+      padding: 35px 5%; background: white; text-align: center;
+    }
+    .beneficio { padding: 12px; font-size: 17px; font-weight: bold; }
+    footer { background: #222; color: white; text-align: center; padding: 35px 20px; }
+    footer h3 { margin-bottom: 14px; }
+    footer p { margin: 8px 0; }
+    .whatsapp {
+      position: fixed; bottom: 20px; right: 20px; background: #25d366;
+      color: white; padding: 15px 21px; border-radius: 50px; text-decoration: none;
+      font-size: 16px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,.25); z-index: 9999;
+    }
+    @media (max-width: 700px) {
+      header { flex-direction: column; gap: 12px; }
+      .menu a { margin: 0 8px; }
+      .banner { min-height: 330px; }
+      .grid { grid-template-columns: 1fr; max-width: 520px; }
+      .card img { height: 300px; }
+      .beneficios { grid-template-columns: 1fr; gap: 5px; }
+      .whatsapp { bottom: 14px; right: 14px; padding: 13px 17px; }
+    }
+  </style>
 </head>
-
 <body>
-
-<header>
-
-<div class="logo">
-CLICKOFERTA
-</div>
-
-<nav class="menu">
-<a href="#">Inicio</a>
-<a href="#">Productos</a>
-<a href="#">Ofertas</a>
-<a href="#">Contacto</a>
-</nav>
-
-</header>
-
-<section class="banner">
-
-<div class="banner-content">
-
-<h1>CLICKOFERTA</h1>
-
-<p>
-🔥 Ofertas que vuelan<br>
-📦 Envíos a todo el país
-</p>
-
-<a href="https://wa.me/5491112345678" class="btn">
-Consultar por WhatsApp
-</a>
-
-</div>
-
-</section>
-
-<h2 class="section-title">
-Productos Destacados
-</h2>
-
-<div class="grid" id="productosDestacados">
-</div>
-
-<section class="ofertas">
-
-<h2 class="section-title">
-🔥 Ofertas de la Semana
-</h2>
-
-<div class="grid" id="ofertasSemana">
-</div>
-
-</section>
-
-<section class="beneficios">
-
-<div class="beneficio">
-🚚 Envíos a todo el país
-</div>
-
-<div class="beneficio">
-🔒 Compra segura
-</div>
-
-<div class="beneficio">
-💳 Mercado Pago y Transferencia
-</div>
-
-<div class="beneficio">
-📦 Nuevos productos cada semana
-</div>
-
-</section>
-
-<footer>
-
-<h3>CLICKOFERTA</h3>
-
-<p>Instagram: @clickoferta</p>
-
-<p>Facebook: ClickOferta</p>
-
-<p>WhatsApp: 11 1234-5678</p>
-
-<p>© 2026 Todos los derechos reservados</p>
-
-</footer>
-
-<a class="whatsapp"
-href="https://wa.me/5491112345678">
-💬 WhatsApp
-</a>
-
-<script>
-
-fetch("productos.json")
-.then(response => response.json())
-.then(data => {
-
-const destacados =
-document.getElementById("productosDestacados");
-
-data.destacados.forEach(producto => {
-
-destacados.innerHTML += `
-<div class="card">
-
-<img src="${producto.imagen}"
-alt="${producto.nombre}">
-
-<div class="card-body">
-
-<h3>${producto.nombre}</h3>
-
-<p class="precio">
-${producto.precio}
-</p>
-
-<a href="${producto.link}"
-class="btn"
-target="_blank">
-Comprar
-</a>
-
-</div>
-</div>
-`;
-
-});
-
-const ofertas =
-document.getElementById("ofertasSemana");
-
-data.ofertas.forEach(producto => {
-
-let htmlBoton = "";
-
-if(producto.stock > 0){
-
-htmlBoton = `
-<a href="${producto.link}"
-class="btn"
-target="_blank">
-Comprar
-</a>
-`;
-
-}else{
-
-htmlBoton = `
-<p class="stock-agotado">
-AGOTADO
-</p>
-`;
-
-}
-
-ofertas.innerHTML += `
-<div class="card">
-
-<img src="${producto.imagen}"
-alt="${producto.nombre}">
-
-<div class="card-body">
-
-<h3>${producto.nombre}</h3>
-
-<p class="precio">
-${producto.precio}
-</p>
-
-${htmlBoton}
-
-</div>
-</div>
-`;
-
-});
-
-})
-.catch(error => {
-
-console.error(
-"Error cargando productos:",
-error
-);
-
-});
-
-</script>
-
+  <header>
+    <div class="logo">CLICKOFERTA</div>
+    <nav class="menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="banner" id="inicio">
+    <div class="banner-content">
+      <h1>CLICKOFERTA</h1>
+      <p>🔥 Ofertas que no te podés perder<br>Encontrá tu próximo producto favorito</p>
+      <a href="#ofertas" class="btn">Ver ofertas</a>
+    </div>
+  </section>
+
+  <section class="offers" id="ofertas">
+    <h2 class="section-title">🔥 Ofertas de la Semana</h2>
+    <div class="grid">
+      <article class="card">
+        <img src="productos/espumador.jpg" alt="Espumador y batidor de leche inalámbrico">
+        <div class="card-body">
+          <h3>Espumador / Batidor de leche inalámbrico</h3>
+          <p class="description">Recargable por USB, con 3 velocidades. Ideal para preparar espuma para café, capuchino y otras bebidas.</p>
+          <p class="precio">$ 11,99</p>
+          <span class="stock">3 unidades disponibles</span><br>
+          <a class="btn" target="_blank" rel="noopener"
+             href="https://wa.me/5491135122323?text=Hola%2C%20quiero%20consultar%20por%20el%20espumador%20de%20leche.">Consultar / Comprar</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="productos/inflador-om-73005.jpg" alt="Inflador eléctrico de globos OM 73005">
+        <div class="card-body">
+          <h3>Inflador eléctrico de globos OM 73005</h3>
+          <p class="description">220 V, alta presión, doble pico y dos modos de funcionamiento: Touch-On y continuo.</p>
+          <p class="precio">$ 32.000</p>
+          <span class="stock">Última unidad disponible</span><br>
+          <a class="btn" target="_blank" rel="noopener"
+             href="https://wa.me/5491135122323?text=Hola%2C%20quiero%20consultar%20por%20el%20inflador%20de%20globos%20OM%2073005.">Consultar / Comprar</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="beneficios">
+    <div class="beneficio">💬 Atención por WhatsApp</div>
+    <div class="beneficio">🛍️ Ofertas seleccionadas</div>
+    <div class="beneficio">✨ Nuevos productos próximamente</div>
+  </section>
+
+  <footer id="contacto">
+    <h3>CLICKOFERTA</h3>
+    <p>Instagram: @clickoferta</p>
+    <p>Facebook: ClickOferta</p>
+    <p>WhatsApp: +54 9 11 3512-2323</p>
+    <p>© 2026 ClickOferta. Todos los derechos reservados.</p>
+  </footer>
+
+  <a class="whatsapp" target="_blank" rel="noopener"
+     href="https://wa.me/5491135122323">💬 WhatsApp</a>
 </body>
 </html>
