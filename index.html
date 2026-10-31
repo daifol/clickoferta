@@ -91,3 +91,72 @@ function actualizarCarrito(){
  document.getElementById("datos-comprador").style.display=cantidadTotal>0?"block":"none";
  document.getElementById("clear-cart").style.display=cantidadTotal>0?"block":"none";
 }
+async function enviarPedido(){
+ const nombre=document.getElementById("nombre").value.trim();
+ const telefono=document.getElementById("telefono").value.trim();
+ const localidad=document.getElementById("localidad").value.trim();
+ const observaciones=document.getElementById("comentario").value.trim();
+ if(!nombre||!telefono||!localidad){alert("Completá nombre, teléfono y localidad.");return;}
+ const ids=Object.keys(carrito).filter(id=>Number(carrito[id])>0);
+ if(!ids.length){alert("El carrito está vacío.");return;}
+ const items=ids.map(id=>({producto_id:Number(id),cantidad:Number(carrito[id])}));
+ const button=document.getElementById("checkout-button");
+ button.disabled=true;button.textContent="Registrando pedido...";
+ let pestaña=null;
+ try{
+  // Abrimos la pestaña durante el clic para evitar que el navegador bloquee WhatsApp.
+  pestaña=window.open("about:blank","_blank");
+  const {data,error}=await supabaseClient.rpc("crear_pedido",{
+   p_nombre:nombre,
+   p_telefono:telefono,
+   p_localidad:localidad,
+   p_observaciones:observaciones,
+   p_items:items
+  });
+  if(error)throw error;
+  const resultado=Array.isArray(data)?data[0]:data;
+  if(!resultado||!resultado.numero_pedido)throw new Error("La base de datos no devolvió el número del pedido.");
+  const numero=resultado.numero_pedido;
+  const total=Number(resultado.total||0);
+  const mensaje=[
+   "Hola, quiero coordinar mi pedido de ClickOferta.",
+   "",
+   "Pedido: "+numero,
+   "Nombre: "+nombre,
+   "Teléfono: "+telefono,
+   "Localidad: "+localidad,
+   "",
+   "Productos:",
+   ...items.map(item=>{
+    const p=productosPorId[String(item.producto_id)];
+    return "• "+(p?p.nombre:"Producto")+" x "+item.cantidad;
+   }),
+   "",
+   "Total: "+formatoPrecio(total),
+   observaciones?"Comentario: "+observaciones:"",
+   "",
+   "Quedo a la espera para coordinar el pago y la entrega."
+  ].filter(Boolean).join("\n");
+  const url="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(mensaje);
+  carrito={};guardarCarrito();actualizarCarrito();
+  document.getElementById("nombre").value="";
+  document.getElementById("telefono").value="";
+  document.getElementById("localidad").value="";
+  document.getElementById("comentario").value="";
+  alert("¡Pedido registrado correctamente!\nNúmero de pedido: "+numero+"\nTotal: "+formatoPrecio(total));
+  if(pestaña&&!pestaña.closed){pestaña.location.href=url;}
+  else{window.location.href=url;}
+ }catch(e){
+  console.error("Error registrando pedido:",e);
+  if(pestaña&&!pestaña.closed)pestaña.close();
+  alert("No se pudo registrar el pedido.\n"+(e.message||"Error desconocido")+"\n\nNo se envió el pedido por WhatsApp. Revisá los datos e intentá nuevamente.");
+ }finally{
+  button.disabled=false;button.textContent="📲 Enviar pedido por WhatsApp";
+ }
+}
+actualizarCarrito();
+cargarProductos();
+</script>
+</body>
+</html>
+ 
