@@ -18,14 +18,8 @@
       position: sticky; top: 0; z-index: 1000;
     }
     .logo { font-size: 28px; font-weight: 800; letter-spacing: .5px; }
-    .menu a {
-      color: white; text-decoration: none; margin-left: 20px;
-      font-weight: bold;
-    }
-    .cart-link {
-      background: white; color: #ff6600 !important;
-      padding: 9px 15px; border-radius: 25px;
-    }
+    .menu a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; }
+    .cart-link { background: white; color: #ff6600 !important; padding: 9px 15px; border-radius: 25px; }
 
     .banner {
       min-height: 390px;
@@ -46,12 +40,8 @@
     .btn:hover { background: #e65300; transform: translateY(-2px); }
     .btn:disabled { background: #aaa; cursor: not-allowed; transform: none; }
 
-    .section-title {
-      text-align: center; font-size: clamp(28px, 4vw, 36px);
-      margin: 45px 0 30px;
-    }
+    .section-title { text-align: center; font-size: clamp(28px, 4vw, 36px); margin: 45px 0 30px; }
     .offers { padding: 1px 0 55px; }
-
     .grid {
       display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 25px; max-width: 1100px; padding: 0 5%; margin: 0 auto;
@@ -61,22 +51,17 @@
       box-shadow: 0 3px 12px rgba(0,0,0,.10); transition: .25s;
     }
     .card:hover { transform: translateY(-5px); box-shadow: 0 9px 22px rgba(0,0,0,.15); }
-    .card img {
-      display: block; width: 100%; height: 330px;
-      object-fit: contain; background: #fff; padding: 12px;
-    }
+    .card img { display: block; width: 100%; height: 330px; object-fit: contain; background: #fff; padding: 12px; }
     .card-body { padding: 20px; text-align: center; }
     .card-body h3 { font-size: 21px; margin-bottom: 10px; }
     .description { color: #666; line-height: 1.5; min-height: 48px; margin-bottom: 12px; }
     .precio { font-size: 27px; font-weight: 800; color: #ff6600; margin: 12px 0; }
     .stock {
       display: inline-block; color: #187a36; background: #e8f7ed;
-      padding: 7px 12px; border-radius: 20px;
-      font-size: 14px; font-weight: bold;
+      padding: 7px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;
     }
     .add-button { display: block; width: 100%; margin-top: 15px; }
 
-    /* Carrito */
     #carrito {
       display: none; max-width: 900px; margin: 20px auto 55px;
       padding: 25px; background: white; border-radius: 14px;
@@ -91,27 +76,17 @@
     .cart-info { flex: 1; }
     .cart-info strong { display: block; margin-bottom: 6px; }
     .cart-info small { color: #777; }
-    .quantity-controls {
-      display: flex; align-items: center; gap: 10px;
-    }
+    .quantity-controls { display: flex; align-items: center; gap: 10px; }
     .quantity-controls button {
       width: 32px; height: 32px; border: none; border-radius: 50%;
-      background: #ff6600; color: white; font-size: 19px;
-      cursor: pointer;
+      background: #ff6600; color: white; font-size: 19px; cursor: pointer;
     }
-    .remove-button {
-      background: none !important; color: #c62828 !important;
-      font-size: 17px !important;
-    }
-    .cart-total {
-      text-align: right; font-size: 24px; font-weight: bold;
-      color: #ff6600; margin-top: 22px;
-    }
+    .remove-button { background: none !important; color: #c62828 !important; font-size: 17px !important; }
+    .cart-total { text-align: right; font-size: 24px; font-weight: bold; color: #ff6600; margin-top: 22px; }
     .checkout {
       display: block; width: 100%; text-align: center;
       background: #25d366; color: white; padding: 15px;
-      border-radius: 30px; text-decoration: none;
-      font-weight: bold; margin-top: 20px;
+      border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 20px;
     }
     .checkout:hover { background: #1eaf54; }
     .clear-cart {
@@ -120,11 +95,10 @@
     }
 
     .beneficios {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 18px; padding: 35px 5%; background: white; text-align: center;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+      padding: 35px 5%; background: white; text-align: center;
     }
     .beneficio { padding: 12px; font-size: 17px; font-weight: bold; }
-
     footer { background: #222; color: white; text-align: center; padding: 35px 20px; }
     footer h3 { margin-bottom: 14px; }
     footer p { margin: 8px 0; }
@@ -179,11 +153,9 @@
         <div class="card-body">
           <h3>Espumador / Batidor de leche inalámbrico</h3>
           <p class="description">Recargable por USB, con 3 velocidades. Ideal para preparar espuma para café, capuchino y otras bebidas.</p>
-          <p class="precio">$ 11,999</p>
+          <p class="precio">$ 11.999</p>
           <span class="stock">3 unidades disponibles</span>
-          <button class="btn add-button" onclick="agregarAlCarrito('espumador')">
-            🛒 Agregar al carrito
-          </button>
+          <button class="btn add-button" onclick="agregarAlCarrito('espumador')">🛒 Agregar al carrito</button>
         </div>
       </article>
 
@@ -194,9 +166,7 @@
           <p class="description">220 V, alta presión, doble pico y dos modos de funcionamiento: Touch-On y continuo.</p>
           <p class="precio">$ 32.000</p>
           <span class="stock">Última unidad disponible</span>
-          <button class="btn add-button" onclick="agregarAlCarrito('inflador')">
-            🛒 Agregar al carrito
-          </button>
+          <button class="btn add-button" onclick="agregarAlCarrito('inflador')">🛒 Agregar al carrito</button>
         </div>
       </article>
     </div>
@@ -210,9 +180,7 @@
     <a id="checkout" class="checkout" href="#" target="_blank" rel="noopener" style="display:none">
       📲 Finalizar pedido por WhatsApp
     </a>
-    <button class="clear-cart" onclick="vaciarCarrito()" style="display:none" id="clear-cart">
-      Vaciar carrito
-    </button>
+    <button class="clear-cart" onclick="vaciarCarrito()" style="display:none" id="clear-cart">Vaciar carrito</button>
   </section>
 
   <section class="beneficios">
@@ -229,13 +197,11 @@
     <p>© 2026 ClickOferta. Todos los derechos reservados.</p>
   </footer>
 
-  <a class="whatsapp" target="_blank" rel="noopener"
-     href="https://wa.me/5491135122323">💬 WhatsApp</a>
+  <a class="whatsapp" target="_blank" rel="noopener" href="https://wa.me/5491135122323">💬 WhatsApp</a>
 
   <script>
     const WHATSAPP = "5491135122323";
 
-    // Para agregar productos en el futuro, incorporarlos aquí.
     const productos = {
       espumador: {
         nombre: "Espumador / Batidor de leche inalámbrico",
@@ -249,33 +215,39 @@
       }
     };
 
+    // Recuperar el carrito guardado en este navegador.
     const carrito = (() => {
-  try {
-    const guardado = JSON.parse(
-      localStorage.getItem("clickoferta_carrito") || "{}"
-    );
+      try {
+        const guardado = JSON.parse(localStorage.getItem("clickoferta_carrito") || "{}");
+        const recuperado = {};
 
-    const recuperado = {};
+        Object.keys(productos).forEach(id => {
+          const cantidad = Number(guardado[id]);
 
-    Object.keys(productos).forEach(id => {
-      const cantidad = Number(guardado[id]);
+          if (Number.isInteger(cantidad) && cantidad > 0) {
+            recuperado[id] = Math.min(cantidad, productos[id].stock);
+          }
+        });
 
-      if (Number.isInteger(cantidad) && cantidad > 0) {
-        recuperado[id] = Math.min(cantidad, productos[id].stock);
+        return recuperado;
+      } catch (error) {
+        return {};
       }
-    });
-
-    return recuperado;
-  } catch (error) {
-    return {};
-  }
-})();
+    })();
 
     function formatoPrecio(valor) {
       return "$ " + valor.toLocaleString("es-AR", {
-        minimumFractionDigits: 2,
+        minimumFractionDigits: 0,
         maximumFractionDigits: 2
       });
+    }
+
+    function guardarCarrito() {
+      try {
+        localStorage.setItem("clickoferta_carrito", JSON.stringify(carrito));
+      } catch (error) {
+        console.log("No se pudo guardar el carrito.");
+      }
     }
 
     function agregarAlCarrito(id) {
@@ -289,7 +261,6 @@
 
       carrito[id] = cantidadActual + 1;
       actualizarCarrito();
-
       document.getElementById("carrito").style.display = "block";
     }
 
@@ -313,7 +284,8 @@
     }
 
     function actualizarCarrito() {
-      
+      guardarCarrito();
+
       const contenido = document.getElementById("carrito-contenido");
       const vacio = document.getElementById("carrito-vacio");
       const totalElemento = document.getElementById("cart-total");
@@ -324,7 +296,7 @@
 
       let total = 0;
       let cantidadTotal = 0;
-      let mensaje = "Hola, quiero realizar el siguiente pedido en CLICKOFERTA:%0A%0A";
+      let mensaje = "Hola, quiero realizar el siguiente pedido en CLICKOFERTA:\n\n";
 
       Object.keys(carrito).forEach(id => {
         const cantidad = carrito[id];
@@ -347,8 +319,7 @@
         precio.textContent = formatoPrecio(producto.precio) +
           " c/u — Subtotal: " + formatoPrecio(subtotal);
 
-        info.appendChild(nombre);
-        info.appendChild(precio);
+        info.append(nombre, precio);
 
         const controles = document.createElement("div");
         controles.className = "quantity-controls";
@@ -380,26 +351,32 @@
         contenido.appendChild(item);
 
         mensaje += producto.nombre + " x " + cantidad +
-          " = " + formatoPrecio(subtotal) + "%0A";
+          " = " + formatoPrecio(subtotal) + "\n";
       });
 
       document.getElementById("cart-count").textContent = cantidadTotal;
-
       vacio.style.display = cantidadTotal === 0 ? "block" : "none";
-      totalElemento.textContent = cantidadTotal > 0
-        ? "Total: " + formatoPrecio(total) : "";
+      totalElemento.textContent = cantidadTotal > 0 ? "Total: " + formatoPrecio(total) : "";
 
       checkout.style.display = cantidadTotal > 0 ? "block" : "none";
       clearButton.style.display = cantidadTotal > 0 ? "block" : "none";
 
       if (cantidadTotal > 0) {
-        mensaje += "%0ATOTAL: " + formatoPrecio(total) +
-          "%0A%0AQuedo a la espera de confirmación. ¡Gracias!";
+        mensaje += "\nTOTAL: " + formatoPrecio(total) +
+          "\n\nQuedo a la espera de confirmación. ¡Gracias!";
 
-        checkout.href = "https://wa.me/" + WHATSAPP + "?text=" + mensaje;
+        checkout.href = "https://wa.me/" + WHATSAPP +
+          "?text=" + encodeURIComponent(mensaje);
       } else {
         checkout.removeAttribute("href");
       }
+    }
+
+    // Mostrar el carrito recuperado al cargar la página.
+    actualizarCarrito();
+
+    if (Object.keys(carrito).length > 0) {
+      document.getElementById("carrito").style.display = "block";
     }
   </script>
 </body>
