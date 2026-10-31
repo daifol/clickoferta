@@ -5,312 +5,973 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClickOferta - Administración</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--naranja:#ff6600;--fondo:#f4f5f7;--texto:#292929}
-*{box-sizing:border-box;font-family:Arial,sans-serif}
-body{margin:0;background:var(--fondo);color:var(--texto)}
-button,input,textarea{font:inherit}
-button{border:0;border-radius:8px;padding:11px 15px;background:var(--naranja);color:white;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.55;cursor:not-allowed}
-button.sec{background:#555}button.danger{background:#c62828}button.light{background:#eee;color:#333}
-header{background:white;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 2px 8px #0001;position:sticky;top:0;z-index:2}
-header h1{margin:0;color:var(--naranja);font-size:22px}
-.wrap{max-width:1100px;margin:24px auto;padding:0 16px}
-.login{max-width:420px;margin:9vh auto;background:white;padding:28px;border-radius:14px;box-shadow:0 4px 18px #0002}
-h2{margin-top:0}label{display:block;font-weight:bold;font-size:14px;margin:12px 0 6px}
-input,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;background:white}
-textarea{min-height:85px;resize:vertical}
-.login button{width:100%;margin-top:10px}
-.msg{margin:12px 0;line-height:1.45;overflow-wrap:anywhere}.error{color:#c62828}.success{color:#188038}
-.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
-.toolbar input{max-width:360px}
-.card{background:white;border-radius:12px;padding:18px;box-shadow:0 2px 9px #0000000c}
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px}
-.product{display:flex;flex-direction:column;gap:9px}
-.product img{width:100%;height:175px;object-fit:contain;background:#f6f6f6;border-radius:8px}
-.product h3{margin:0}.muted{color:#666;font-size:13px}.price{font-size:19px;font-weight:bold;color:var(--naranja)}
-.actions{display:flex;gap:8px;margin-top:auto}.actions button{flex:1}
-.hidden{display:none!important}
-.modalback{position:fixed;inset:0;background:#0008;z-index:5;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow:auto}
-.modal{width:100%;max-width:720px;background:white;border-radius:14px;padding:22px;margin:auto}
-.modalhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.modalhead h2{margin:0}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-.full{grid-column:1/-1}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
-.photo{border:2px solid #ddd;border-radius:9px;padding:7px;position:relative}
-.photo.selected{border-color:var(--naranja);background:#fff7f1}
-.photo img{width:100%;height:105px;object-fit:contain;background:#f6f6f6;border-radius:5px}
-.photo small{display:block;margin:6px 0}
-.photo button{width:100%;padding:7px;font-size:12px}
-.checkrow{display:flex;align-items:center;gap:8px;margin-top:12px}.checkrow input{width:auto}
-.note{font-size:13px;color:#666;line-height:1.4}
-@media(max-width:600px){header{padding:12px}header h1{font-size:19px}.wrap{margin:15px auto}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.modal{padding:16px}}
+:root {
+    --naranja: #ff6600;
+    --fondo: #f4f5f7;
+    --texto: #292929;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+button, input, textarea {
+    font: inherit;
+}
+
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 15px;
+    background: var(--naranja);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+button.sec { background: #555; }
+button.danger { background: #c62828; }
+button.light { background: #eee; color: #333; }
+
+header {
+    background: white;
+    padding: 15px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 2px 8px #0001;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--naranja);
+    font-size: 22px;
+}
+
+.wrap {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+.login {
+    max-width: 420px;
+    margin: 9vh auto;
+    background: white;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px #0002;
+}
+
+h2 { margin-top: 0; }
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 12px 0 6px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+}
+
+textarea {
+    min-height: 85px;
+    resize: vertical;
+}
+
+.login button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.msg {
+    margin: 12px 0;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.error { color: #c62828; }
+.success { color: #188038; }
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.toolbar input { max-width: 360px; }
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 9px #0000000c;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.product img {
+    width: 100%;
+    height: 175px;
+    object-fit: contain;
+    background: #f6f6f6;
+    border-radius: 8px;
+}
+
+.product h3 { margin: 0; }
+
+.muted {
+    color: #666;
+    font-size: 13px;
+}
+
+.price {
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--naranja);
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.actions button { flex: 1; }
+
+.hidden { display: none !important; }
+
+.modalback {
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    z-index: 5;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    overflow: auto;
+}
+
+.modal {
+    width: 100%;
+    max-width: 720px;
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin: auto;
+}
+
+.modalhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.modalhead h2 { margin: 0; }
+
+.formgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 14px;
+}
+
+.full { grid-column: 1/-1; }
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.photo {
+    border: 2px solid #ddd;
+    border-radius: 9px;
+    padding: 7px;
+}
+
+.photo.selected {
+    border-color: var(--naranja);
+    background: #fff7f1;
+}
+
+.photo img {
+    width: 100%;
+    height: 105px;
+    object-fit: contain;
+    background: #f6f6f6;
+    border-radius: 5px;
+}
+
+.photo small {
+    display: block;
+    margin: 6px 0;
+}
+
+.photo button {
+    width: 100%;
+    padding: 7px;
+    font-size: 12px;
+}
+
+.checkrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.checkrow input { width: auto; }
+
+.note {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+@media(max-width:600px) {
+    header { padding: 12px; }
+    header h1 { font-size: 19px; }
+    .wrap { margin: 15px auto; }
+    .formgrid { grid-template-columns: 1fr; }
+    .full { grid-column: auto; }
+    .modal { padding: 16px; }
+}
 </style>
 </head>
+
 <body>
+
 <section id="loginView" class="login">
-<h1 style="text-align:center;color:#ff6600">CLICKOFERTA</h1>
-<h2 style="text-align:center;font-size:20px">Acceso de administración</h2>
-<form id="loginForm">
-<label for="email">Correo electrónico</label><input id="email" type="email" required autocomplete="username">
-<label for="password">Contraseña</label><input id="password" type="password" required autocomplete="current-password">
-<button id="loginBtn" type="submit">Ingresar</button>
-</form><p id="loginMsg" class="msg"></p>
+
+    <h1 style="text-align:center;color:#ff6600">
+        CLICKOFERTA
+    </h1>
+
+    <h2 style="text-align:center;font-size:20px">
+        Acceso de administración
+    </h2>
+
+    <form id="loginForm">
+
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email" required autocomplete="username">
+
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" required autocomplete="current-password">
+
+        <button id="loginBtn" type="submit">Ingresar</button>
+
+    </form>
+
+    <p id="loginMsg" class="msg"></p>
+
 </section>
 
 <div id="appView" class="hidden">
-<header><h1>CLICKOFERTA · Administración</h1><div><span id="adminName" class="muted"></span> <button id="logoutBtn" class="sec">Salir</button></div></header>
-<main class="wrap">
-<div class="toolbar"><input id="search" type="search" placeholder="Buscar producto..."><button id="newBtn">+ Nuevo producto</button><button id="reloadBtn" class="sec">Actualizar</button></div>
-<p id="appMsg" class="msg"></p>
-<div id="productList" class="products"></div>
-</main>
+
+    <header>
+        <h1>CLICKOFERTA · Administración</h1>
+
+        <div>
+            <span id="adminName" class="muted"></span>
+            <button id="logoutBtn" class="sec">Salir</button>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <div class="toolbar">
+            <input id="search" type="search" placeholder="Buscar producto...">
+            <button id="newBtn">+ Nuevo producto</button>
+            <button id="reloadBtn" class="sec">Actualizar</button>
+        </div>
+
+        <p id="appMsg" class="msg"></p>
+
+        <div id="productList" class="products"></div>
+
+    </main>
+
 </div>
 
 <div id="modalBack" class="modalback hidden">
-<section class="modal">
-<div class="modalhead"><h2 id="modalTitle">Nuevo producto</h2><button id="closeModal" class="light" type="button">✕</button></div>
-<form id="productForm">
-<input id="productId" type="hidden">
-<div class="formgrid">
-<div class="full"><label for="pNombre">Nombre *</label><input id="pNombre" required maxlength="180"></div>
-<div class="full"><label for="pDescripcion">Descripción</label><textarea id="pDescripcion"></textarea></div>
-<div><label for="pPrecio">Precio *</label><input id="pPrecio" type="number" min="0" step="0.01" required></div>
-<div><label for="pStock">Stock *</label><input id="pStock" type="number" min="0" step="1" required></div>
-</div>
-<div class="checkrow"><input id="pActivo" type="checkbox" checked><label for="pActivo" style="margin:0">Producto activo (visible en el catálogo)</label></div>
-<hr style="border:0;border-top:1px solid #eee;margin:18px 0">
-<h3>Fotos del producto</h3>
-<p class="note">Podés seleccionar varias imágenes desde la computadora o el celular. Elegí una como principal; esa será la que se vea en el catálogo.</p>
-<label for="photoFiles">Agregar fotos</label>
-<input id="photoFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple>
-<p class="note">Formatos: JPG, PNG o WEBP. Máximo recomendado: 5 MB por imagen.</p>
-<div id="photoGallery" class="gallery"></div>
-<p id="formMsg" class="msg"></p>
-<div class="toolbar" style="justify-content:flex-end;margin-top:20px"><button type="button" id="cancelBtn" class="light">Cancelar</button><button id="saveBtn" type="submit">Guardar producto</button></div>
-</form>
-</section>
+
+    <section class="modal">
+
+        <div class="modalhead">
+            <h2 id="modalTitle">Nuevo producto</h2>
+            <button id="closeModal" class="light" type="button">✕</button>
+        </div>
+
+        <form id="productForm">
+
+            <input id="productId" type="hidden">
+
+            <div class="formgrid">
+
+                <div class="full">
+                    <label for="pNombre">Nombre *</label>
+                    <input id="pNombre" required maxlength="180">
+                </div>
+
+                <div class="full">
+                    <label for="pDescripcion">Descripción</label>
+                    <textarea id="pDescripcion"></textarea>
+                </div>
+
+                <div>
+                    <label for="pPrecio">Precio *</label>
+                    <input id="pPrecio" type="number" min="0" step="0.01" required>
+                </div>
+
+                <div>
+                    <label for="pStock">Stock *</label>
+                    <input id="pStock" type="number" min="0" step="1" required>
+                </div>
+
+            </div>
+
+            <div class="checkrow">
+                <input id="pActivo" type="checkbox" checked>
+                <label for="pActivo" style="margin:0">
+                    Producto activo (visible en el catálogo)
+                </label>
+            </div>
+
+            <hr style="border:0;border-top:1px solid #eee;margin:18px 0">
+
+            <h3>Fotos del producto</h3>
+
+            <p class="note">
+                Podés seleccionar varias imágenes desde la computadora
+                o el celular. Elegí una como principal; esa será la que
+                se vea en el catálogo.
+            </p>
+
+            <label for="photoFiles">Agregar fotos</label>
+            <input id="photoFiles" type="file"
+                   accept="image/jpeg,image/png,image/webp" multiple>
+
+            <p class="note">
+                Formatos: JPG, PNG o WEBP. Máximo 5 MB por imagen.
+            </p>
+
+            <div id="photoGallery" class="gallery"></div>
+
+            <p id="formMsg" class="msg"></p>
+
+            <div class="toolbar" style="justify-content:flex-end;margin-top:20px">
+                <button type="button" id="cancelBtn" class="light">Cancelar</button>
+                <button id="saveBtn" type="submit">Guardar producto</button>
+            </div>
+
+        </form>
+
+    </section>
+
 </div>
 
 <script>
 const SUPABASE_URL = "https://qiyqrwoonfyzgyudagdz.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_o3CKrzb4hTOJBtZh9XRMWA_7FOPbCob";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const BUCKET = "productos";
-const $ = id => document.getElementById(id);
+const SUPABASE_KEY = "sb_publishable_o3CKrzb4hTOJBtZh9XRMWA_7FOPbCob";
+
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
 let productos = [];
-let fotosActuales = [];
-let archivosNuevos = [];
-let fotoPrincipal = null;
-let fotosEliminar = [];
+let productoActual = null;
+let fotosSeleccionadas = [];
+let fotoPrincipal = 0;
 
-function message(id,text,type=""){ $(id).textContent=text; $(id).className="msg "+type; }
-function escapeHtml(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function money(value){return new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS",maximumFractionDigits:2}).format(Number(value)||0);}
-function showLogin(){ $("loginView").classList.remove("hidden"); $("appView").classList.add("hidden"); }
-function showApp(name){ $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden"); $("adminName").textContent=name||"Administrador"; }
+const $ = (id) => document.getElementById(id);
 
-async function verifyAccess(){
-  const {data:{session},error}=await db.auth.getSession();
-  if(error) throw error;
-  if(!session){showLogin();return;}
-  const {data:profile,error:profileError}=await db.from("perfiles").select("nombre,rol,activo").eq("id",session.user.id).single();
-  if(profileError||!profile||profile.activo!==true||profile.rol!=="admin"){
-    await db.auth.signOut();showLogin();
-    throw new Error("Este usuario no tiene permisos de administrador. "+(profileError?.message||""));
+function mostrarLogin() {
+  $("loginView").classList.remove("hidden");
+  $("panelView").classList.add("hidden");
+}
+
+function mostrarPanel() {
+  $("loginView").classList.add("hidden");
+  $("panelView").classList.remove("hidden");
+}
+
+function mensaje(texto, tipo = "info") {
+  const el = $("mensaje");
+  if (!el) {
+    alert(texto);
+    return;
   }
-  showApp(profile.nombre);
-  await loadProducts();
+  el.textContent = texto;
+  el.className = "mensaje " + tipo;
+  el.classList.remove("hidden");
+  setTimeout(() => el.classList.add("hidden"), 4500);
 }
-async function loadProducts(){
-  message("appMsg","Cargando productos...");
-  const {data,error}=await db.from("productos").select("id,nombre,descripcion,precio,stock,imagen,activo").order("id",{ascending:false});
-  if(error) throw error;
-  productos=data||[];
-  renderProducts();
-  message("appMsg",productos.length+" producto(s).","success");
-}
-function renderProducts(){
-  const term=$("search").value.trim().toLowerCase();
-  const filtered=productos.filter(p=>(p.nombre||"").toLowerCase().includes(term));
-  $("productList").innerHTML=filtered.map(p=>`
-    <article class="card product">
-      <img src="${escapeHtml(p.imagen||"")}" alt="${escapeHtml(p.nombre)}" onerror="this.style.visibility='hidden'">
-      <h3>${escapeHtml(p.nombre)}</h3>
-      <div class="price">${money(p.precio)}</div>
-      <div>Stock: <b>${Number(p.stock)}</b></div>
-      <div class="muted">${p.activo?"Activo · visible":"Inactivo · oculto"} · ID ${p.id}</div>
-      <p class="muted">${escapeHtml(p.descripcion||"Sin descripción")}</p>
-      <div class="actions"><button type="button" data-edit="${p.id}">Editar</button><button type="button" class="danger" data-delete="${p.id}">Eliminar</button></div>
-    </article>`).join("");
-  if(!filtered.length) $("productList").innerHTML='<div class="card">No se encontraron productos.</div>';
-}
-function resetForm(){
-  $("productForm").reset();$("productId").value="";$("pActivo").checked=true;
-  fotosActuales=[];archivosNuevos=[];fotoPrincipal=null;fotosEliminar=[];
-  $("photoFiles").value="";renderGallery();message("formMsg","");
-}
-function openNew(){resetForm();$("modalTitle").textContent="Nuevo producto";$("modalBack").classList.remove("hidden");}
-async function openEdit(id){
-  resetForm();const p=productos.find(x=>String(x.id)===String(id));if(!p)return;
-  $("modalTitle").textContent="Editar producto";$("productId").value=p.id;
-  $("pNombre").value=p.nombre||"";$("pDescripcion").value=p.descripcion||"";
-  $("pPrecio").value=p.precio;$("pStock").value=p.stock;$("pActivo").checked=!!p.activo;
-  message("formMsg","Cargando fotos...");
-  const {data,error}=await db.from("producto_imagenes").select("id,url,ruta_storage,es_principal,orden").eq("producto_id",p.id).order("orden");
-  if(error){message("formMsg","No se pudieron cargar las fotos: "+error.message,"error");}
-  else{
-    fotosActuales=data||[];
-    if(fotosActuales.length){fotoPrincipal=fotosActuales.find(x=>x.es_principal)?.id??fotosActuales[0].id;}
-    else if(p.imagen){fotosActuales=[{id:"legacy",url:p.imagen,ruta_storage:null,es_principal:true,orden:0,legacy:true}];fotoPrincipal="legacy";}
-    message("formMsg","");
+
+async function iniciarSesion() {
+  const email = $("email").value.trim();
+  const password = $("password").value;
+
+  if (!email || !password) {
+    mensaje("Ingresá email y contraseña", "error");
+    return;
   }
-  renderGallery();$("modalBack").classList.remove("hidden");
-}
-function renderGallery(){
-  const items=[
-    ...fotosActuales.filter(f=>!fotosEliminar.includes(f.id)).map(f=>({key:"old:"+f.id,url:f.url,principal:fotoPrincipal===f.id,old:f})),
-    ...archivosNuevos.map((f,i)=>({key:"new:"+i,url:f.preview,principal:fotoPrincipal==="new:"+i,file:f}))
-  ];
-  $("photoGallery").innerHTML=items.map(item=>`
-    <div class="photo ${item.principal?"selected":""}">
-      <img src="${escapeHtml(item.url)}" alt="Foto del producto">
-      <small>${item.principal?"★ Foto principal":"Foto adicional"}</small>
-      <button type="button" class="${item.principal?"sec":"light"}" data-main="${escapeHtml(item.key)}">${item.principal?"Principal":"Elegir principal"}</button>
-      <button type="button" class="danger" style="margin-top:5px" data-remove="${escapeHtml(item.key)}">Quitar</button>
-    </div>`).join("");
-  if(!items.length)$("photoGallery").innerHTML='<p class="muted">Todavía no hay fotos cargadas.</p>';
-}
-$("photoGallery").addEventListener("click",e=>{
-  const main=e.target.closest("[data-main]");const remove=e.target.closest("[data-remove]");
-  if(main){const key=main.dataset.main;fotoPrincipal=key.startsWith("old:")?fotosActuales.find(f=>"old:"+f.id===key)?.id:key;renderGallery();}
-  if(remove){const key=remove.dataset.remove;
-    if(key.startsWith("old:")){const id=fotosActuales.find(f=>"old:"+f.id===key)?.id;if(id!==undefined){fotosEliminar.push(id);if(fotoPrincipal===id)fotoPrincipal=null;}}
-    else{const i=Number(key.slice(4));const [f]=archivosNuevos.splice(i,1);if(f)URL.revokeObjectURL(f.preview);if(fotoPrincipal===key)fotoPrincipal=null;}
-    renderGallery();
+
+  $("btnLogin").disabled = true;
+  $("btnLogin").textContent = "Ingresando...";
+
+  const { error } = await db.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  $("btnLogin").disabled = false;
+  $("btnLogin").textContent = "Ingresar";
+
+  if (error) {
+    mensaje("Error al ingresar: " + error.message, "error");
+    return;
   }
-});
-$("photoFiles").addEventListener("change",e=>{
-  const selected=Array.from(e.target.files||[]);
-  for(const file of selected){
-    if(!["image/jpeg","image/png","image/webp"].includes(file.type)){message("formMsg","Formato no permitido: "+file.name,"error");continue;}
-    if(file.size>5*1024*1024){message("formMsg","La imagen supera 5 MB: "+file.name,"error");continue;}
-    archivosNuevos.push({file,preview:URL.createObjectURL(file)});
-  }
-  if(!fotoPrincipal){
-    if(archivosNuevos.length)fotoPrincipal="new:0";
-    else if(fotosActuales.length)fotoPrincipal=fotosActuales[0].id;
-  }
-  e.target.value="";renderGallery();
-});
-function makePath(productId,file){
-  const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
-  return `${productId}/${Date.now()}-${Math.random().toString(36).slice(2,9)}.${ext}`;
+
+  await verificarAcceso();
 }
-async function uploadNewPhotos(productId){
-  const inserted=[];
-  for(let i=0;i<archivosNuevos.length;i++){
-    const item=archivosNuevos[i],path=makePath(productId,item.file);
-    const {error:uploadError}=await db.storage.from(BUCKET).upload(path,item.file,{contentType:item.file.type,upsert:false});
-    if(uploadError)throw uploadError;
-    const {data:{publicUrl}}=db.storage.from(BUCKET).getPublicUrl(path);
-    const {data,error}=await db.from("producto_imagenes").insert({
-      producto_id:productId,url:publicUrl,ruta_storage:path,es_principal:false,orden:fotosActuales.length+i
-    }).select("id,url,ruta_storage").single();
-    if(error){await db.storage.from(BUCKET).remove([path]);throw error;}
-    inserted.push(data);
+
+async function verificarAcceso() {
+  const { data: { user }, error } = await db.auth.getUser();
+
+  if (error || !user) {
+    mostrarLogin();
+    return;
   }
-  return inserted;
+
+  const { data: perfil, error: errorPerfil } = await db
+    .from("perfiles")
+    .select("rol, activo")
+    .eq("id", user.id)
+    .single();
+
+  if (errorPerfil || !perfil || perfil.rol !== "admin" || perfil.activo !== true) {
+    await db.auth.signOut();
+    mostrarLogin();
+    mensaje("No tenés permisos de administrador", "error");
+    return;
+  }
+
+  $("usuarioActual").textContent = user.email;
+  mostrarPanel();
+  await cargarProductos();
 }
-async function saveProduct(e){
-  e.preventDefault();const btn=$("saveBtn");btn.disabled=true;btn.textContent="Guardando...";
-  try{
-    const id=$("productId").value;
-    const payload={nombre:$("pNombre").value.trim(),descripcion:$("pDescripcion").value.trim()||null,
-      precio:Number($("pPrecio").value),stock:Number($("pStock").value),activo:$("pActivo").checked};
-    if(!payload.nombre)throw new Error("Ingresá el nombre del producto.");
-    if(!Number.isFinite(payload.precio)||payload.precio<0)throw new Error("El precio no es válido.");
-    if(!Number.isInteger(payload.stock)||payload.stock<0)throw new Error("El stock debe ser un número entero igual o mayor que cero.");
-    let productId=id;
-    if(id){
-      const {error}=await db.from("productos").update(payload).eq("id",id);if(error)throw error;
-    }else{
-      const {data,error}=await db.from("productos").insert({...payload,imagen:null}).select("id").single();if(error)throw error;productId=data.id;
+
+async function cerrarSesion() {
+  await db.auth.signOut();
+  mostrarLogin();
+}
+
+async function cargarProductos() {
+  $("listaProductos").innerHTML = "<p>Cargando productos...</p>";
+
+  const { data, error } = await db
+    .from("productos")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    $("listaProductos").innerHTML = "<p>Error al cargar productos</p>";
+    mensaje(error.message, "error");
+    return;
+  }
+
+  productos = data || [];
+  renderProductos();
+}
+
+function renderProductos() {
+  const filtro = ($("buscarProducto").value || "").toLowerCase();
+
+  const lista = productos.filter(p =>
+    (p.nombre || "").toLowerCase().includes(filtro)
+  );
+
+  $("contadorProductos").textContent = lista.length + " productos";
+
+  if (!lista.length) {
+    $("listaProductos").innerHTML = "<p>No hay productos para mostrar.</p>";
+    return;
+  }
+
+  $("listaProductos").innerHTML = lista.map(p => `
+    <div class="producto-card">
+      <img
+        src="${escapeHTML(p.imagen || "")}"
+        onerror="this.style.display='none'"
+        alt=""
+      >
+      <div class="producto-info">
+        <h3>${escapeHTML(p.nombre || "")}</h3>
+        <p>${escapeHTML(p.descripcion || "")}</p>
+        <strong>$ ${Number(p.precio || 0).toLocaleString("es-AR")}</strong>
+        <p>Stock: ${Number(p.stock || 0)}</p>
+        <span class="${p.activo ? "estado-activo" : "estado-inactivo"}">
+          ${p.activo ? "Activo" : "Inactivo"}
+        </span>
+      </div>
+      <div class="producto-acciones">
+        <button onclick="editarProducto(${p.id})">Editar</button>
+        <button class="btn-danger" onclick="eliminarProducto(${p.id})">Eliminar</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function escapeHTML(valor) {
+  return String(valor).replace(/[&<>"']/g, caracter => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[caracter]);
+}
+
+function nuevoProducto() {
+  productoActual = null;
+  fotosSeleccionadas = [];
+  fotoPrincipal = 0;
+
+  $("tituloModal").textContent = "Nuevo producto";
+  $("nombre").value = "";
+  $("descripcion").value = "";
+  $("precio").value = "";
+  $("stock").value = "0";
+  $("activo").checked = true;
+  $("fotos").value = "";
+
+  renderGaleria();
+  $("modalProducto").classList.remove("hidden");
+}
+
+async function editarProducto(id) {
+  const producto = productos.find(p => p.id === id);
+  if (!producto) return;
+
+  productoActual = producto;
+  fotosSeleccionadas = [];
+  fotoPrincipal = 0;
+
+  $("tituloModal").textContent = "Editar producto";
+  $("nombre").value = producto.nombre || "";
+  $("descripcion").value = producto.descripcion || "";
+  $("precio").value = producto.precio || "";
+  $("stock").value = producto.stock || 0;
+  $("activo").checked = producto.activo !== false;
+  $("fotos").value = "";
+
+  await cargarGaleria(producto.id);
+  $("modalProducto").classList.remove("hidden");
+}
+
+function cerrarModal() {
+  $("modalProducto").classList.add("hidden");
+  productoActual = null;
+  fotosSeleccionadas = [];
+}
+
+async function cargarGaleria(productoId) {
+  const { data, error } = await db
+    .from("producto_imagenes")
+    .select("*")
+    .eq("producto_id", productoId)
+    .order("orden", { ascending: true });
+
+  if (error) {
+    mensaje("No se pudo cargar la galería: " + error.message, "error");
+    fotosSeleccionadas = [];
+  } else {
+    fotosSeleccionadas = (data || []).map(f => ({
+      id: f.id,
+      url: f.url,
+      ruta_storage: f.ruta_storage,
+      es_principal: f.es_principal,
+      archivo: null
+    }));
+    fotoPrincipal = Math.max(
+      0,
+      fotosSeleccionadas.findIndex(f => f.es_principal)
+    );
+  }
+
+  renderGaleria();
+}
+
+function renderGaleria() {
+  const contenedor = $("galeria");
+  if (!contenedor) return;
+
+  if (!fotosSeleccionadas.length) {
+    contenedor.innerHTML = "<p>Todavía no hay fotos cargadas.</p>";
+    return;
+  }
+
+  contenedor.innerHTML = fotosSeleccionadas.map((foto, index) => `
+    <div class="foto-item">
+      <img src="${foto.url || foto.preview || ""}" alt="">
+      <div>
+        <button
+          type="button"
+          onclick="seleccionarPrincipal(${index})"
+          ${fotoPrincipal === index ? "disabled" : ""}
+        >
+          ${fotoPrincipal === index ? "Principal" : "Hacer principal"}
+        </button>
+        <button
+          type="button"
+          class="btn-danger"
+          onclick="quitarFoto(${index})"
+        >Quitar</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function seleccionarPrincipal(index) {
+  fotoPrincipal = index;
+  renderGaleria();
+}
+
+function agregarFotos() {
+  const archivos = Array.from($("fotos").files || []);
+
+  for (const archivo of archivos) {
+    if (!["image/jpeg", "image/png", "image/webp"].includes(archivo.type)) {
+      mensaje("Solo se permiten JPG, PNG o WEBP", "error");
+      continue;
     }
-    message("formMsg","Guardando imágenes...");
-    // Quitar registros marcados y sus archivos del Storage.
-    for(const oldId of fotosEliminar){
-      const f=fotosActuales.find(x=>x.id===oldId);
-      if(!f)continue;
-      const {error}=await db.from("producto_imagenes").delete().eq("id",oldId);
-      if(error)throw error;
-      if(f.ruta_storage){const {error:storageError}=await db.storage.from(BUCKET).remove([f.ruta_storage]);if(storageError)console.warn("No se pudo borrar archivo:",storageError.message);}
+
+    if (archivo.size > 5 * 1024 * 1024) {
+      mensaje("Cada imagen debe pesar como máximo 5 MB", "error");
+      continue;
     }
-    const inserted=await uploadNewPhotos(productId);
-    const remaining=fotosActuales.filter(f=>!fotosEliminar.includes(f.id));
-    const all=[...remaining.filter(f=>!f.legacy),...inserted];
-    let mainRecord=null;
-    if(typeof fotoPrincipal==="string"&&fotoPrincipal.startsWith("new:")){
-      mainRecord=inserted[Number(fotoPrincipal.slice(4))]||null;
-    }else{
-      mainRecord=all.find(f=>String(f.id)===String(fotoPrincipal))||null;
-    }
-    // Si se eligió la foto heredada, conservarla como principal si no hay fotos nuevas.
-    let mainUrl=mainRecord?.url||null;
-    if(!mainUrl&&fotoPrincipal==="legacy")mainUrl=remaining.find(f=>f.legacy)?.url||null;
-    if(all.length){
-      // Primero desmarcar todas y luego marcar la principal para respetar el índice único.
-      const {error:clearError}=await db.from("producto_imagenes").update({es_principal:false}).eq("producto_id",productId);
-      if(clearError)throw clearError;
-      if(mainRecord){
-        const {error:mainError}=await db.from("producto_imagenes").update({es_principal:true}).eq("id",mainRecord.id);
-        if(mainError)throw mainError;
-      }
-    }
-    const {error:imageError}=await db.from("productos").update({imagen:mainUrl}).eq("id",productId);
-    if(imageError)throw imageError;
-    $("modalBack").classList.add("hidden");await loadProducts();
-  }catch(err){console.error(err);message("formMsg","No se pudo guardar: "+(err.message||err),"error");}
-  finally{btn.disabled=false;btn.textContent="Guardar producto";}
+
+    fotosSeleccionadas.push({
+      id: null,
+      url: URL.createObjectURL(archivo),
+      preview: URL.createObjectURL(archivo),
+      archivo,
+      ruta_storage: null,
+      es_principal: false
+    });
+  }
+
+  if (fotosSeleccionadas.length && fotoPrincipal < 0) {
+    fotoPrincipal = 0;
+  }
+
+  $("fotos").value = "";
+  renderGaleria();
 }
-async function deleteProduct(id){
-  const p=productos.find(x=>String(x.id)===String(id));if(!p)return;
-  if(!confirm(`¿Eliminar "${p.nombre}"? Esta acción no se puede deshacer.`))return;
-  try{
-    const {data:photos,error:photosError}=await db.from("producto_imagenes").select("ruta_storage").eq("producto_id",id);
-    if(photosError)throw photosError;
-    const paths=(photos||[]).map(x=>x.ruta_storage).filter(Boolean);
-    if(paths.length){const {error}=await db.storage.from(BUCKET).remove(paths);if(error)console.warn("No se pudieron borrar algunas fotos:",error.message);}
-    const {error}=await db.from("productos").delete().eq("id",id);if(error)throw error;
-    message("appMsg","Producto eliminado.","success");await loadProducts();
-  }catch(err){message("appMsg","No se pudo eliminar: "+err.message,"error");}
+
+function quitarFoto(index) {
+  const foto = fotosSeleccionadas[index];
+
+  if (foto && foto.preview) {
+    URL.revokeObjectURL(foto.preview);
+  }
+
+  fotosSeleccionadas.splice(index, 1);
+
+  if (!fotosSeleccionadas.length) {
+    fotoPrincipal = 0;
+  } else if (fotoPrincipal === index) {
+    fotoPrincipal = 0;
+  } else if (fotoPrincipal > index) {
+    fotoPrincipal--;
+  }
+
+  renderGaleria();
 }
-$("loginForm").addEventListener("submit",async e=>{
-  e.preventDefault();const btn=$("loginBtn");btn.disabled=true;btn.textContent="Ingresando...";message("loginMsg","");
-  try{
-    const {error}=await db.auth.signInWithPassword({email:$("email").value.trim().toLowerCase(),password:$("password").value});
-    if(error)throw error;await verifyAccess();
-  }catch(err){message("loginMsg","No se pudo ingresar: "+err.message,"error");}
-  finally{btn.disabled=false;btn.textContent="Ingresar";}
+</script>
+
+<script>
+async function guardarProducto() {
+  const nombre = $("nombre").value.trim();
+  const descripcion = $("descripcion").value.trim();
+  const precio = Number($("precio").value);
+  const stock = Number($("stock").value);
+  const activo = $("activo").checked;
+
+  if (!nombre) {
+    mensaje("Ingresá el nombre del producto", "error");
+    return;
+  }
+
+  if (!Number.isFinite(precio) || precio < 0) {
+    mensaje("Ingresá un precio válido", "error");
+    return;
+  }
+
+  if (!Number.isInteger(stock) || stock < 0) {
+    mensaje("Ingresá un stock válido", "error");
+    return;
+  }
+
+  $("btnGuardar").disabled = true;
+  $("btnGuardar").textContent = "Guardando...";
+
+  try {
+    const datos = { nombre, descripcion, precio, stock, activo };
+    let productoId;
+
+    if (productoActual) {
+      const { error } = await db
+        .from("productos")
+        .update(datos)
+        .eq("id", productoActual.id);
+
+      if (error) throw error;
+      productoId = productoActual.id;
+    } else {
+      const { data, error } = await db
+        .from("productos")
+        .insert(datos)
+        .select("id")
+        .single();
+
+      if (error) throw error;
+      productoId = data.id;
+    }
+
+    await guardarGaleria(productoId);
+
+    mensaje("Producto guardado correctamente", "success");
+    cerrarModal();
+    await cargarProductos();
+
+  } catch (error) {
+    console.error(error);
+    mensaje("Error al guardar: " + error.message, "error");
+  } finally {
+    $("btnGuardar").disabled = false;
+    $("btnGuardar").textContent = "Guardar producto";
+  }
+}
+
+async function guardarGaleria(productoId) {
+  const fotosGuardadas = [];
+
+  for (let i = 0; i < fotosSeleccionadas.length; i++) {
+    const foto = fotosSeleccionadas[i];
+
+    if (foto.archivo) {
+      const extension = foto.archivo.name.split(".").pop().toLowerCase();
+      const ruta = `${productoId}/${Date.now()}_${i}.${extension}`;
+
+      const { error: errorUpload } = await db.storage
+        .from("productos")
+        .upload(ruta, foto.archivo, {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: foto.archivo.type
+        });
+
+      if (errorUpload) throw errorUpload;
+
+      const { data: urlData } = db.storage
+        .from("productos")
+        .getPublicUrl(ruta);
+
+      fotosGuardadas.push({
+        producto_id: productoId,
+        url: urlData.publicUrl,
+        ruta_storage: ruta,
+        es_principal: i === fotoPrincipal,
+        orden: i
+      });
+
+    } else {
+      fotosGuardadas.push({
+        id: foto.id,
+        producto_id: productoId,
+        url: foto.url,
+        ruta_storage: foto.ruta_storage,
+        es_principal: i === fotoPrincipal,
+        orden: i
+      });
+    }
+  }
+
+  const { data: anteriores, error: errorLectura } = await db
+    .from("producto_imagenes")
+    .select("id, ruta_storage")
+    .eq("producto_id", productoId);
+
+  if (errorLectura) throw errorLectura;
+
+  const idsConservados = fotosGuardadas
+    .filter(f => f.id)
+    .map(f => f.id);
+
+  const eliminadas = (anteriores || []).filter(
+    f => !idsConservados.includes(f.id)
+  );
+
+  const rutasEliminar = eliminadas
+    .map(f => f.ruta_storage)
+    .filter(Boolean);
+
+  if (rutasEliminar.length) {
+    const { error } = await db.storage
+      .from("productos")
+      .remove(rutasEliminar);
+
+    if (error) throw error;
+  }
+
+  if (eliminadas.length) {
+    const { error } = await db
+      .from("producto_imagenes")
+      .delete()
+      .in("id", eliminadas.map(f => f.id));
+
+    if (error) throw error;
+  }
+
+  for (const foto of fotosGuardadas) {
+    if (foto.id) {
+      const { error } = await db
+        .from("producto_imagenes")
+        .update({
+          es_principal: foto.es_principal,
+          orden: foto.orden
+        })
+        .eq("id", foto.id);
+
+      if (error) throw error;
+    } else {
+      const { error } = await db
+        .from("producto_imagenes")
+        .insert({
+          producto_id: foto.producto_id,
+          url: foto.url,
+          ruta_storage: foto.ruta_storage,
+          es_principal: foto.es_principal,
+          orden: foto.orden
+        });
+
+      if (error) throw error;
+    }
+  }
+
+  const principal = fotosGuardadas[fotoPrincipal];
+
+  const { error: errorProducto } = await db
+    .from("productos")
+    .update({
+      imagen: principal ? principal.url : null
+    })
+    .eq("id", productoId);
+
+  if (errorProducto) throw errorProducto;
+}
+
+async function eliminarProducto(id) {
+  const producto = productos.find(p => p.id === id);
+  if (!producto) return;
+
+  if (!confirm(`¿Eliminar el producto "${producto.nombre}"?`)) return;
+
+  try {
+    const { data: fotos, error: errorFotos } = await db
+      .from("producto_imagenes")
+      .select("ruta_storage")
+      .eq("producto_id", id);
+
+    if (errorFotos) throw errorFotos;
+
+    const rutas = (fotos || [])
+      .map(f => f.ruta_storage)
+      .filter(Boolean);
+
+    if (rutas.length) {
+      const { error } = await db.storage
+        .from("productos")
+        .remove(rutas);
+
+      if (error) throw error;
+    }
+
+    const { error } = await db
+      .from("productos")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    mensaje("Producto eliminado", "success");
+    await cargarProductos();
+
+  } catch (error) {
+    console.error(error);
+    mensaje("No se pudo eliminar: " + error.message, "error");
+  }
+}
+
+// Conectar botones y eventos
+$("btnLogin").addEventListener("click", iniciarSesion);
+$("btnLogout").addEventListener("click", cerrarSesion);
+$("btnNuevo").addEventListener("click", nuevoProducto);
+$("btnGuardar").addEventListener("click", guardarProducto);
+$("btnCancelar").addEventListener("click", cerrarModal);
+$("btnCerrarModal").addEventListener("click", cerrarModal);
+$("fotos").addEventListener("change", agregarFotos);
+$("buscarProducto").addEventListener("input", renderProductos);
+
+db.auth.onAuthStateChange((_event, session) => {
+  if (session) {
+    setTimeout(verificarAcceso, 0);
+  } else {
+    mostrarLogin();
+  }
 });
-$("logoutBtn").addEventListener("click",async()=>{
-  const {error}=await db.auth.signOut();if(error){message("appMsg",error.message,"error");return;}
-  $("loginForm").reset();showLogin();message("loginMsg","Sesión cerrada correctamente.","success");
-});
-$("newBtn").addEventListener("click",openNew);
-$("closeModal").addEventListener("click",()=>$("modalBack").classList.add("hidden"));
-$("cancelBtn").addEventListener("click",()=>$("modalBack").classList.add("hidden"));
-$("productForm").addEventListener("submit",saveProduct);
-$("reloadBtn").addEventListener("click",()=>loadProducts().catch(e=>message("appMsg",e.message,"error")));
-$("search").addEventListener("input",renderProducts);
-$("productList").addEventListener("click",e=>{
-  const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]");
-  if(edit)openEdit(edit.dataset.edit).catch(err=>message("appMsg",err.message,"error"));
-  if(del)deleteProduct(del.dataset.delete);
-});
-db.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT")showLogin();});
-verifyAccess().catch(err=>{console.error(err);message("loginMsg",err.message,"error");});
+
+verificarAcceso();
 </script>
 </body>
 </html>
