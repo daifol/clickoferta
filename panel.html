@@ -97,8 +97,13 @@ document.getElementById("form-login").addEventListener("submit",async(e)=>{
  mostrarMensaje("");
 
  try{
-  const email=document.getElementById("email").value.trim();
+  
+  const email=document.getElementById("email").value.trim().toLowerCase();
   const password=document.getElementById("password").value;
+  
+
+ console.log("Email utilizado:", email);
+ console.log("Proyecto Supabase:", SUPABASE_URL);
 
   const {error}=await supabaseClient.auth.signInWithPassword({
    email:email,
