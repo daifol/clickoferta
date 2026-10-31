@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,272 +9,113 @@
 
 <style>
 :root {
-    --naranja: #ff6600;
-    --fondo: #f4f5f7;
-    --texto: #292929;
+  --naranja:#ff6600;
+  --fondo:#f4f5f7;
+  --texto:#292929;
 }
-
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    margin: 0;
-    background: var(--fondo);
-    color: var(--texto);
-}
-
-button, input, textarea {
-    font: inherit;
-}
-
+* { box-sizing:border-box; font-family:Arial,sans-serif; }
+body { margin:0; background:var(--fondo); color:var(--texto); }
+button,input,textarea { font:inherit; }
 button {
-    border: 0;
-    border-radius: 8px;
-    padding: 11px 15px;
-    background: var(--naranja);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+  border:0; border-radius:8px; padding:11px 15px;
+  background:var(--naranja); color:white;
+  font-weight:bold; cursor:pointer;
 }
-
-button:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-}
-
-button.sec { background: #555; }
-button.danger { background: #c62828; }
-button.light { background: #eee; color: #333; }
-
+button:disabled { opacity:.55; cursor:not-allowed; }
+button.sec { background:#555; }
+button.danger { background:#c62828; }
+button.light { background:#eee; color:#333; }
 header {
-    background: white;
-    padding: 15px 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    box-shadow: 0 2px 8px #0001;
-    position: sticky;
-    top: 0;
-    z-index: 2;
+  background:white; padding:15px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; box-shadow:0 2px 8px #0001;
+  position:sticky; top:0; z-index:2;
 }
-
-header h1 {
-    margin: 0;
-    color: var(--naranja);
-    font-size: 22px;
-}
-
-.wrap {
-    max-width: 1100px;
-    margin: 24px auto;
-    padding: 0 16px;
-}
-
+header h1 { margin:0; color:var(--naranja); font-size:22px; }
+.wrap { max-width:1100px; margin:24px auto; padding:0 16px; }
 .login {
-    max-width: 420px;
-    margin: 9vh auto;
-    background: white;
-    padding: 28px;
-    border-radius: 14px;
-    box-shadow: 0 4px 18px #0002;
+  max-width:420px; margin:9vh auto; background:white;
+  padding:28px; border-radius:14px; box-shadow:0 4px 18px #0002;
 }
-
-h2 { margin-top: 0; }
-
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 14px;
-    margin: 12px 0 6px;
+h2 { margin-top:0; }
+label { display:block; font-weight:bold; font-size:14px; margin:12px 0 6px; }
+input,textarea {
+  width:100%; padding:11px; border:1px solid #ccc;
+  border-radius:8px; background:white;
 }
-
-input, textarea {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: white;
-}
-
-textarea {
-    min-height: 85px;
-    resize: vertical;
-}
-
-.login button {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.msg {
-    margin: 12px 0;
-    line-height: 1.45;
-    overflow-wrap: anywhere;
-}
-
-.error { color: #c62828; }
-.success { color: #188038; }
-
+textarea { min-height:85px; resize:vertical; }
+.login button { width:100%; margin-top:10px; }
+.msg { margin:12px 0; line-height:1.45; overflow-wrap:anywhere; }
+.error { color:#c62828; }
+.success { color:#188038; }
 .toolbar {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
+  display:flex; gap:10px; align-items:center;
+  flex-wrap:wrap; margin-bottom:16px;
 }
-
-.toolbar input { max-width: 360px; }
-
-.card {
-    background: white;
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 2px 9px #0000000c;
-}
-
+.toolbar input { max-width:360px; }
 .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:15px;
 }
-
 .product {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
+  background:white; border-radius:12px; padding:15px;
+  box-shadow:0 2px 9px #0000000c;
+  display:flex; flex-direction:column; gap:9px;
 }
-
 .product img {
-    width: 100%;
-    height: 175px;
-    object-fit: contain;
-    background: #f6f6f6;
-    border-radius: 8px;
+  width:100%; height:175px; object-fit:contain;
+  background:#f6f6f6; border-radius:8px;
 }
-
-.product h3 { margin: 0; }
-
-.muted {
-    color: #666;
-    font-size: 13px;
-}
-
-.price {
-    font-size: 19px;
-    font-weight: bold;
-    color: var(--naranja);
-}
-
-.actions {
-    display: flex;
-    gap: 8px;
-    margin-top: auto;
-}
-
-.actions button { flex: 1; }
-
-.hidden { display: none !important; }
-
+.product h3 { margin:0; }
+.muted { color:#666; font-size:13px; }
+.price { font-size:19px; font-weight:bold; color:var(--naranja); }
+.actions { display:flex; gap:8px; margin-top:auto; }
+.actions button { flex:1; }
+.hidden { display:none !important; }
 .modalback {
-    position: fixed;
-    inset: 0;
-    background: #0008;
-    z-index: 5;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px;
-    overflow: auto;
+  position:fixed; inset:0; background:#0008; z-index:5;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:20px; overflow:auto;
 }
-
 .modal {
-    width: 100%;
-    max-width: 720px;
-    background: white;
-    border-radius: 14px;
-    padding: 22px;
-    margin: auto;
+  width:100%; max-width:720px; background:white;
+  border-radius:14px; padding:22px; margin:auto;
 }
-
 .modalhead {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
+  display:flex; justify-content:space-between;
+  align-items:center; gap:10px;
 }
-
-.modalhead h2 { margin: 0; }
-
+.modalhead h2 { margin:0; }
 .formgrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 14px;
+  display:grid; grid-template-columns:1fr 1fr; gap:0 14px;
 }
-
-.full { grid-column: 1/-1; }
-
+.full { grid-column:1/-1; }
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 10px;
-    margin-top: 12px;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+  gap:10px; margin-top:12px;
 }
-
 .photo {
-    border: 2px solid #ddd;
-    border-radius: 9px;
-    padding: 7px;
+  border:2px solid #ddd; border-radius:9px; padding:7px;
 }
-
-.photo.selected {
-    border-color: var(--naranja);
-    background: #fff7f1;
-}
-
+.photo.selected { border-color:var(--naranja); background:#fff7f1; }
 .photo img {
-    width: 100%;
-    height: 105px;
-    object-fit: contain;
-    background: #f6f6f6;
-    border-radius: 5px;
+  width:100%; height:105px; object-fit:contain;
+  background:#f6f6f6; border-radius:5px;
 }
-
-.photo small {
-    display: block;
-    margin: 6px 0;
-}
-
-.photo button {
-    width: 100%;
-    padding: 7px;
-    font-size: 12px;
-}
-
-.checkrow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.checkrow input { width: auto; }
-
-.note {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.4;
-}
-
+.photo small { display:block; margin:6px 0; }
+.photo button { width:100%; padding:7px; font-size:12px; margin-top:4px; }
+.checkrow { display:flex; align-items:center; gap:8px; margin-top:12px; }
+.checkrow input { width:auto; }
+.note { font-size:13px; color:#666; line-height:1.4; }
+.status-active { color:#188038; font-weight:bold; }
+.status-inactive { color:#c62828; font-weight:bold; }
 @media(max-width:600px) {
-    header { padding: 12px; }
-    header h1 { font-size: 19px; }
-    .wrap { margin: 15px auto; }
-    .formgrid { grid-template-columns: 1fr; }
-    .full { grid-column: auto; }
-    .modal { padding: 16px; }
+  header { padding:12px; flex-wrap:wrap; }
+  header h1 { font-size:19px; }
+  .wrap { margin:15px auto; }
+  .formgrid { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+  .modal { padding:16px; }
 }
 </style>
 </head>
@@ -281,232 +123,229 @@ textarea {
 <body>
 
 <section id="loginView" class="login">
+  <h1 style="text-align:center;color:#ff6600">CLICKOFERTA</h1>
+  <h2 style="text-align:center;font-size:20px">Acceso de administración</h2>
 
-    <h1 style="text-align:center;color:#ff6600">
-        CLICKOFERTA
-    </h1>
+  <form id="loginForm">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" required autocomplete="username">
 
-    <h2 style="text-align:center;font-size:20px">
-        Acceso de administración
-    </h2>
+    <label for="password">Contraseña</label>
+    <input id="password" type="password" required autocomplete="current-password">
 
-    <form id="loginForm">
-
-        <label for="email">Correo electrónico</label>
-        <input id="email" type="email" required autocomplete="username">
-
-        <label for="password">Contraseña</label>
-        <input id="password" type="password" required autocomplete="current-password">
-
-        <button id="loginBtn" type="submit">Ingresar</button>
-
-    </form>
-
-    <p id="loginMsg" class="msg"></p>
-
+    <button id="loginBtn" type="submit">Ingresar</button>
+  </form>
+  <p id="loginMsg" class="msg"></p>
 </section>
 
 <div id="appView" class="hidden">
+  <header>
+    <h1>CLICKOFERTA · Administración</h1>
+    <div>
+      <span id="adminName" class="muted"></span>
+      <button id="logoutBtn" class="sec">Salir</button>
+    </div>
+  </header>
 
-    <header>
-        <h1>CLICKOFERTA · Administración</h1>
-
-        <div>
-            <span id="adminName" class="muted"></span>
-            <button id="logoutBtn" class="sec">Salir</button>
-        </div>
-    </header>
-
-    <main class="wrap">
-
-        <div class="toolbar">
-            <input id="search" type="search" placeholder="Buscar producto...">
-            <button id="newBtn">+ Nuevo producto</button>
-            <button id="reloadBtn" class="sec">Actualizar</button>
-        </div>
-
-        <p id="appMsg" class="msg"></p>
-
-        <div id="productList" class="products"></div>
-
-    </main>
-
+  <main class="wrap">
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Buscar producto...">
+      <button id="newBtn">+ Nuevo producto</button>
+      <button id="reloadBtn" class="sec">Actualizar</button>
+    </div>
+    <p id="appMsg" class="msg"></p>
+    <div id="productList" class="products"></div>
+  </main>
 </div>
 
 <div id="modalBack" class="modalback hidden">
+  <section class="modal">
+    <div class="modalhead">
+      <h2 id="modalTitle">Nuevo producto</h2>
+      <button id="closeModal" class="light" type="button">✕</button>
+    </div>
 
-    <section class="modal">
+    <form id="productForm">
+      <input id="productId" type="hidden">
 
-        <div class="modalhead">
-            <h2 id="modalTitle">Nuevo producto</h2>
-            <button id="closeModal" class="light" type="button">✕</button>
+      <div class="formgrid">
+        <div class="full">
+          <label for="pNombre">Nombre *</label>
+          <input id="pNombre" required maxlength="180">
         </div>
 
-        <form id="productForm">
+        <div class="full">
+          <label for="pDescripcion">Descripción</label>
+          <textarea id="pDescripcion"></textarea>
+        </div>
 
-            <input id="productId" type="hidden">
+        <div>
+          <label for="pPrecio">Precio *</label>
+          <input id="pPrecio" type="number" min="0" step="0.01" required>
+        </div>
 
-            <div class="formgrid">
+        <div>
+          <label for="pStock">Stock *</label>
+          <input id="pStock" type="number" min="0" step="1" required>
+        </div>
+      </div>
 
-                <div class="full">
-                    <label for="pNombre">Nombre *</label>
-                    <input id="pNombre" required maxlength="180">
-                </div>
+      <div class="checkrow">
+        <input id="pActivo" type="checkbox" checked>
+        <label for="pActivo" style="margin:0">
+          Producto activo (visible en el catálogo)
+        </label>
+      </div>
 
-                <div class="full">
-                    <label for="pDescripcion">Descripción</label>
-                    <textarea id="pDescripcion"></textarea>
-                </div>
+      <hr style="border:0;border-top:1px solid #eee;margin:18px 0">
 
-                <div>
-                    <label for="pPrecio">Precio *</label>
-                    <input id="pPrecio" type="number" min="0" step="0.01" required>
-                </div>
+      <h3>Fotos del producto</h3>
+      <p class="note">
+        Podés seleccionar varias imágenes desde la computadora
+        o el celular. Elegí una como principal.
+      </p>
 
-                <div>
-                    <label for="pStock">Stock *</label>
-                    <input id="pStock" type="number" min="0" step="1" required>
-                </div>
+      <label for="photoFiles">Agregar fotos</label>
+      <input id="photoFiles" type="file"
+        accept="image/jpeg,image/png,image/webp" multiple>
 
-            </div>
+      <p class="note">Formatos: JPG, PNG o WEBP. Máximo 5 MB por imagen.</p>
 
-            <div class="checkrow">
-                <input id="pActivo" type="checkbox" checked>
-                <label for="pActivo" style="margin:0">
-                    Producto activo (visible en el catálogo)
-                </label>
-            </div>
+      <div id="photoGallery" class="gallery"></div>
+      <p id="formMsg" class="msg"></p>
 
-            <hr style="border:0;border-top:1px solid #eee;margin:18px 0">
-
-            <h3>Fotos del producto</h3>
-
-            <p class="note">
-                Podés seleccionar varias imágenes desde la computadora
-                o el celular. Elegí una como principal; esa será la que
-                se vea en el catálogo.
-            </p>
-
-            <label for="photoFiles">Agregar fotos</label>
-            <input id="photoFiles" type="file"
-                   accept="image/jpeg,image/png,image/webp" multiple>
-
-            <p class="note">
-                Formatos: JPG, PNG o WEBP. Máximo 5 MB por imagen.
-            </p>
-
-            <div id="photoGallery" class="gallery"></div>
-
-            <p id="formMsg" class="msg"></p>
-
-            <div class="toolbar" style="justify-content:flex-end;margin-top:20px">
-                <button type="button" id="cancelBtn" class="light">Cancelar</button>
-                <button id="saveBtn" type="submit">Guardar producto</button>
-            </div>
-
-        </form>
-
-    </section>
-
+      <div class="toolbar" style="justify-content:flex-end;margin-top:20px">
+        <button type="button" id="cancelBtn" class="light">Cancelar</button>
+        <button id="saveBtn" type="submit">Guardar producto</button>
+      </div>
+    </form>
+  </section>
 </div>
 
 <script>
-const SUPABASE_URL = "https://qiyqrwoonfyzgyudagdz.supabase.co";
-const SUPABASE_KEY = "sb_publishable_o3CKrzb4hTOJBtZh9XRMWA_7FOPbCob";
+"use strict";
 
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+/* CONFIGURACIÓN SUPABASE */
+const SUPABASE_URL = "https://qiyqrwoonfyzgyudagdz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_o3CKrzb4hTOJB";
+
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let productos = [];
 let productoActual = null;
 let fotosSeleccionadas = [];
 let fotoPrincipal = 0;
 
-const $ = (id) => document.getElementById(id);
+const $ = id => document.getElementById(id);
 
+/* MENSAJES */
+function mostrarMensaje(id, texto, tipo = "") {
+  const elemento = $(id);
+  elemento.textContent = texto;
+  elemento.className = "msg " + tipo;
+}
+
+function limpiarMensaje(id) {
+  mostrarMensaje(id, "");
+}
+
+function escapar(valor) {
+  return String(valor ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  })[c]);
+}
+
+/* VISTAS */
 function mostrarLogin() {
   $("loginView").classList.remove("hidden");
-  $("panelView").classList.add("hidden");
+  $("appView").classList.add("hidden");
 }
 
 function mostrarPanel() {
   $("loginView").classList.add("hidden");
-  $("panelView").classList.remove("hidden");
+  $("appView").classList.remove("hidden");
 }
 
-function mensaje(texto, tipo = "info") {
-  const el = $("mensaje");
-  if (!el) {
-    alert(texto);
-    return;
-  }
-  el.textContent = texto;
-  el.className = "mensaje " + tipo;
-  el.classList.remove("hidden");
-  setTimeout(() => el.classList.add("hidden"), 4500);
-}
+/* AUTENTICACIÓN */
+async function iniciarSesion(evento) {
+  evento.preventDefault();
+  limpiarMensaje("loginMsg");
 
-async function iniciarSesion() {
   const email = $("email").value.trim();
   const password = $("password").value;
 
-  if (!email || !password) {
-    mensaje("Ingresá email y contraseña", "error");
-    return;
+  $("loginBtn").disabled = true;
+  $("loginBtn").textContent = "Ingresando...";
+
+  try {
+    const { error } = await db.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    await verificarAcceso();
+
+  } catch (error) {
+    mostrarMensaje("loginMsg", "Error: " + error.message, "error");
+  } finally {
+    $("loginBtn").disabled = false;
+    $("loginBtn").textContent = "Ingresar";
   }
-
-  $("btnLogin").disabled = true;
-  $("btnLogin").textContent = "Ingresando...";
-
-  const { error } = await db.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  $("btnLogin").disabled = false;
-  $("btnLogin").textContent = "Ingresar";
-
-  if (error) {
-    mensaje("Error al ingresar: " + error.message, "error");
-    return;
-  }
-
-  await verificarAcceso();
 }
 
 async function verificarAcceso() {
-  const { data: { user }, error } = await db.auth.getUser();
+  try {
+    const { data, error } = await db.auth.getUser();
 
-  if (error || !user) {
+    if (error || !data.user) {
+      mostrarLogin();
+      return;
+    }
+
+    const usuario = data.user;
+
+    const { data: perfil, error: errorPerfil } = await db
+      .from("perfiles")
+      .select("rol, activo")
+      .eq("id", usuario.id)
+      .single();
+
+    if (errorPerfil) throw errorPerfil;
+
+    if (!perfil || perfil.rol !== "admin" || perfil.activo !== true) {
+      await db.auth.signOut();
+      mostrarLogin();
+      mostrarMensaje("loginMsg", "No tenés permisos de administrador.", "error");
+      return;
+    }
+
+    $("adminName").textContent = usuario.email;
+    mostrarPanel();
+    await cargarProductos();
+
+  } catch (error) {
+    console.error(error);
     mostrarLogin();
-    return;
+    mostrarMensaje("loginMsg", "No se pudo verificar el acceso: " + error.message, "error");
   }
-
-  const { data: perfil, error: errorPerfil } = await db
-    .from("perfiles")
-    .select("rol, activo")
-    .eq("id", user.id)
-    .single();
-
-  if (errorPerfil || !perfil || perfil.rol !== "admin" || perfil.activo !== true) {
-    await db.auth.signOut();
-    mostrarLogin();
-    mensaje("No tenés permisos de administrador", "error");
-    return;
-  }
-
-  $("usuarioActual").textContent = user.email;
-  mostrarPanel();
-  await cargarProductos();
 }
 
 async function cerrarSesion() {
   await db.auth.signOut();
+  productos = [];
   mostrarLogin();
 }
 
+/* PRODUCTOS */
 async function cargarProductos() {
-  $("listaProductos").innerHTML = "<p>Cargando productos...</p>";
+  $("productList").innerHTML = "<p>Cargando productos...</p>";
+  limpiarMensaje("appMsg");
 
   const { data, error } = await db
     .from("productos")
@@ -514,8 +353,8 @@ async function cargarProductos() {
     .order("id", { ascending: false });
 
   if (error) {
-    $("listaProductos").innerHTML = "<p>Error al cargar productos</p>";
-    mensaje(error.message, "error");
+    $("productList").innerHTML = "";
+    mostrarMensaje("appMsg", "Error al cargar productos: " + error.message, "error");
     return;
   }
 
@@ -524,96 +363,88 @@ async function cargarProductos() {
 }
 
 function renderProductos() {
-  const filtro = ($("buscarProducto").value || "").toLowerCase();
+  const filtro = $("search").value.trim().toLowerCase();
 
   const lista = productos.filter(p =>
-    (p.nombre || "").toLowerCase().includes(filtro)
+    String(p.nombre || "").toLowerCase().includes(filtro)
   );
 
-  $("contadorProductos").textContent = lista.length + " productos";
-
   if (!lista.length) {
-    $("listaProductos").innerHTML = "<p>No hay productos para mostrar.</p>";
+    $("productList").innerHTML = "<p>No hay productos para mostrar.</p>";
     return;
   }
 
-  $("listaProductos").innerHTML = lista.map(p => `
-    <div class="producto-card">
-      <img
-        src="${escapeHTML(p.imagen || "")}"
-        onerror="this.style.display='none'"
-        alt=""
-      >
-      <div class="producto-info">
-        <h3>${escapeHTML(p.nombre || "")}</h3>
-        <p>${escapeHTML(p.descripcion || "")}</p>
-        <strong>$ ${Number(p.precio || 0).toLocaleString("es-AR")}</strong>
-        <p>Stock: ${Number(p.stock || 0)}</p>
-        <span class="${p.activo ? "estado-activo" : "estado-inactivo"}">
-          ${p.activo ? "Activo" : "Inactivo"}
-        </span>
+  $("productList").innerHTML = lista.map(p => `
+    <article class="product">
+      ${p.imagen
+        ? `<img src="${escapar(p.imagen)}" alt="${escapar(p.nombre)}">`
+        : `<div style="height:175px;background:#f6f6f6;display:grid;place-items:center;border-radius:8px">Sin imagen</div>`
+      }
+      <h3>${escapar(p.nombre)}</h3>
+      <p class="muted">${escapar(p.descripcion || "")}</p>
+      <div class="price">$ ${Number(p.precio || 0).toLocaleString("es-AR")}</div>
+      <p>Stock: ${Number(p.stock || 0)}</p>
+      <span class="${p.activo ? "status-active" : "status-inactive"}">
+        ${p.activo ? "Activo" : "Inactivo"}
+      </span>
+      <div class="actions">
+        <button type="button" onclick="editarProducto(${Number(p.id)})">Editar</button>
+        <button type="button" class="danger" onclick="eliminarProducto(${Number(p.id)})">Eliminar</button>
       </div>
-      <div class="producto-acciones">
-        <button onclick="editarProducto(${p.id})">Editar</button>
-        <button class="btn-danger" onclick="eliminarProducto(${p.id})">Eliminar</button>
-      </div>
-    </div>
+    </article>
   `).join("");
 }
 
-function escapeHTML(valor) {
-  return String(valor).replace(/[&<>"']/g, caracter => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-  })[caracter]);
-}
-
+/* MODAL */
 function nuevoProducto() {
   productoActual = null;
   fotosSeleccionadas = [];
   fotoPrincipal = 0;
 
-  $("tituloModal").textContent = "Nuevo producto";
-  $("nombre").value = "";
-  $("descripcion").value = "";
-  $("precio").value = "";
-  $("stock").value = "0";
-  $("activo").checked = true;
-  $("fotos").value = "";
+  $("productForm").reset();
+  $("productId").value = "";
+  $("modalTitle").textContent = "Nuevo producto";
+  $("pActivo").checked = true;
 
+  limpiarMensaje("formMsg");
   renderGaleria();
-  $("modalProducto").classList.remove("hidden");
+  $("modalBack").classList.remove("hidden");
 }
 
 async function editarProducto(id) {
-  const producto = productos.find(p => p.id === id);
+  const producto = productos.find(p => String(p.id) === String(id));
   if (!producto) return;
 
   productoActual = producto;
   fotosSeleccionadas = [];
   fotoPrincipal = 0;
 
-  $("tituloModal").textContent = "Editar producto";
-  $("nombre").value = producto.nombre || "";
-  $("descripcion").value = producto.descripcion || "";
-  $("precio").value = producto.precio || "";
-  $("stock").value = producto.stock || 0;
-  $("activo").checked = producto.activo !== false;
-  $("fotos").value = "";
+  $("productId").value = producto.id;
+  $("modalTitle").textContent = "Editar producto";
+  $("pNombre").value = producto.nombre || "";
+  $("pDescripcion").value = producto.descripcion || "";
+  $("pPrecio").value = producto.precio ?? "";
+  $("pStock").value = producto.stock ?? 0;
+  $("pActivo").checked = producto.activo !== false;
+  $("photoFiles").value = "";
+
+  limpiarMensaje("formMsg");
+  $("modalBack").classList.remove("hidden");
 
   await cargarGaleria(producto.id);
-  $("modalProducto").classList.remove("hidden");
 }
 
 function cerrarModal() {
-  $("modalProducto").classList.add("hidden");
+  $("modalBack").classList.add("hidden");
   productoActual = null;
+  fotosSeleccionadas.forEach(f => {
+    if (f.preview) URL.revokeObjectURL(f.preview);
+  });
   fotosSeleccionadas = [];
+  $("photoFiles").value = "";
 }
 
+/* GALERÍA */
 async function cargarGaleria(productoId) {
   const { data, error } = await db
     .from("producto_imagenes")
@@ -622,51 +453,44 @@ async function cargarGaleria(productoId) {
     .order("orden", { ascending: true });
 
   if (error) {
-    mensaje("No se pudo cargar la galería: " + error.message, "error");
-    fotosSeleccionadas = [];
-  } else {
-    fotosSeleccionadas = (data || []).map(f => ({
-      id: f.id,
-      url: f.url,
-      ruta_storage: f.ruta_storage,
-      es_principal: f.es_principal,
-      archivo: null
-    }));
-    fotoPrincipal = Math.max(
-      0,
-      fotosSeleccionadas.findIndex(f => f.es_principal)
-    );
+    mostrarMensaje("formMsg", "Error al cargar fotos: " + error.message, "error");
+    return;
   }
+
+  fotosSeleccionadas = (data || []).map(f => ({
+    id: f.id,
+    url: f.url,
+    ruta_storage: f.ruta_storage,
+    es_principal: f.es_principal,
+    archivo: null,
+    preview: null
+  }));
+
+  const principal = fotosSeleccionadas.findIndex(f => f.es_principal);
+  fotoPrincipal = principal >= 0 ? principal : 0;
 
   renderGaleria();
 }
 
 function renderGaleria() {
-  const contenedor = $("galeria");
-  if (!contenedor) return;
+  const contenedor = $("photoGallery");
 
   if (!fotosSeleccionadas.length) {
-    contenedor.innerHTML = "<p>Todavía no hay fotos cargadas.</p>";
+    contenedor.innerHTML = "<p class='note'>Todavía no hay fotos cargadas.</p>";
     return;
   }
 
   contenedor.innerHTML = fotosSeleccionadas.map((foto, index) => `
-    <div class="foto-item">
-      <img src="${foto.url || foto.preview || ""}" alt="">
-      <div>
-        <button
-          type="button"
-          onclick="seleccionarPrincipal(${index})"
-          ${fotoPrincipal === index ? "disabled" : ""}
-        >
-          ${fotoPrincipal === index ? "Principal" : "Hacer principal"}
-        </button>
-        <button
-          type="button"
-          class="btn-danger"
-          onclick="quitarFoto(${index})"
-        >Quitar</button>
-      </div>
+    <div class="photo ${fotoPrincipal === index ? "selected" : ""}">
+      <img src="${escapar(foto.preview || foto.url)}" alt="Foto del producto">
+      <small>${fotoPrincipal === index ? "★ Foto principal" : "Foto " + (index + 1)}</small>
+      <button type="button"
+        ${fotoPrincipal === index ? "disabled" : ""}
+        onclick="seleccionarPrincipal(${index})">
+        ${fotoPrincipal === index ? "Principal" : "Hacer principal"}
+      </button>
+      <button type="button" class="danger"
+        onclick="quitarFoto(${index})">Quitar</button>
     </div>
   `).join("");
 }
@@ -677,43 +501,46 @@ function seleccionarPrincipal(index) {
 }
 
 function agregarFotos() {
-  const archivos = Array.from($("fotos").files || []);
+  const archivos = Array.from($("photoFiles").files || []);
 
   for (const archivo of archivos) {
     if (!["image/jpeg", "image/png", "image/webp"].includes(archivo.type)) {
-      mensaje("Solo se permiten JPG, PNG o WEBP", "error");
+      mostrarMensaje("formMsg", "Solo se permiten imágenes JPG, PNG o WEBP.", "error");
       continue;
     }
 
     if (archivo.size > 5 * 1024 * 1024) {
-      mensaje("Cada imagen debe pesar como máximo 5 MB", "error");
+      mostrarMensaje("formMsg", "Cada imagen debe pesar como máximo 5 MB.", "error");
       continue;
     }
 
+    const preview = URL.createObjectURL(archivo);
+
     fotosSeleccionadas.push({
       id: null,
-      url: URL.createObjectURL(archivo),
-      preview: URL.createObjectURL(archivo),
+      url: null,
+      preview,
       archivo,
-      ruta_storage: null,
-      es_principal: false
+      ruta_storage: null
     });
+  }
+
+  if (fotosSeleccionadas.length === archivos.length && fotosSeleccionadas.length > 0) {
+    limpiarMensaje("formMsg");
   }
 
   if (fotosSeleccionadas.length && fotoPrincipal < 0) {
     fotoPrincipal = 0;
   }
 
-  $("fotos").value = "";
+  $("photoFiles").value = "";
   renderGaleria();
 }
 
 function quitarFoto(index) {
   const foto = fotosSeleccionadas[index];
 
-  if (foto && foto.preview) {
-    URL.revokeObjectURL(foto.preview);
-  }
+  if (foto?.preview) URL.revokeObjectURL(foto.preview);
 
   fotosSeleccionadas.splice(index, 1);
 
@@ -727,33 +554,35 @@ function quitarFoto(index) {
 
   renderGaleria();
 }
-</script>
 
-<script>
-async function guardarProducto() {
-  const nombre = $("nombre").value.trim();
-  const descripcion = $("descripcion").value.trim();
-  const precio = Number($("precio").value);
-  const stock = Number($("stock").value);
-  const activo = $("activo").checked;
+/* GUARDAR PRODUCTO Y FOTOS */
+async function guardarProducto(evento) {
+  evento.preventDefault();
+  limpiarMensaje("formMsg");
+
+  const nombre = $("pNombre").value.trim();
+  const descripcion = $("pDescripcion").value.trim();
+  const precio = Number($("pPrecio").value);
+  const stock = Number($("pStock").value);
+  const activo = $("pActivo").checked;
 
   if (!nombre) {
-    mensaje("Ingresá el nombre del producto", "error");
+    mostrarMensaje("formMsg", "Ingresá el nombre del producto.", "error");
     return;
   }
 
   if (!Number.isFinite(precio) || precio < 0) {
-    mensaje("Ingresá un precio válido", "error");
+    mostrarMensaje("formMsg", "Ingresá un precio válido.", "error");
     return;
   }
 
   if (!Number.isInteger(stock) || stock < 0) {
-    mensaje("Ingresá un stock válido", "error");
+    mostrarMensaje("formMsg", "Ingresá un stock válido.", "error");
     return;
   }
 
-  $("btnGuardar").disabled = true;
-  $("btnGuardar").textContent = "Guardando...";
+  $("saveBtn").disabled = true;
+  $("saveBtn").textContent = "Guardando...";
 
   try {
     const datos = { nombre, descripcion, precio, stock, activo };
@@ -780,22 +609,55 @@ async function guardarProducto() {
 
     await guardarGaleria(productoId);
 
-    mensaje("Producto guardado correctamente", "success");
+    mostrarMensaje("appMsg", "Producto guardado correctamente.", "success");
     cerrarModal();
     await cargarProductos();
 
   } catch (error) {
     console.error(error);
-    mensaje("Error al guardar: " + error.message, "error");
+    mostrarMensaje("formMsg", "Error al guardar: " + error.message, "error");
   } finally {
-    $("btnGuardar").disabled = false;
-    $("btnGuardar").textContent = "Guardar producto";
+    $("saveBtn").disabled = false;
+    $("saveBtn").textContent = "Guardar producto";
   }
 }
 
 async function guardarGaleria(productoId) {
-  const fotosGuardadas = [];
+  const { data: anteriores, error: errorLectura } = await db
+    .from("producto_imagenes")
+    .select("id, ruta_storage")
+    .eq("producto_id", productoId);
 
+  if (errorLectura) throw errorLectura;
+
+  const idsActuales = fotosSeleccionadas
+    .filter(f => f.id)
+    .map(f => f.id);
+
+  const eliminadas = (anteriores || []).filter(
+    f => !idsActuales.includes(f.id)
+  );
+
+  /* Eliminar fotos quitadas */
+  if (eliminadas.length) {
+    const rutas = eliminadas.map(f => f.ruta_storage).filter(Boolean);
+
+    if (rutas.length) {
+      const { error } = await db.storage
+        .from("productos")
+        .remove(rutas);
+      if (error) throw error;
+    }
+
+    const { error } = await db
+      .from("producto_imagenes")
+      .delete()
+      .in("id", eliminadas.map(f => f.id));
+
+    if (error) throw error;
+  }
+
+  /* Subir nuevas imágenes */
   for (let i = 0; i < fotosSeleccionadas.length; i++) {
     const foto = fotosSeleccionadas[i];
 
@@ -817,102 +679,69 @@ async function guardarGaleria(productoId) {
         .from("productos")
         .getPublicUrl(ruta);
 
-      fotosGuardadas.push({
-        producto_id: productoId,
-        url: urlData.publicUrl,
-        ruta_storage: ruta,
-        es_principal: i === fotoPrincipal,
-        orden: i
-      });
-
-    } else {
-      fotosGuardadas.push({
-        id: foto.id,
-        producto_id: productoId,
-        url: foto.url,
-        ruta_storage: foto.ruta_storage,
-        es_principal: i === fotoPrincipal,
-        orden: i
-      });
+      foto.url = urlData.publicUrl;
+      foto.ruta_storage = ruta;
+      foto.archivo = null;
+      foto.preview = null;
+      foto.id = null;
     }
   }
 
-  const { data: anteriores, error: errorLectura } = await db
+  /* Primero quitar principal de todas las existentes para respetar el índice único */
+  const { error: errorReset } = await db
     .from("producto_imagenes")
-    .select("id, ruta_storage")
+    .update({ es_principal: false })
     .eq("producto_id", productoId);
 
-  if (errorLectura) throw errorLectura;
+  if (errorReset) throw errorReset;
 
-  const idsConservados = fotosGuardadas
-    .filter(f => f.id)
-    .map(f => f.id);
+  /* Guardar registros */
+  for (let i = 0; i < fotosSeleccionadas.length; i++) {
+    const foto = fotosSeleccionadas[i];
+    const esPrincipal = i === fotoPrincipal;
 
-  const eliminadas = (anteriores || []).filter(
-    f => !idsConservados.includes(f.id)
-  );
-
-  const rutasEliminar = eliminadas
-    .map(f => f.ruta_storage)
-    .filter(Boolean);
-
-  if (rutasEliminar.length) {
-    const { error } = await db.storage
-      .from("productos")
-      .remove(rutasEliminar);
-
-    if (error) throw error;
-  }
-
-  if (eliminadas.length) {
-    const { error } = await db
-      .from("producto_imagenes")
-      .delete()
-      .in("id", eliminadas.map(f => f.id));
-
-    if (error) throw error;
-  }
-
-  for (const foto of fotosGuardadas) {
     if (foto.id) {
       const { error } = await db
         .from("producto_imagenes")
         .update({
-          es_principal: foto.es_principal,
-          orden: foto.orden
+          es_principal: esPrincipal,
+          orden: i
         })
         .eq("id", foto.id);
 
       if (error) throw error;
+
     } else {
-      const { error } = await db
+      const { data, error } = await db
         .from("producto_imagenes")
         .insert({
-          producto_id: foto.producto_id,
+          producto_id: productoId,
           url: foto.url,
           ruta_storage: foto.ruta_storage,
-          es_principal: foto.es_principal,
-          orden: foto.orden
-        });
+          es_principal: esPrincipal,
+          orden: i
+        })
+        .select("id")
+        .single();
 
       if (error) throw error;
+      foto.id = data.id;
     }
   }
 
-  const principal = fotosGuardadas[fotoPrincipal];
+  const principal = fotosSeleccionadas[fotoPrincipal];
 
   const { error: errorProducto } = await db
     .from("productos")
-    .update({
-      imagen: principal ? principal.url : null
-    })
+    .update({ imagen: principal ? principal.url : null })
     .eq("id", productoId);
 
   if (errorProducto) throw errorProducto;
 }
 
+/* ELIMINAR PRODUCTO */
 async function eliminarProducto(id) {
-  const producto = productos.find(p => p.id === id);
+  const producto = productos.find(p => String(p.id) === String(id));
   if (!producto) return;
 
   if (!confirm(`¿Eliminar el producto "${producto.nombre}"?`)) return;
@@ -944,34 +773,39 @@ async function eliminarProducto(id) {
 
     if (error) throw error;
 
-    mensaje("Producto eliminado", "success");
+    mostrarMensaje("appMsg", "Producto eliminado correctamente.", "success");
     await cargarProductos();
 
   } catch (error) {
     console.error(error);
-    mensaje("No se pudo eliminar: " + error.message, "error");
+    mostrarMensaje("appMsg", "No se pudo eliminar: " + error.message, "error");
   }
 }
 
-// Conectar botones y eventos
-$("btnLogin").addEventListener("click", iniciarSesion);
-$("btnLogout").addEventListener("click", cerrarSesion);
-$("btnNuevo").addEventListener("click", nuevoProducto);
-$("btnGuardar").addEventListener("click", guardarProducto);
-$("btnCancelar").addEventListener("click", cerrarModal);
-$("btnCerrarModal").addEventListener("click", cerrarModal);
-$("fotos").addEventListener("change", agregarFotos);
-$("buscarProducto").addEventListener("input", renderProductos);
+/* EVENTOS */
+$("loginForm").addEventListener("submit", iniciarSesion);
+$("logoutBtn").addEventListener("click", cerrarSesion);
+$("newBtn").addEventListener("click", nuevoProducto);
+$("reloadBtn").addEventListener("click", cargarProductos);
+$("search").addEventListener("input", renderProductos);
+$("productForm").addEventListener("submit", guardarProducto);
+$("cancelBtn").addEventListener("click", cerrarModal);
+$("closeModal").addEventListener("click", cerrarModal);
+$("photoFiles").addEventListener("change", agregarFotos);
 
-db.auth.onAuthStateChange((_event, session) => {
-  if (session) {
-    setTimeout(verificarAcceso, 0);
+/* INICIO */
+async function iniciarAplicacion() {
+  const { data } = await db.auth.getSession();
+
+  if (data.session) {
+    await verificarAcceso();
   } else {
     mostrarLogin();
   }
-});
+}
 
-verificarAcceso();
+iniciarAplicacion();
+
 </script>
 </body>
 </html>
