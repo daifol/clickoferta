@@ -249,7 +249,27 @@
       }
     };
 
-    const carrito = {};
+    const carrito = (() => {
+  try {
+    const guardado = JSON.parse(
+      localStorage.getItem("clickoferta_carrito") || "{}"
+    );
+
+    const recuperado = {};
+
+    Object.keys(productos).forEach(id => {
+      const cantidad = Number(guardado[id]);
+
+      if (Number.isInteger(cantidad) && cantidad > 0) {
+        recuperado[id] = Math.min(cantidad, productos[id].stock);
+      }
+    });
+
+    return recuperado;
+  } catch (error) {
+    return {};
+  }
+})();
 
     function formatoPrecio(valor) {
       return "$ " + valor.toLocaleString("es-AR", {
