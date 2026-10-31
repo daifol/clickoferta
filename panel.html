@@ -5,133 +5,373 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClickOferta - Administración</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box;font-family:Arial,sans-serif}
-body{margin:0;background:#f4f4f4;color:#333;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.contenedor{background:white;width:100%;max-width:420px;padding:30px;border-radius:15px;box-shadow:0 4px 18px #0002}
-h1{text-align:center;color:#ff6600;margin-top:0}
-h2{text-align:center;font-size:21px}
-input{width:100%;padding:13px;margin:8px 0 16px;border:1px solid #ccc;border-radius:8px;font-size:16px}
-label{font-weight:bold;font-size:14px}
-button{width:100%;padding:14px;background:#ff6600;color:white;border:0;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer}
-button:disabled{background:#aaa}
-#mensaje{text-align:center;margin-top:18px;line-height:1.5}
-.exito{color:green}.error{color:#c62828}
-#panel{display:none}
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f4f4f4;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.contenedor {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px #0002;
+}
+
+h1 {
+    text-align: center;
+    color: #ff6600;
+    margin-top: 0;
+}
+
+h2 {
+    text-align: center;
+    font-size: 21px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #ff6600;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: #aaa;
+}
+
+#mensaje {
+    text-align: center;
+    margin-top: 18px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.exito {
+    color: green;
+}
+
+.error {
+    color: #c62828;
+}
+
+#panel {
+    display: none;
+}
 </style>
 </head>
+
 <body>
+
 <div class="contenedor">
-<h1>CLICKOFERTA</h1>
 
-<div id="login">
-<h2>Acceso de administración</h2>
-<form id="form-login">
-<label for="email">Correo electrónico</label>
-<input id="email" type="email" required autocomplete="username">
+    <h1>CLICKOFERTA</h1>
 
-<label for="password">Contraseña</label>
-<input id="password" type="password" required autocomplete="current-password">
+    <div id="login">
+        <h2>Acceso de administración</h2>
 
-<button id="btn-login" type="submit">Ingresar</button>
-</form>
-</div>
+        <form id="form-login">
 
-<div id="panel">
-<h2>Bienvenido</h2>
-<p id="nombre"></p>
-<p id="rol"></p>
-<p class="exito">Acceso de administrador validado.</p>
-<button id="btn-salir">Cerrar sesión</button>
-</div>
+            <label for="email">Correo electrónico</label>
+            <input
+                id="email"
+                type="email"
+                required
+                autocomplete="username"
+            >
 
-<p id="mensaje"></p>
+            <label for="password">Contraseña</label>
+            <input
+                id="password"
+                type="password"
+                required
+                autocomplete="current-password"
+            >
+
+            <button id="btn-login" type="submit">
+                Ingresar
+            </button>
+
+        </form>
+    </div>
+
+    <div id="panel">
+        <h2>Bienvenido</h2>
+
+        <p id="nombre"></p>
+        <p id="rol"></p>
+
+        <p class="exito">
+            Acceso de administrador validado.
+        </p>
+
+        <button id="btn-salir" type="button">
+            Cerrar sesión
+        </button>
+    </div>
+
+    <p id="mensaje"></p>
+
 </div>
 
 <script>
-const SUPABASE_URL="https://qiyqrwoonfyzgyudagdz.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_o3CKrzb4hTOJBtZh9XRMWA_7FOPbCob";
 
-const supabaseClient=window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_ANON_KEY
+// ======================================
+// CONFIGURACIÓN SUPABASE
+// ======================================
+
+const SUPABASE_URL =
+"https://qiyqrwoonfyzgyudagdz.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"sb_publishable_o3CKrzb4hTOJBtZh9XRMWA_7FOPbCob";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
 );
 
-const mensaje=document.getElementById("mensaje");
+const mensaje = document.getElementById("mensaje");
 
-function mostrarMensaje(texto,tipo=""){
- mensaje.textContent=texto;
- mensaje.className=tipo;
+// ======================================
+// MENSAJES
+// ======================================
+
+function mostrarMensaje(texto, tipo = "") {
+
+    mensaje.textContent = texto;
+    mensaje.className = tipo;
+
 }
 
-async function verificarAcceso(){
- const {data:{session},error}=await supabaseClient.auth.getSession();
- if(error||!session)return;
+// ======================================
+// VERIFICAR ADMINISTRADOR
+// ======================================
 
- const {data:perfil,error:perfilError}=await supabaseClient
-  .from("perfiles")
-  .select("nombre,rol,activo")
-  .eq("id",session.user.id)
-  .single();
+async function verificarAcceso() {
 
- if(perfilError||!perfil||!perfil.activo||perfil.rol!=="admin"){
-  await supabaseClient.auth.signOut();
-  mostrarMensaje("Este usuario no tiene permisos de administrador.","error");
-  return;
- }
+    try {
 
- document.getElementById("login").style.display="none";
- document.getElementById("panel").style.display="block";
- document.getElementById("nombre").textContent="Usuario: "+perfil.nombre;
- document.getElementById("rol").textContent="Rol: Administrador";
- mostrarMensaje("");
+        const {
+            data: { session },
+            error
+        } = await supabaseClient.auth.getSession();
+
+        if (error) {
+            throw error;
+        }
+
+        if (!session) {
+            return;
+        }
+
+        console.log(
+            "Usuario autenticado:",
+            session.user.id,
+            session.user.email
+        );
+
+        const {
+            data: perfil,
+            error: perfilError
+        } = await supabaseClient
+            .from("perfiles")
+            .select("nombre, rol, activo")
+            .eq("id", session.user.id)
+            .single();
+
+        console.log("Perfil obtenido:", perfil);
+        console.log("Error del perfil:", perfilError);
+
+        if (
+            perfilError ||
+            !perfil ||
+            !perfil.activo ||
+            perfil.rol !== "admin"
+        ) {
+
+            await supabaseClient.auth.signOut();
+
+            mostrarMensaje(
+                "Este usuario no tiene permisos de administrador. " +
+                (perfilError ? perfilError.message : ""),
+                "error"
+            );
+
+            return;
+        }
+
+        document.getElementById("login").style.display = "none";
+        document.getElementById("panel").style.display = "block";
+
+        document.getElementById("nombre").textContent =
+            "Usuario: " + perfil.nombre;
+
+        document.getElementById("rol").textContent =
+            "Rol: Administrador";
+
+        mostrarMensaje("");
+
+    } catch (error) {
+
+        console.error("ERROR AL VERIFICAR ACCESO:", error);
+
+        mostrarMensaje(
+            "Error al verificar el administrador: " + error.message,
+            "error"
+        );
+
+    }
+
 }
 
-document.getElementById("form-login").addEventListener("submit",async(e)=>{
- e.preventDefault();
+// ======================================
+// INICIAR SESIÓN
+// ======================================
 
- const boton=document.getElementById("btn-login");
- boton.disabled=true;
- boton.textContent="Ingresando...";
- mostrarMensaje("");
+document
+.getElementById("form-login")
+.addEventListener("submit", async (e) => {
 
- try{
-  
-  const email=document.getElementById("email").value.trim().toLowerCase();
-  const password=document.getElementById("password").value;
-  
+    e.preventDefault();
 
- console.log("Email utilizado:", email);
- console.log("Proyecto Supabase:", SUPABASE_URL);
+    const boton = document.getElementById("btn-login");
 
-  const {error}=await supabaseClient.auth.signInWithPassword({
-   email:email,
-   password:password
-  });
+    boton.disabled = true;
+    boton.textContent = "Ingresando...";
 
-  if(error)throw error;
+    mostrarMensaje("");
 
-  await verificarAcceso();
+    try {
 
- }catch(error){
-  mostrarMensaje("No se pudo ingresar: "+error.message,"error");
- }finally{
-  boton.disabled=false;
-  boton.textContent="Ingresar";
- }
+        const email = document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const password = document
+            .getElementById("password")
+            .value;
+
+        console.log("--------------------------------");
+        console.log("INICIO DE DIAGNÓSTICO");
+        console.log("Email utilizado:", email);
+        console.log("Proyecto Supabase:", SUPABASE_URL);
+        console.log("--------------------------------");
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+        console.log("RESPUESTA SUPABASE:", data);
+        console.log("ERROR SUPABASE:", error);
+
+        if (error) {
+
+            throw new Error(
+                error.message +
+                " | Código: " +
+                (error.code || "sin código") +
+                " | Estado: " +
+                (error.status || "sin estado")
+            );
+
+        }
+
+        await verificarAcceso();
+
+    } catch (error) {
+
+        console.error("ERROR DE INGRESO:", error);
+
+        mostrarMensaje(
+            "No se pudo ingresar: " + error.message,
+            "error"
+        );
+
+    } finally {
+
+        boton.disabled = false;
+        boton.textContent = "Ingresar";
+
+    }
+
 });
 
-document.getElementById("btn-salir").addEventListener("click",async()=>{
- await supabaseClient.auth.signOut();
- document.getElementById("panel").style.display="none";
- document.getElementById("login").style.display="block";
- document.getElementById("form-login").reset();
- mostrarMensaje("Sesión cerrada correctamente.");
+// ======================================
+// CERRAR SESIÓN
+// ======================================
+
+document
+.getElementById("btn-salir")
+.addEventListener("click", async () => {
+
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+        mostrarMensaje(error.message, "error");
+        return;
+    }
+
+    document.getElementById("panel").style.display = "none";
+    document.getElementById("login").style.display = "block";
+
+    document.getElementById("form-login").reset();
+
+    mostrarMensaje("Sesión cerrada correctamente.", "exito");
+
 });
+
+// ======================================
+// INICIO
+// ======================================
+
+console.log("ClickOferta - Panel iniciado");
+console.log("Supabase URL:", SUPABASE_URL);
 
 verificarAcceso();
+
 </script>
+
 </body>
 </html>
-
