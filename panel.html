@@ -53,7 +53,7 @@ button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:
             <div class="card stat"><span class="muted small">Entregados</span><strong id="ordersDelivered">0</strong></div>
           </div>
           <div class="card"><div id="ordersArea" class="table-wrap"><div class="empty">Cargando pedidos…</div></div></div>
-          <div class="notice">Desde esta primera versión se pueden consultar los pedidos y contactar al comprador por WhatsApp. La confirmación, cancelación y entrega se habilitarán mediante funciones seguras para actualizar estados y controlar la reposición de stock.</div>
+          <div class="notice">Podés consultar el pedido, contactar al comprador por WhatsApp y anular pedidos pendientes o confirmados. Al anular, el sistema devuelve las unidades al stock automáticamente. La entrega se habilitará en una próxima etapa.</div>
         </section>
 
         <section id="page-productos" class="hidden">
@@ -126,6 +126,14 @@ button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:
     if(page==='ventas') loadSales();
     if(page==='usuarios') loadUsers();
   }
+  async function cancelOrder(id, number){
+    const ok = confirm(`¿Anular el pedido ${number}? Si está pendiente o confirmado, se devolverán las unidades al stock.`);
+    if(!ok) return;
+    const {data,error}=await db.rpc('cancelar_pedido',{p_pedido_id:Number(id)});
+    if(error){alert('No se pudo anular el pedido: '+error.message);return;}
+    if(data?.ok){alert(data.ya_estaba_cancelado?'Este pedido ya estaba anulado.':'Pedido anulado y stock restituido.');await loadOrders();}
+    else {alert('La operación no se completó.');}
+  }
   async function loadOrders(){
     $('ordersArea').innerHTML='<div class="empty">Cargando pedidos…</div>';
     const {data,error}=await db.from('pedidos').select('id,numero_pedido,nombre_cliente,telefono_cliente,localidad,observaciones,estado,total,created_at').order('created_at',{ascending:false});
@@ -135,12 +143,13 @@ button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:
     $('ordersPending').textContent=rows.filter(x=>x.estado==='pendiente').length;
     $('ordersDelivered').textContent=rows.filter(x=>x.estado==='entregado').length;
     if(!rows.length){$('ordersArea').innerHTML='<div class="empty">Todavía no hay pedidos.</div>';return;}
-    $('ordersArea').innerHTML=`<table class="table"><thead><tr><th>Pedido</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Total</th><th>Contacto</th></tr></thead><tbody>${rows.map(o=>{
+    $('ordersArea').innerHTML=`<table class="table"><thead><tr><th>Pedido</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Total</th><th>Acciones</th></tr></thead><tbody>${rows.map(o=>{
       const phone=String(o.telefono_cliente||'').replace(/\D/g,'');
       const msg=encodeURIComponent(`Hola ${o.nombre_cliente||''}, te contactamos por tu pedido ${o.numero_pedido} de CLICKOFERTA.`);
-      return `<tr><td><strong>${esc(o.numero_pedido)}</strong><div class="small muted">#${esc(o.id)}</div></td><td>${esc(o.nombre_cliente)}<div class="small muted">${esc(o.telefono_cliente)} · ${esc(o.localidad)}</div></td><td>${date(o.created_at)}</td><td>${status(o.estado)}</td><td>${money(o.total)}</td><td><div class="actions"><button class="secondary" data-detail="${esc(o.id)}">Detalle</button>${phone?`<a href="https://wa.me/${phone}?text=${msg}" target="_blank" rel="noopener" style="text-decoration:none"><button type="button" style="background:#16845b">WhatsApp</button></a>`:''}</div></td></tr>`;
+      return `<tr><td><strong>${esc(o.numero_pedido)}</strong><div class="small muted">#${esc(o.id)}</div></td><td>${esc(o.nombre_cliente)}<div class="small muted">${esc(o.telefono_cliente)} · ${esc(o.localidad)}</div></td><td>${date(o.created_at)}</td><td>${status(o.estado)}</td><td>${money(o.total)}</td><td><div class="actions"><button class="secondary" data-detail="${esc(o.id)}">Detalle</button>${phone?`<a href="https://wa.me/${phone}?text=${msg}" target="_blank" rel="noopener" style="text-decoration:none"><button type="button" style="background:#16845b">WhatsApp</button></a>`:''}${['pendiente','confirmado'].includes(o.estado)?`<button type="button" class="danger" data-cancel="${esc(o.id)}" data-number="${esc(o.numero_pedido)}">Anular</button>`:''}</div></td></tr>`;
     }).join('')}</tbody></table>`;
     $('ordersArea').querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>showOrderDetail(b.dataset.detail)));
+    $('ordersArea').querySelectorAll('[data-cancel]').forEach(b=>b.addEventListener('click',()=>cancelOrder(b.dataset.cancel,b.dataset.number)));
   }
   async function showOrderDetail(id){
     const {data,error}=await db.from('detalle_pedidos').select('nombre_producto,cantidad,precio_unitario,subtotal').eq('pedido_id',id);
