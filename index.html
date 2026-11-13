@@ -199,7 +199,7 @@ async function cargarProductos() {
 
   try {
     const lista = await supabaseFetch(
-      "/rest/v1/productos?select=id,nombre,descripcion,precio,stock,imagen,activo&activo=eq.true&order=id.asc"
+      "/rest/v1/productos_tienda?select=id,nombre,descripcion,precio,imagen,activo&activo=eq.true&order=id.asc"
     );
 
     productos = {};
@@ -211,7 +211,7 @@ async function cargarProductos() {
       Object.keys(guardado).forEach(id => {
         const cantidad = Number(guardado[id]);
         if (productos[id] && Number.isInteger(cantidad) && cantidad > 0) {
-          carrito[id] = Math.min(cantidad, Number(productos[id].stock));
+          carrito[id] = cantidad;
         }
       });
     } catch (e) {
@@ -232,7 +232,7 @@ function dibujarProductos() {
   grid.innerHTML = "";
 
   Object.values(productos).forEach(producto => {
-    const sinStock = Number(producto.stock) <= 0;
+    const sinStock = false;
     const card = document.createElement("article");
     card.className = "card";
 
@@ -257,16 +257,12 @@ function dibujarProductos() {
 
     const stock = document.createElement("span");
     stock.className = sinStock ? "stock sin-stock" : "stock";
-    stock.textContent = sinStock
-      ? "Sin stock"
-      : (Number(producto.stock) === 1
-          ? "Última unidad disponible"
-          : Number(producto.stock) + " unidades disponibles");
+    stock.textContent = "Disponible";
 
     const boton = document.createElement("button");
     boton.className = "btn add-button";
-    boton.textContent = sinStock ? "Sin stock" : "🛒 Agregar al carrito";
-    boton.disabled = sinStock;
+    boton.textContent = "🛒 Agregar al carrito";
+    boton.disabled = false;
     boton.onclick = () => agregarAlCarrito(String(producto.id));
 
     body.append(titulo, descripcion, precio, stock, boton);
@@ -288,11 +284,6 @@ function agregarAlCarrito(id) {
   if (!producto) return;
 
   const cantidad = carrito[id] || 0;
-  if (cantidad >= Number(producto.stock)) {
-    alert("No hay más unidades disponibles de este producto.");
-    return;
-  }
-
   carrito[id] = cantidad + 1;
   actualizarCarrito();
   document.getElementById("carrito").style.display = "block";
@@ -305,10 +296,8 @@ function cambiarCantidad(id, cambio) {
   const nuevaCantidad = (carrito[id] || 0) + cambio;
   if (nuevaCantidad <= 0) {
     delete carrito[id];
-  } else if (nuevaCantidad <= Number(producto.stock)) {
-    carrito[id] = nuevaCantidad;
   } else {
-    alert("No hay más unidades disponibles.");
+    carrito[id] = nuevaCantidad;
   }
   actualizarCarrito();
 }
@@ -484,7 +473,8 @@ async function enviarPedido() {
   }
 }
 
-// Al abrir el sitio, consultar los productos y el stock actuales.
+// Al abrir el sitio, consultar el catálogo público sin exponer cantidades de stock.
+ // crear_pedido valida y descuenta el stock de forma segura en Supabase.
 cargarProductos();
 </script>
 </body>
