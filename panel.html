@@ -6,211 +6,1191 @@
 <title>CLICKOFERTA | Panel de gestión</title>
 <meta name="robots" content="noindex,nofollow">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 :root{--bg:#f4f6fb;--card:#fff;--ink:#182033;--muted:#68738a;--line:#e5e9f1;--brand:#5b4be7;--brand2:#4537c9;--green:#16845b;--red:#c43d4b;--shadow:0 8px 28px rgba(25,35,65,.07)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--brand);color:white;font-weight:700}button:hover{background:var(--brand2)}button.secondary{background:#edf0f7;color:#29334a}button.danger{background:#fff0f1;color:var(--red)}button:disabled{opacity:.55;cursor:not-allowed}
-.wrap{max-width:1200px;margin:auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{font-size:23px;font-weight:900;letter-spacing:.4px}.brand span{color:var(--brand)}.muted{color:var(--muted)}.small{font-size:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.login{max-width:430px;margin:8vh auto}.login h1{margin-top:0}.field{display:grid;gap:7px;margin:13px 0}.field label{font-size:13px;font-weight:700;color:#48536a}.field input,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}.field textarea{min-height:78px;resize:vertical}.hidden{display:none!important}.layout{display:grid;grid-template-columns:220px 1fr;gap:20px}.sidebar{align-self:start;position:sticky;top:18px}.nav{display:grid;gap:8px;margin-top:15px}.nav button{text-align:left;background:transparent;color:#46516a}.nav button.active{background:#eeecff;color:var(--brand)}.content{min-width:0}.heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px}.heading h2{margin:0;font-size:22px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}.stat strong{display:block;font-size:26px;margin-top:7px}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:650px}.table th,.table td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}.table th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#eef1f7;color:#46516a;font-size:12px;font-weight:700}.pill.pendiente{background:#fff4db;color:#946200}.pill.confirmado{background:#e8f2ff;color:#245d9c}.pill.entregado{background:#e5f7ef;color:#16734f}.pill.cancelado{background:#fff0f1;color:#b32f40}.actions{display:flex;gap:7px;flex-wrap:wrap}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.notice{padding:12px 14px;border-radius:10px;background:#fff7e5;color:#76520a;font-size:13px;line-height:1.5;margin:12px 0}.ok{color:var(--green)}.error{color:var(--red)}.empty{text-align:center;padding:30px;color:var(--muted)}.product-name{font-weight:700}.right{display:flex;gap:8px;align-items:center}.mobile-menu{display:none}
-@media(max-width:800px){.wrap{padding:14px}.layout{grid-template-columns:1fr}.sidebar{position:static}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap}.stats{grid-template-columns:1fr 1fr}.top{align-items:flex-start}.formgrid{grid-template-columns:1fr}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--brand);color:white;font-weight:700}
+button:hover{background:var(--brand2)}
+button.secondary{background:#edf0f7;color:#29334a}
+button.danger{background:#fff0f1;color:var(--red)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+.brand{font-size:23px;font-weight:900;letter-spacing:.4px}
+.brand span{color:var(--brand)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.login{max-width:430px;margin:8vh auto}
+.login h1{margin-top:0}
+.field{display:grid;gap:7px;margin:13px 0}
+.field label{font-size:13px;font-weight:700;color:#48536a}
+.field input,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.field textarea{min-height:78px;resize:vertical}
+.hidden{display:none!important}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px}
+.sidebar{align-self:start;position:sticky;top:18px}
+.nav{display:grid;gap:8px;margin-top:15px}
+.nav button{text-align:left;background:transparent;color:#46516a}
+.nav button.active{background:#eeecff;color:var(--brand)}
+.content{min-width:0}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px}
+.heading h2{margin:0;font-size:22px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.stat strong{display:block;font-size:26px;margin-top:7px}
+.table-wrap{overflow:auto}
+.table{width:100%;border-collapse:collapse;min-width:650px}
+.table th,.table td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
+.table th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#eef1f7;color:#46516a;font-size:12px;font-weight:700}
+.pill.pendiente{background:#fff4db;color:#946200}
+.pill.confirmado{background:#e8f2ff;color:#245d9c}
+.pill.entregado{background:#e5f7ef;color:#16734f}
+.pill.cancelado{background:#fff0f1;color:#b32f40}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.notice{padding:12px 14px;border-radius:10px;background:#fff7e5;color:#76520a;font-size:13px;line-height:1.5;margin:12px 0}
+.ok{color:var(--green)}
+.error{color:var(--red)}
+.empty{text-align:center;padding:30px;color:var(--muted)}
+.product-name{font-weight:700}
+.right{display:flex;gap:8px;align-items:center}
+.preview{max-width:180px;max-height:180px;object-fit:contain;border-radius:10px;margin-top:8px;border:1px solid var(--line);padding:5px}
+@media(max-width:800px){
+.wrap{padding:14px}
+.layout{grid-template-columns:1fr}
+.sidebar{position:static}
+.nav{display:flex;overflow:auto}
+.nav button{white-space:nowrap}
+.stats{grid-template-columns:1fr 1fr}
+.top{align-items:flex-start}
+.formgrid{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
 <div class="wrap">
+
+  <!-- LOGIN -->
   <div id="loginView" class="card login">
     <div class="brand">CLICK<span>OFERTA</span></div>
     <p class="muted">Panel privado de gestión</p>
     <h1>Iniciar sesión</h1>
+
     <form id="loginForm">
-      <div class="field"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="username" required placeholder="tu correo"></div>
-      <div class="field"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required placeholder="Tu contraseña"></div>
+      <div class="field">
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email" autocomplete="username" required placeholder="tu correo">
+      </div>
+
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" autocomplete="current-password" required placeholder="Tu contraseña">
+      </div>
+
       <button id="loginBtn" type="submit" style="width:100%">Ingresar</button>
       <p id="loginMsg" class="small muted" aria-live="polite"></p>
     </form>
   </div>
 
+  <!-- APLICACION -->
   <div id="appView" class="hidden">
+
     <header class="top">
-      <div><div class="brand">CLICK<span>OFERTA</span></div><div class="small muted">Panel de gestión</div></div>
-      <div class="right"><div style="text-align:right"><strong id="userName">—</strong><div id="userRole" class="small muted"></div></div><button class="secondary" id="logoutBtn">Salir</button></div>
+      <div>
+        <div class="brand">CLICK<span>OFERTA</span></div>
+        <div class="small muted">Panel de gestión</div>
+      </div>
+
+      <div class="right">
+        <div style="text-align:right">
+          <strong id="userName">—</strong>
+          <div id="userRole" class="small muted"></div>
+        </div>
+        <button class="secondary" id="logoutBtn">Salir</button>
+      </div>
     </header>
+
     <div class="layout">
+
+      <!-- MENU -->
       <aside class="card sidebar">
         <strong>Menú</strong>
+
         <nav class="nav" id="nav">
           <button data-page="pedidos" class="active">Pedidos</button>
           <button data-page="productos" class="admin-only">Productos y stock</button>
           <button data-page="ventas" class="admin-only">Ventas</button>
           <button data-page="usuarios" class="admin-only">Usuarios</button>
         </nav>
-        <p class="small muted" style="margin-top:18px">Los permisos también se controlan desde Supabase.</p>
+
+        <p class="small muted" style="margin-top:18px">
+          Los permisos también se controlan desde Supabase.
+        </p>
       </aside>
+
       <main class="content">
+
+        <!-- PEDIDOS -->
         <section id="page-pedidos">
-          <div class="heading"><h2>Pedidos</h2><button class="secondary" id="refreshOrders">Actualizar</button></div>
-          <div class="stats">
-            <div class="card stat"><span class="muted small">Total de pedidos</span><strong id="ordersTotal">0</strong></div>
-            <div class="card stat"><span class="muted small">Pendientes</span><strong id="ordersPending">0</strong></div>
-            <div class="card stat"><span class="muted small">Entregados</span><strong id="ordersDelivered">0</strong></div>
+
+          <div class="heading">
+            <h2>Pedidos</h2>
+            <button class="secondary" id="refreshOrders">Actualizar</button>
           </div>
-          <div class="card"><div id="ordersArea" class="table-wrap"><div class="empty">Cargando pedidos…</div></div></div>
-          <div class="notice">Podés consultar el pedido, contactar al comprador por WhatsApp y anular pedidos pendientes o confirmados. Al anular, el sistema devuelve las unidades al stock automáticamente. La entrega se habilitará en una próxima etapa.</div>
+
+          <div class="stats">
+            <div class="card stat">
+              <span class="muted small">Total de pedidos</span>
+              <strong id="ordersTotal">0</strong>
+            </div>
+
+            <div class="card stat">
+              <span class="muted small">Pendientes</span>
+              <strong id="ordersPending">0</strong>
+            </div>
+
+            <div class="card stat">
+              <span class="muted small">Entregados</span>
+              <strong id="ordersDelivered">0</strong>
+            </div>
+          </div>
+
+          <div class="card">
+            <div id="ordersArea" class="table-wrap">
+              <div class="empty">Cargando pedidos…</div>
+            </div>
+          </div>
+
+          <div class="notice">
+            Podés consultar el pedido, contactar al comprador por WhatsApp y anular pedidos pendientes o confirmados. Al anular, el sistema devuelve las unidades al stock automáticamente.
+          </div>
         </section>
 
+        <!-- PRODUCTOS -->
         <section id="page-productos" class="hidden">
-          <div class="heading"><h2>Productos y stock</h2><button id="newProductBtn">Nuevo producto</button></div>
+
+          <div class="heading">
+            <h2>Productos y stock</h2>
+            <button id="newProductBtn">Nuevo producto</button>
+          </div>
+
           <div id="productFormCard" class="card hidden" style="margin-bottom:16px">
+
             <h3 id="productFormTitle" style="margin-top:0">Nuevo producto</h3>
+
             <form id="productForm">
+
               <input type="hidden" id="productId">
+
               <div class="formgrid">
-                <div class="field"><label for="pNombre">Nombre</label><input id="pNombre" required maxlength="160"></div>
-                <div class="field"><label for="pPrecio">Precio (ARS)</label><input id="pPrecio" type="number" min="0" step="0.01" required></div>
-                <div class="field"><label for="pStock">Stock</label><input id="pStock" type="number" min="0" step="1" required></div>
-                <div class="field"><label for="pImagen">Ruta o URL de imagen</label><input id="pImagen" placeholder="productos/imagen.jpg"></div>
+
+                <div class="field">
+                  <label for="pNombre">Nombre</label>
+                  <input id="pNombre" required maxlength="160">
+                </div>
+
+                <div class="field">
+                  <label for="pPrecio">Precio (ARS)</label>
+                  <input id="pPrecio" type="number" min="0" step="0.01" required>
+                </div>
+
+                <div class="field">
+                  <label for="pStock">Stock</label>
+                  <input id="pStock" type="number" min="0" step="1" required>
+                </div>
+
+                <div class="field">
+                  <label for="pArchivo">Foto del producto</label>
+                  <input id="pArchivo" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                  <input id="pImagen" type="hidden">
+
+                  <small class="muted">
+                    Seleccioná una foto JPG, PNG, WEBP o GIF.
+                  </small>
+
+                  <img id="previewImagen" class="preview" style="display:none">
+                </div>
+
               </div>
-              <div class="field"><label for="pDescripcion">Descripción</label><textarea id="pDescripcion"></textarea></div>
-              <div class="field"><label><input id="pActivo" type="checkbox" checked style="width:auto"> Producto visible en la tienda</label></div>
-              <div class="actions"><button type="submit" id="saveProductBtn">Guardar producto</button><button type="button" class="secondary" id="cancelProductBtn">Cancelar</button></div>
+
+              <div class="field">
+                <label for="pDescripcion">Descripción</label>
+                <textarea id="pDescripcion"></textarea>
+              </div>
+
+              <div class="field">
+                <label>
+                  <input id="pActivo" type="checkbox" checked style="width:auto">
+                  Producto visible en la tienda
+                </label>
+              </div>
+
+              <div class="actions">
+                <button type="submit" id="saveProductBtn">Guardar producto</button>
+                <button type="button" class="secondary" id="cancelProductBtn">Cancelar</button>
+              </div>
+
               <p id="productMsg" class="small" aria-live="polite"></p>
+
             </form>
           </div>
-          <div class="card"><div id="productsArea" class="table-wrap"><div class="empty">Cargando productos…</div></div></div>
+
+          <div class="card">
+            <div id="productsArea" class="table-wrap">
+              <div class="empty">Cargando productos…</div>
+            </div>
+          </div>
+
         </section>
 
+        <!-- VENTAS -->
         <section id="page-ventas" class="hidden">
-          <div class="heading"><h2>Ventas registradas</h2><button class="secondary" id="refreshSales">Actualizar</button></div>
-          <div class="card"><div id="salesArea" class="table-wrap"><div class="empty">Cargando ventas…</div></div></div>
+
+          <div class="heading">
+            <h2>Ventas registradas</h2>
+            <button class="secondary" id="refreshSales">Actualizar</button>
+          </div>
+
+          <div class="card">
+            <div id="salesArea" class="table-wrap">
+              <div class="empty">Cargando ventas…</div>
+            </div>
+          </div>
+
         </section>
 
+        <!-- USUARIOS -->
         <section id="page-usuarios" class="hidden">
-          <div class="heading"><h2>Usuarios y roles</h2><button class="secondary" id="refreshUsers">Actualizar</button></div>
-          <div class="notice">Esta pantalla permite consultar los perfiles y sus roles. La creación de cuentas de acceso se realiza desde Supabase → Authentication → Users, no desde el navegador público.</div>
-          <div class="card"><div id="usersArea" class="table-wrap"><div class="empty">Cargando usuarios…</div></div></div>
+
+          <div class="heading">
+            <h2>Usuarios y roles</h2>
+            <button class="secondary" id="refreshUsers">Actualizar</button>
+          </div>
+
+          <div class="notice">
+            Esta pantalla permite consultar los perfiles y sus roles. La creación de cuentas de acceso se realiza desde Supabase → Authentication → Users.
+          </div>
+
+          <div class="card">
+            <div id="usersArea" class="table-wrap">
+              <div class="empty">Cargando usuarios…</div>
+            </div>
+          </div>
+
         </section>
+
       </main>
     </div>
   </div>
 </div>
+
 <script>
 (() => {
+
+  // ==========================================
+  // CONFIGURACION SUPABASE
+  // ==========================================
+
   const SUPABASE_URL = 'https://vrmbcydfrbchgbctzudh.supabase.co';
+
   const SUPABASE_ANON_KEY = 'sb_publishable_raH6XfFFeoTxalcwZNxCCA_uneHaIDI';
-  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
   let profile = null;
+
   const $ = id => document.getElementById(id);
-  const money = n => new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:2}).format(Number(n)||0);
-  const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const date = s => s ? new Date(s).toLocaleString('es-AR') : '—';
-  const status = s => `<span class="pill ${esc(s)}">${esc(s||'sin estado')}</span>`;
-  const setMsg = (id,msg,kind='') => { $(id).textContent=msg; $(id).className='small '+kind; };
+
+  const money = n =>
+    new Intl.NumberFormat('es-AR',{
+      style:'currency',
+      currency:'ARS',
+      maximumFractionDigits:2
+    }).format(Number(n)||0);
+
+  const esc = s =>
+    String(s ?? '').replace(/[&<>"']/g,c=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c]));
+
+  const date = s =>
+    s ? new Date(s).toLocaleString('es-AR') : '—';
+
+  const status = s =>
+    `<span class="pill ${esc(s)}">${esc(s||'sin estado')}</span>`;
+
+  const setMsg = (id,msg,kind='') => {
+    $(id).textContent=msg;
+    $(id).className='small '+kind;
+  };
+
   const isAdmin = () => profile?.rol === 'admin';
 
-  async function loadProfile(user) {
-    const {data,error}=await db.from('perfiles').select('id,email,nombre,rol').eq('id',user.id).single();
+
+  // ==========================================
+  // VISTA PREVIA DE IMAGEN
+  // ==========================================
+
+  let previewUrl = null;
+
+  $('pArchivo').addEventListener('change', () => {
+
+    const file = $('pArchivo').files[0];
+    const preview = $('previewImagen');
+
+    if(previewUrl){
+      URL.revokeObjectURL(previewUrl);
+      previewUrl = null;
+    }
+
+    if(!file){
+      preview.style.display='none';
+      return;
+    }
+
+    if(!file.type.startsWith('image/')){
+      alert('El archivo seleccionado no es una imagen.');
+      $('pArchivo').value='';
+      preview.style.display='none';
+      return;
+    }
+
+    previewUrl = URL.createObjectURL(file);
+    preview.src = previewUrl;
+    preview.style.display='block';
+
+  });
+
+
+  // ==========================================
+  // SUBIR IMAGEN A SUPABASE STORAGE
+  // ==========================================
+
+  async function subirImagen(file){
+
+    const extension = file.name.split('.').pop().toLowerCase();
+
+    const nombre = `${crypto.randomUUID()}.${extension}`;
+
+    const ruta = nombre;
+
+    const {data,error} = await db.storage
+      .from('productos')
+      .upload(ruta,file,{
+        cacheControl:'3600',
+        upsert:false,
+        contentType:file.type
+      });
+
     if(error) throw error;
-    if(!data || !['admin','vendedor'].includes(data.rol)) throw new Error('El usuario no tiene un perfil autorizado.');
+
+    const {data:publicData} = db.storage
+      .from('productos')
+      .getPublicUrl(ruta);
+
+    if(!publicData?.publicUrl){
+      throw new Error('No se pudo obtener la URL pública de la imagen.');
+    }
+
+    return publicData.publicUrl;
+
+  }
+
+
+  // ==========================================
+  // PERFIL
+  // ==========================================
+
+  async function loadProfile(user){
+
+    const {data,error} = await db
+      .from('perfiles')
+      .select('id,email,nombre,rol')
+      .eq('id',user.id)
+      .single();
+
+    if(error) throw error;
+
+    if(!data || !['admin','vendedor'].includes(data.rol)){
+      throw new Error('El usuario no tiene un perfil autorizado.');
+    }
+
     profile=data;
   }
+
+
   function showApp(){
-    $('loginView').classList.add('hidden'); $('appView').classList.remove('hidden');
-    $('userName').textContent=profile.nombre; $('userRole').textContent=profile.rol==='admin'?'Administrador':'Vendedora';
-    document.querySelectorAll('.admin-only').forEach(el=>el.classList.toggle('hidden',!isAdmin()));
-    showPage('pedidos'); loadOrders();
+
+    $('loginView').classList.add('hidden');
+    $('appView').classList.remove('hidden');
+
+    $('userName').textContent=profile.nombre;
+    $('userRole').textContent=profile.rol==='admin'
+      ? 'Administrador'
+      : 'Vendedora';
+
+    document.querySelectorAll('.admin-only')
+      .forEach(el=>el.classList.toggle('hidden',!isAdmin()));
+
+    showPage('pedidos');
+    loadOrders();
   }
+
+
   function showPage(page){
+
     if(page!=='pedidos' && !isAdmin()) return;
-    document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+
+    document.querySelectorAll('main section')
+      .forEach(s=>s.classList.add('hidden'));
+
     $('page-'+page).classList.remove('hidden');
-    document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+
+    document.querySelectorAll('#nav button')
+      .forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+
     if(page==='productos') loadProducts();
     if(page==='ventas') loadSales();
     if(page==='usuarios') loadUsers();
+
   }
-  async function cancelOrder(id, number){
-    const ok = confirm(`¿Anular el pedido ${number}? Si está pendiente o confirmado, se devolverán las unidades al stock.`);
+
+
+  // ==========================================
+  // ANULAR PEDIDOS
+  // ==========================================
+
+  async function cancelOrder(id,number){
+
+    const ok = confirm(
+      `¿Anular el pedido ${number}? Si está pendiente o confirmado, se devolverán las unidades al stock.`
+    );
+
     if(!ok) return;
-    const {data,error}=await db.rpc('cancelar_pedido',{p_pedido_id:Number(id)});
-    if(error){alert('No se pudo anular el pedido: '+error.message);return;}
-    if(data?.ok){alert(data.ya_estaba_cancelado?'Este pedido ya estaba anulado.':'Pedido anulado y stock restituido.');await loadOrders();}
-    else {alert('La operación no se completó.');}
+
+    const {data,error} = await db.rpc(
+      'cancelar_pedido',
+      {p_pedido_id:Number(id)}
+    );
+
+    if(error){
+      alert('No se pudo anular el pedido: '+error.message);
+      return;
+    }
+
+    if(data?.ok){
+
+      alert(
+        data.ya_estaba_cancelado
+          ? 'Este pedido ya estaba anulado.'
+          : 'Pedido anulado y stock restituido.'
+      );
+
+      await loadOrders();
+
+    }else{
+      alert('La operación no se completó.');
+    }
+
   }
+
+
+  // ==========================================
+  // CARGAR PEDIDOS
+  // ==========================================
+
   async function loadOrders(){
+
     $('ordersArea').innerHTML='<div class="empty">Cargando pedidos…</div>';
-    const {data,error}=await db.from('pedidos').select('id,numero_pedido,nombre_cliente,telefono_cliente,localidad,observaciones,estado,total,created_at').order('created_at',{ascending:false});
-    if(error){$('ordersArea').innerHTML=`<p class="error">No se pudieron cargar los pedidos: ${esc(error.message)}</p>`;return;}
+
+    const {data,error} = await db
+      .from('pedidos')
+      .select('id,numero_pedido,nombre_cliente,telefono_cliente,localidad,observaciones,estado,total,created_at')
+      .order('created_at',{ascending:false});
+
+    if(error){
+
+      $('ordersArea').innerHTML=
+        `<p class="error">No se pudieron cargar los pedidos: ${esc(error.message)}</p>`;
+
+      return;
+    }
+
     const rows=data||[];
+
     $('ordersTotal').textContent=rows.length;
-    $('ordersPending').textContent=rows.filter(x=>x.estado==='pendiente').length;
-    $('ordersDelivered').textContent=rows.filter(x=>x.estado==='entregado').length;
-    if(!rows.length){$('ordersArea').innerHTML='<div class="empty">Todavía no hay pedidos.</div>';return;}
-    $('ordersArea').innerHTML=`<table class="table"><thead><tr><th>Pedido</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Total</th><th>Acciones</th></tr></thead><tbody>${rows.map(o=>{
-      const phone=String(o.telefono_cliente||'').replace(/\D/g,'');
-      const msg=encodeURIComponent(`Hola ${o.nombre_cliente||''}, te contactamos por tu pedido ${o.numero_pedido} de CLICKOFERTA.`);
-      return `<tr><td><strong>${esc(o.numero_pedido)}</strong><div class="small muted">#${esc(o.id)}</div></td><td>${esc(o.nombre_cliente)}<div class="small muted">${esc(o.telefono_cliente)} · ${esc(o.localidad)}</div></td><td>${date(o.created_at)}</td><td>${status(o.estado)}</td><td>${money(o.total)}</td><td><div class="actions"><button class="secondary" data-detail="${esc(o.id)}">Detalle</button>${phone?`<a href="https://wa.me/${phone}?text=${msg}" target="_blank" rel="noopener" style="text-decoration:none"><button type="button" style="background:#16845b">WhatsApp</button></a>`:''}${['pendiente','confirmado'].includes(o.estado)?`<button type="button" class="danger" data-cancel="${esc(o.id)}" data-number="${esc(o.numero_pedido)}">Anular</button>`:''}</div></td></tr>`;
-    }).join('')}</tbody></table>`;
-    $('ordersArea').querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>showOrderDetail(b.dataset.detail)));
-    $('ordersArea').querySelectorAll('[data-cancel]').forEach(b=>b.addEventListener('click',()=>cancelOrder(b.dataset.cancel,b.dataset.number)));
+
+    $('ordersPending').textContent=
+      rows.filter(x=>x.estado==='pendiente').length;
+
+    $('ordersDelivered').textContent=
+      rows.filter(x=>x.estado==='entregado').length;
+
+    if(!rows.length){
+
+      $('ordersArea').innerHTML=
+        '<div class="empty">Todavía no hay pedidos.</div>';
+
+      return;
+    }
+
+    $('ordersArea').innerHTML=`
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Pedido</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(o=>{
+
+            const phone=String(o.telefono_cliente||'').replace(/\D/g,'');
+
+            const msg=encodeURIComponent(
+              `Hola ${o.nombre_cliente||''}, te contactamos por tu pedido ${o.numero_pedido} de CLICKOFERTA.`
+            );
+
+            return `
+              <tr>
+                <td>
+                  <strong>${esc(o.numero_pedido)}</strong>
+                  <div class="small muted">#${esc(o.id)}</div>
+                </td>
+
+                <td>
+                  ${esc(o.nombre_cliente)}
+                  <div class="small muted">
+                    ${esc(o.telefono_cliente)} · ${esc(o.localidad)}
+                  </div>
+                </td>
+
+                <td>${date(o.created_at)}</td>
+
+                <td>${status(o.estado)}</td>
+
+                <td>${money(o.total)}</td>
+
+                <td>
+                  <div class="actions">
+
+                    <button class="secondary" data-detail="${esc(o.id)}">
+                      Detalle
+                    </button>
+
+                    ${phone ? `
+                      <a href="https://wa.me/${phone}?text=${msg}"
+                         target="_blank"
+                         rel="noopener"
+                         style="text-decoration:none">
+                        <button type="button" style="background:#16845b">
+                          WhatsApp
+                        </button>
+                      </a>
+                    `:''}
+
+                    ${['pendiente','confirmado'].includes(o.estado)?`
+                      <button type="button"
+                        class="danger"
+                        data-cancel="${esc(o.id)}"
+                        data-number="${esc(o.numero_pedido)}">
+                        Anular
+                      </button>
+                    `:''}
+
+                  </div>
+                </td>
+              </tr>
+            `;
+
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+
+    $('ordersArea').querySelectorAll('[data-detail]')
+      .forEach(b=>b.addEventListener('click',()=>showOrderDetail(b.dataset.detail)));
+
+    $('ordersArea').querySelectorAll('[data-cancel]')
+      .forEach(b=>b.addEventListener('click',()=>cancelOrder(b.dataset.cancel,b.dataset.number)));
+
   }
+
+
   async function showOrderDetail(id){
-    const {data,error}=await db.from('detalle_pedidos').select('nombre_producto,cantidad,precio_unitario,subtotal').eq('pedido_id',id);
-    if(error){alert('No se pudo cargar el detalle: '+error.message);return;}
-    const lines=(data||[]).map(x=>`${x.nombre_producto} — ${x.cantidad} x ${money(x.precio_unitario)} = ${money(x.subtotal)}`).join('\n');
+
+    const {data,error} = await db
+      .from('detalle_pedidos')
+      .select('nombre_producto,cantidad,precio_unitario,subtotal')
+      .eq('pedido_id',id);
+
+    if(error){
+      alert('No se pudo cargar el detalle: '+error.message);
+      return;
+    }
+
+    const lines=(data||[])
+      .map(x=>`${x.nombre_producto} — ${x.cantidad} x ${money(x.precio_unitario)} = ${money(x.subtotal)}`)
+      .join('\n');
+
     alert(lines||'El pedido no tiene renglones de detalle.');
+
   }
+
+
+  // ==========================================
+  // CARGAR PRODUCTOS
+  // ==========================================
+
   async function loadProducts(){
+
     $('productsArea').innerHTML='<div class="empty">Cargando productos…</div>';
-    const {data,error}=await db.from('productos').select('id,nombre,descripcion,precio,stock,imagen,activo').order('id');
-    if(error){$('productsArea').innerHTML=`<p class="error">No se pudieron cargar los productos: ${esc(error.message)}</p>`;return;}
-    if(!data?.length){$('productsArea').innerHTML='<div class="empty">No hay productos cargados.</div>';return;}
-    $('productsArea').innerHTML=`<table class="table"><thead><tr><th>Producto</th><th>Precio</th><th>Stock</th><th>Visibilidad</th><th>Acciones</th></tr></thead><tbody>${data.map(p=>`<tr><td><span class="product-name">${esc(p.nombre)}</span><div class="small muted">${esc(p.descripcion)}</div></td><td>${money(p.precio)}</td><td><strong>${p.stock}</strong></td><td>${p.activo?'<span class="pill">Visible</span>':'<span class="pill">Oculto</span>'}</td><td><div class="actions"><button class="secondary" data-edit="${esc(p.id)}">Editar</button><button class="danger" data-delete="${esc(p.id)}">Eliminar</button></div></td></tr>`).join('')}</tbody></table>`;
-    data.forEach(p=>{const b=$('productsArea').querySelector(`[data-edit="${CSS.escape(String(p.id))}"]`);b?.addEventListener('click',()=>editProduct(p));});
-    $('productsArea').querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>deleteProduct(b.dataset.delete)));
+
+    const {data,error} = await db
+      .from('productos')
+      .select('id,nombre,descripcion,precio,stock,imagen,activo')
+      .order('id');
+
+    if(error){
+
+      $('productsArea').innerHTML=
+        `<p class="error">No se pudieron cargar los productos: ${esc(error.message)}</p>`;
+
+      return;
+    }
+
+    if(!data?.length){
+
+      $('productsArea').innerHTML=
+        '<div class="empty">No hay productos cargados.</div>';
+
+      return;
+    }
+
+    $('productsArea').innerHTML=`
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Visibilidad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${data.map(p=>`
+            <tr>
+              <td>
+                <span class="product-name">${esc(p.nombre)}</span>
+                <div class="small muted">${esc(p.descripcion)}</div>
+              </td>
+
+              <td>${money(p.precio)}</td>
+
+              <td><strong>${p.stock}</strong></td>
+
+              <td>
+                ${p.activo
+                  ? '<span class="pill">Visible</span>'
+                  : '<span class="pill">Oculto</span>'
+                }
+              </td>
+
+              <td>
+                <div class="actions">
+                  <button class="secondary" data-edit="${esc(p.id)}">
+                    Editar
+                  </button>
+
+                  <button class="danger" data-delete="${esc(p.id)}">
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+
+    data.forEach(p=>{
+
+      const b=$('productsArea').querySelector(
+        `[data-edit="${CSS.escape(String(p.id))}"]`
+      );
+
+      b?.addEventListener('click',()=>editProduct(p));
+
+    });
+
+    $('productsArea').querySelectorAll('[data-delete]')
+      .forEach(b=>b.addEventListener('click',()=>deleteProduct(b.dataset.delete)));
+
   }
+
+
+  // ==========================================
+  // NUEVO PRODUCTO / EDITAR PRODUCTO
+  // ==========================================
+
   function editProduct(p=null){
-    $('productForm').reset(); $('productId').value=p?.id??''; $('pNombre').value=p?.nombre??''; $('pPrecio').value=p?.precio??''; $('pStock').value=p?.stock??0; $('pImagen').value=p?.imagen??''; $('pDescripcion').value=p?.descripcion??''; $('pActivo').checked=p?.activo??true;
-    $('productFormTitle').textContent=p?'Editar producto':'Nuevo producto'; $('productFormCard').classList.remove('hidden'); setMsg('productMsg','');
-    $('productFormCard').scrollIntoView({behavior:'smooth',block:'start'});
+
+    $('productForm').reset();
+
+    $('productId').value=p?.id??'';
+    $('pNombre').value=p?.nombre??'';
+    $('pPrecio').value=p?.precio??'';
+    $('pStock').value=p?.stock??0;
+    $('pImagen').value=p?.imagen??'';
+    $('pDescripcion').value=p?.descripcion??'';
+    $('pActivo').checked=p?.activo??true;
+
+    $('pArchivo').value='';
+
+    if(previewUrl){
+      URL.revokeObjectURL(previewUrl);
+      previewUrl=null;
+    }
+
+    const preview=$('previewImagen');
+
+    if(p?.imagen){
+
+      preview.src=p.imagen;
+      preview.style.display='block';
+
+    }else{
+
+      preview.removeAttribute('src');
+      preview.style.display='none';
+
+    }
+
+    $('productFormTitle').textContent=
+      p?'Editar producto':'Nuevo producto';
+
+    $('productFormCard').classList.remove('hidden');
+
+    setMsg('productMsg','');
+
+    $('productFormCard').scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+
   }
+
+
+  // ==========================================
+  // GUARDAR PRODUCTO Y SUBIR FOTO
+  // ==========================================
+
   async function saveProduct(ev){
-    ev.preventDefault(); const id=$('productId').value;
-    const row={nombre:$('pNombre').value.trim(),precio:Number($('pPrecio').value),stock:Number($('pStock').value),imagen:$('pImagen').value.trim(),descripcion:$('pDescripcion').value.trim(),activo:$('pActivo').checked};
-    if(!row.nombre || row.precio<0 || !Number.isInteger(row.stock) || row.stock<0){setMsg('productMsg','Revisá el nombre, el precio y el stock.','error');return;}
-    $('saveProductBtn').disabled=true; setMsg('productMsg','Guardando…');
-    const result=id?await db.from('productos').update(row).eq('id',id):await db.from('productos').insert(row);
-    $('saveProductBtn').disabled=false;
-    if(result.error){setMsg('productMsg','Error: '+result.error.message,'error');return;}
-    setMsg('productMsg','Producto guardado correctamente.','ok'); $('productFormCard').classList.add('hidden'); await loadProducts();
+
+    ev.preventDefault();
+
+    const id=$('productId').value;
+    const file=$('pArchivo').files[0];
+
+    const row={
+
+      nombre:$('pNombre').value.trim(),
+
+      precio:Number($('pPrecio').value),
+
+      stock:Number($('pStock').value),
+
+      imagen:$('pImagen').value.trim(),
+
+      descripcion:$('pDescripcion').value.trim(),
+
+      activo:$('pActivo').checked
+
+    };
+
+    if(
+      !row.nombre ||
+      !Number.isFinite(row.precio) ||
+      row.precio<0 ||
+      !Number.isInteger(row.stock) ||
+      row.stock<0
+    ){
+
+      setMsg(
+        'productMsg',
+        'Revisá el nombre, el precio y el stock.',
+        'error'
+      );
+
+      return;
+    }
+
+    if(file){
+
+      if(!file.type.startsWith('image/')){
+
+        setMsg(
+          'productMsg',
+          'Seleccioná un archivo de imagen válido.',
+          'error'
+        );
+
+        return;
+      }
+
+      if(file.size>8*1024*1024){
+
+        setMsg(
+          'productMsg',
+          'La imagen no puede superar los 8 MB.',
+          'error'
+        );
+
+        return;
+      }
+
+    }
+
+    $('saveProductBtn').disabled=true;
+
+    try{
+
+      setMsg('productMsg','Preparando producto...');
+
+      // SUBIR FOTO SI SE SELECCIONO UNA NUEVA
+      if(file){
+
+        setMsg('productMsg','Subiendo fotografía a Supabase...');
+
+        row.imagen=await subirImagen(file);
+
+      }
+
+      // GUARDAR DATOS EN TABLA PRODUCTOS
+      setMsg('productMsg','Guardando datos del producto...');
+
+      const result=id
+        ? await db.from('productos').update(row).eq('id',id)
+        : await db.from('productos').insert(row);
+
+      if(result.error) throw result.error;
+
+      setMsg(
+        'productMsg',
+        'Producto guardado correctamente.',
+        'ok'
+      );
+
+      $('productFormCard').classList.add('hidden');
+
+      await loadProducts();
+
+    }catch(error){
+
+      console.error('Error al guardar producto:',error);
+
+      setMsg(
+        'productMsg',
+        'Error: '+error.message,
+        'error'
+      );
+
+    }finally{
+
+      $('saveProductBtn').disabled=false;
+
+    }
+
   }
+
+
+  // ==========================================
+  // ELIMINAR PRODUCTO
+  // ==========================================
+
   async function deleteProduct(id){
-    if(!confirm('¿Eliminar este producto? Si ya aparece en pedidos, la referencia del producto se conservará como detalle histórico.'))return;
-    const {error}=await db.from('productos').delete().eq('id',id);
-    if(error){alert('No se pudo eliminar: '+error.message);return;} await loadProducts();
+
+    if(!confirm(
+      '¿Eliminar este producto? Si ya aparece en pedidos, la referencia del producto se conservará como detalle histórico.'
+    )) return;
+
+    const {error}=await db
+      .from('productos')
+      .delete()
+      .eq('id',id);
+
+    if(error){
+
+      alert('No se pudo eliminar: '+error.message);
+      return;
+
+    }
+
+    await loadProducts();
+
   }
+
+
+  // ==========================================
+  // VENTAS
+  // ==========================================
+
   async function loadSales(){
+
     $('salesArea').innerHTML='<div class="empty">Cargando ventas…</div>';
-    const {data,error}=await db.from('ventas').select('id,pedido_id,total,created_at').order('created_at',{ascending:false});
-    if(error){$('salesArea').innerHTML=`<p class="error">No se pudieron cargar las ventas: ${esc(error.message)}</p>`;return;}
-    if(!data?.length){$('salesArea').innerHTML='<div class="empty">Todavía no hay ventas registradas.</div>';return;}
-    $('salesArea').innerHTML=`<table class="table"><thead><tr><th>ID venta</th><th>Pedido</th><th>Fecha</th><th>Total</th></tr></thead><tbody>${data.map(v=>`<tr><td>${esc(v.id)}</td><td>${esc(v.pedido_id)}</td><td>${date(v.created_at)}</td><td>${money(v.total)}</td></tr>`).join('')}</tbody></table>`;
+
+    const {data,error}=await db
+      .from('ventas')
+      .select('id,pedido_id,total,created_at')
+      .order('created_at',{ascending:false});
+
+    if(error){
+
+      $('salesArea').innerHTML=
+        `<p class="error">No se pudieron cargar las ventas: ${esc(error.message)}</p>`;
+
+      return;
+    }
+
+    if(!data?.length){
+
+      $('salesArea').innerHTML=
+        '<div class="empty">Todavía no hay ventas registradas.</div>';
+
+      return;
+    }
+
+    $('salesArea').innerHTML=`
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID venta</th>
+            <th>Pedido</th>
+            <th>Fecha</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${data.map(v=>`
+            <tr>
+              <td>${esc(v.id)}</td>
+              <td>${esc(v.pedido_id)}</td>
+              <td>${date(v.created_at)}</td>
+              <td>${money(v.total)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+
   }
+
+
+  // ==========================================
+  // USUARIOS
+  // ==========================================
+
   async function loadUsers(){
+
     $('usersArea').innerHTML='<div class="empty">Cargando perfiles…</div>';
-    const {data,error}=await db.from('perfiles').select('nombre,email,rol,created_at').order('nombre');
-    if(error){$('usersArea').innerHTML=`<p class="error">No se pudieron cargar los perfiles: ${esc(error.message)}</p>`;return;}
-    $('usersArea').innerHTML=data?.length?`<table class="table"><thead><tr><th>Usuario</th><th>Correo</th><th>Rol</th><th>Alta</th></tr></thead><tbody>${data.map(u=>`<tr><td>${esc(u.nombre)}</td><td>${esc(u.email)}</td><td>${esc(u.rol)}</td><td>${date(u.created_at)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">No hay perfiles.</div>';
+
+    const {data,error}=await db
+      .from('perfiles')
+      .select('nombre,email,rol,created_at')
+      .order('nombre');
+
+    if(error){
+
+      $('usersArea').innerHTML=
+        `<p class="error">No se pudieron cargar los perfiles: ${esc(error.message)}</p>`;
+
+      return;
+    }
+
+    $('usersArea').innerHTML=data?.length
+      ? `
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Correo</th>
+              <th>Rol</th>
+              <th>Alta</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            ${data.map(u=>`
+              <tr>
+                <td>${esc(u.nombre)}</td>
+                <td>${esc(u.email)}</td>
+                <td>${esc(u.rol)}</td>
+                <td>${date(u.created_at)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `
+      : '<div class="empty">No hay perfiles.</div>';
+
   }
+
+
+  // ==========================================
+  // LOGIN
+  // ==========================================
+
   $('loginForm').addEventListener('submit',async ev=>{
-    ev.preventDefault(); $('loginBtn').disabled=true; $('loginMsg').textContent='Ingresando…';
-    const {data,error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
-    if(error){$('loginMsg').textContent='No se pudo iniciar sesión: '+error.message;$('loginBtn').disabled=false;return;}
-    try{await loadProfile(data.user);showApp();}catch(e){await db.auth.signOut();$('loginMsg').textContent=e.message;$('loginBtn').disabled=false;}
+
+    ev.preventDefault();
+
+    $('loginBtn').disabled=true;
+    $('loginMsg').textContent='Ingresando…';
+
+    const {data,error}=await db.auth.signInWithPassword({
+
+      email:$('email').value.trim(),
+
+      password:$('password').value
+
+    });
+
+    if(error){
+
+      $('loginMsg').textContent=
+        'No se pudo iniciar sesión: '+error.message;
+
+      $('loginBtn').disabled=false;
+
+      return;
+    }
+
+    try{
+
+      await loadProfile(data.user);
+
+      showApp();
+
+    }catch(e){
+
+      await db.auth.signOut();
+
+      $('loginMsg').textContent=e.message;
+
+      $('loginBtn').disabled=false;
+
+    }
+
   });
-  $('logoutBtn').addEventListener('click',async()=>{await db.auth.signOut();profile=null;$('appView').classList.add('hidden');$('loginView').classList.remove('hidden');$('loginForm').reset();$('loginBtn').disabled=false;});
-  $('nav').addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(b)showPage(b.dataset.page);});
-  $('refreshOrders').addEventListener('click',loadOrders); $('refreshSales').addEventListener('click',loadSales); $('refreshUsers').addEventListener('click',loadUsers);
-  $('newProductBtn').addEventListener('click',()=>editProduct()); $('cancelProductBtn').addEventListener('click',()=>$('productFormCard').classList.add('hidden')); $('productForm').addEventListener('submit',saveProduct);
-  db.auth.getSession().then(async({data})=>{if(data.session){try{await loadProfile(data.session.user);showApp();}catch(e){await db.auth.signOut();}}});
+
+
+  // ==========================================
+  // CERRAR SESION
+  // ==========================================
+
+  $('logoutBtn').addEventListener('click',async()=>{
+
+    await db.auth.signOut();
+
+    profile=null;
+
+    $('appView').classList.add('hidden');
+    $('loginView').classList.remove('hidden');
+
+    $('loginForm').reset();
+
+    $('loginBtn').disabled=false;
+
+  });
+
+
+  // ==========================================
+  // NAVEGACION Y BOTONES
+  // ==========================================
+
+  $('nav').addEventListener('click',e=>{
+
+    const b=e.target.closest('button[data-page]');
+
+    if(b) showPage(b.dataset.page);
+
+  });
+
+  $('refreshOrders').addEventListener('click',loadOrders);
+
+  $('refreshSales').addEventListener('click',loadSales);
+
+  $('refreshUsers').addEventListener('click',loadUsers);
+
+  $('newProductBtn').addEventListener('click',()=>editProduct());
+
+  $('cancelProductBtn').addEventListener('click',()=>{
+
+    $('productFormCard').classList.add('hidden');
+
+    $('productForm').reset();
+
+    $('previewImagen').style.display='none';
+
+    $('pImagen').value='';
+
+    if(previewUrl){
+      URL.revokeObjectURL(previewUrl);
+      previewUrl=null;
+    }
+
+  });
+
+  $('productForm').addEventListener('submit',saveProduct);
+
+
+  // ==========================================
+  // RECUPERAR SESION
+  // ==========================================
+
+  db.auth.getSession().then(async({data})=>{
+
+    if(data.session){
+
+      try{
+
+        await loadProfile(data.session.user);
+
+        showApp();
+
+      }catch(e){
+
+        console.error(e);
+
+        await db.auth.signOut();
+
+      }
+
+    }
+
+  });
+
 })();
 </script>
+
 </body>
 </html>
