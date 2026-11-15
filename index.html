@@ -72,13 +72,19 @@ header{flex-direction:column;gap:12px}
 .menu a{margin:0 4px}
 .banner{min-height:330px}
 .grid{grid-template-columns:1fr;max-width:520px}
-.card img{height:300px}
+.product-main-image{height:300px}
 .beneficios{grid-template-columns:1fr;gap:5px}
 #carrito{margin:20px 12px 45px;padding:18px}
 .cart-item{flex-wrap:wrap}
 .form-grid{grid-template-columns:1fr}
 .field.full{grid-column:auto}
 }
+
+/* Visor ampliado de fotos */
+.image-viewer{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:3000;align-items:center;justify-content:center;padding:20px}
+.image-viewer.open{display:flex}
+.image-viewer img{max-width:95vw;max-height:88vh;object-fit:contain}
+.image-viewer button{position:absolute;top:18px;right:22px;background:white;border:0;border-radius:50%;width:42px;height:42px;font-size:25px;cursor:pointer}
 </style>
 </head>
 
@@ -156,11 +162,16 @@ header{flex-direction:column;gap:12px}
   <p>© 2026 ClickOferta. Todos los derechos reservados.</p>
 </footer>
 
+<div class="image-viewer" id="image-viewer" onclick="cerrarVisor(event)">
+  <button type="button" aria-label="Cerrar">×</button>
+  <img id="image-viewer-photo" alt="Foto ampliada del producto">
+</div>
+
 <script>
 /*
   ClickOferta - conexión pública con Supabase.
-  La Publishable Key está diseñada para utilizarse en el navegador.
-  Nunca colocar aquí una service_role o secret key.
+  Para las fotos: usar URLs de GitHub Pages en la columna productos.imagen.
+  Se admiten hasta cuatro direcciones separadas por el carácter |.
 */
 const SUPABASE_URL = "https://vrmbcydfrbchgbctzudh.supabase.co";
 const SUPABASE_KEY = "sb_publishable_raH6XfFFeoTxalcwZNxCCA_uneHaIDI";
@@ -174,6 +185,35 @@ function formatoPrecio(valor) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2
   });
+}
+
+/* Convierte el campo imagen en una lista de hasta cuatro fotos.
+   Acepta una sola URL (formato anterior), varias separadas por |,
+   o un arreglo JSON de URLs. */
+function obtenerFotos(valor) {
+  if (!valor) return [];
+  let direcciones = [];
+
+  if (Array.isArray(valor)) {
+    direcciones = valor;
+  } else {
+    const texto = String(valor).trim();
+    if (!texto) return [];
+
+    if (texto.startsWith("[")) {
+      try {
+        const json = JSON.parse(texto);
+        if (Array.isArray(json)) direcciones = json;
+        else direcciones = [texto];
+      } catch {
+        direcciones = texto.split("|");
+      }
+    } else {
+      direcciones = texto.split("|");
+    }
+  }
+
+  return [...new Set(direcciones.map(url => String(url).trim()).filter(Boolean))].slice(0, 4);
 }
 
 async function supabaseFetch(ruta, opciones = {}) {
@@ -207,37 +247,12 @@ async function cargarProductos() {
       "/rest/v1/productos_tienda?select=id,nombre,descripcion,precio,imagen,activo&activo=eq.true&order=id.asc"
     );
 
-    // Las fotos adicionales se consultan aparte. Si la galería todavía no responde,
-    // la tienda sigue mostrando la imagen principal que ya tenía cada producto.
-    let fotos = [];
-    try {
-      fotos = await supabaseFetch(
-        "/rest/v1/producto_fotos?select=producto_id,url,orden&order=orden.asc"
-      );
-    } catch (errorFotos) {
-      console.warn("No se pudo cargar la galería; se usará la foto principal:", errorFotos);
-    }
-
-    const fotosPorProducto = {};
-    (fotos || []).forEach(foto => {
-      const id = String(foto.producto_id);
-      if (!fotosPorProducto[id]) fotosPorProducto[id] = [];
-      if (foto.url && !fotosPorProducto[id].includes(foto.url)) {
-        fotosPorProducto[id].push(foto.url);
-      }
-    });
-
     productos = {};
     lista.forEach(p => {
-      const adicionales = fotosPorProducto[String(p.id)] || [];
-      // Conserva la imagen principal actual como primera foto y evita duplicados.
-      p.fotos = p.imagen
-        ? [p.imagen, ...adicionales.filter(url => url !== p.imagen)]
-        : adicionales;
+      p.fotos = obtenerFotos(p.imagen);
       productos[String(p.id)] = p;
     });
 
-    // Recuperar solamente cantidades válidas para productos que siguen activos.
     try {
       const guardado = JSON.parse(localStorage.getItem("clickoferta_carrito") || "{}");
       Object.keys(guardado).forEach(id => {
@@ -259,38 +274,59 @@ async function cargarProductos() {
   }
 }
 
+function abrirVisor(url) {
+  if (!url) return;
+  document.getElementById("image-viewer-photo").src = url;
+  document.getElementById("image-viewer").classList.add("open");
+}
+
+function cerrarVisor(event) {
+  if (event && event.target && event.target.id === "image-viewer-photo") return;
+  document.getElementById("image-viewer").classList.remove("open");
+}
+
 function dibujarProductos() {
   const grid = document.getElementById("productos-grid");
   grid.innerHTML = "";
 
   Object.values(productos).forEach(producto => {
-    const sinStock = false;
     const card = document.createElement("article");
     card.className = "card";
 
     const galeria = document.createElement("div");
     galeria.className = "product-gallery";
 
+    const fotosProducto = (producto.fotos || []).slice(0, 4);
     const img = document.createElement("img");
     img.className = "product-main-image";
-    img.src = (producto.fotos && producto.fotos[0]) || producto.imagen || "";
     img.alt = producto.nombre;
-    img.onerror = () => { img.style.display = "none"; };
+    img.src = fotosProducto[0] || "";
+    img.onerror = () => {
+      img.removeAttribute("src");
+      img.alt = "Foto no disponible";
+      img.style.cursor = "default";
+    };
+    img.onclick = () => {
+      if (img.src && fotosProducto.length) abrirVisor(img.src);
+    };
     galeria.appendChild(img);
 
-    const miniaturas = document.createElement("div");
-    miniaturas.className = "product-thumbnails";
-    const fotosProducto = producto.fotos || (producto.imagen ? [producto.imagen] : []);
     if (fotosProducto.length > 1) {
+      const miniaturas = document.createElement("div");
+      miniaturas.className = "product-thumbnails";
+
       fotosProducto.forEach((urlFoto, indice) => {
         const miniatura = document.createElement("button");
         miniatura.type = "button";
         miniatura.className = "product-thumbnail" + (indice === 0 ? " active" : "");
         miniatura.setAttribute("aria-label", "Ver foto " + (indice + 1) + " de " + producto.nombre);
+
         const imagenMiniatura = document.createElement("img");
         imagenMiniatura.src = urlFoto;
         imagenMiniatura.alt = "";
+        imagenMiniatura.onerror = () => miniatura.style.display = "none";
         miniatura.appendChild(imagenMiniatura);
+
         miniatura.onclick = () => {
           img.src = urlFoto;
           miniaturas.querySelectorAll(".product-thumbnail").forEach(b => b.classList.remove("active"));
@@ -298,6 +334,7 @@ function dibujarProductos() {
         };
         miniaturas.appendChild(miniatura);
       });
+
       galeria.appendChild(miniaturas);
     }
 
@@ -316,13 +353,12 @@ function dibujarProductos() {
     precio.textContent = formatoPrecio(producto.precio);
 
     const stock = document.createElement("span");
-    stock.className = sinStock ? "stock sin-stock" : "stock";
+    stock.className = "stock";
     stock.textContent = "Disponible";
 
     const boton = document.createElement("button");
     boton.className = "btn add-button";
     boton.textContent = "🛒 Agregar al carrito";
-    boton.disabled = false;
     boton.onclick = () => agregarAlCarrito(String(producto.id));
 
     body.append(titulo, descripcion, precio, stock, boton);
@@ -342,9 +378,7 @@ function guardarCarrito() {
 function agregarAlCarrito(id) {
   const producto = productos[id];
   if (!producto) return;
-
-  const cantidad = carrito[id] || 0;
-  carrito[id] = cantidad + 1;
+  carrito[id] = (carrito[id] || 0) + 1;
   actualizarCarrito();
   document.getElementById("carrito").style.display = "block";
 }
@@ -352,13 +386,9 @@ function agregarAlCarrito(id) {
 function cambiarCantidad(id, cambio) {
   const producto = productos[id];
   if (!producto) return;
-
   const nuevaCantidad = (carrito[id] || 0) + cambio;
-  if (nuevaCantidad <= 0) {
-    delete carrito[id];
-  } else {
-    carrito[id] = nuevaCantidad;
-  }
+  if (nuevaCantidad <= 0) delete carrito[id];
+  else carrito[id] = nuevaCantidad;
   actualizarCarrito();
 }
 
@@ -509,7 +539,6 @@ async function enviarPedido() {
     if (comentario) texto += "\nComentario: " + comentario + "\n";
     texto += "\nQuedo a la espera de confirmación. ¡Gracias!";
 
-    // El pedido ya está registrado en Supabase antes de abrir WhatsApp.
     mensajeEstado.textContent = "Pedido " + numeroPedido + " registrado. Abriendo WhatsApp...";
     vaciarCarrito();
     await cargarProductos();
@@ -533,8 +562,7 @@ async function enviarPedido() {
   }
 }
 
-// Al abrir el sitio, consultar el catálogo público sin exponer cantidades de stock.
- // crear_pedido valida y descuenta el stock de forma segura en Supabase.
+// El stock se valida y descuenta de forma segura en Supabase al confirmar el pedido.
 cargarProductos();
 </script>
 </body>
