@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,98 +7,1046 @@
   <meta name="theme-color" content="#f97316">
   <title>ClickOferta | Ofertas y Novedades</title>
   <meta name="description" content="Ofertas y productos seleccionados de ClickOferta. Hacé tu pedido online.">
+
   <style>
-    :root{--naranja:#f97316;--naranja2:#ea580c;--oscuro:#1f2937;--gris:#6b7280;--fondo:#fff7ed;--borde:#fed7aa;--verde:#15803d}
-    *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--oscuro);background:#fff}
-    header{background:linear-gradient(120deg,#f97316,#fb923c);color:#fff;padding:22px 16px;box-shadow:0 3px 12px #00000018}
-    .contenedor{width:min(1120px,calc(100% - 32px));margin:auto}.cabecera{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .marca{font-size:clamp(25px,4vw,34px);font-weight:900;letter-spacing:-1px}.marca span{color:#7c2d12}.submarca{margin-top:4px;font-size:14px;color:#fff7ed}
-    .carrito-top{border:1px solid #ffffff80;background:#ffffff20;color:#fff;padding:11px 16px;border-radius:999px;font-weight:700;cursor:pointer}
-    .hero{padding:34px 0 24px;background:var(--fondo)}.hero h1{font-size:clamp(27px,5vw,42px);margin:0 0 10px}.hero p{margin:0;color:#7c2d12;font-size:17px;line-height:1.5}
-    main{padding:28px 0 56px}.titulo-seccion{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:20px}.titulo-seccion h2{margin:0;font-size:27px}.titulo-seccion p{margin:5px 0 0;color:var(--gris);font-size:14px}
-    .producto{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;border:1px solid #eee;border-radius:18px;padding:18px;box-shadow:0 8px 28px #0000000b;max-width:900px}
-    .foto-principal{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fafafa;border-radius:13px;border:1px solid #eee;display:block}.miniaturas{display:flex;gap:9px;margin-top:10px;flex-wrap:wrap}.miniatura{width:68px;height:68px;object-fit:cover;border:2px solid transparent;border-radius:9px;cursor:pointer;background:#fafafa}.miniatura.activa{border-color:var(--naranja)}
-    .info-producto{display:flex;flex-direction:column;align-items:flex-start}.etiqueta{display:inline-block;background:#ffedd5;color:#9a3412;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:12px}.info-producto h3{font-size:25px;line-height:1.25;margin:0 0 12px}.descripcion{color:#4b5563;line-height:1.65;white-space:pre-line}.precio{font-size:32px;font-weight:900;color:var(--naranja2);margin:18px 0 8px}.disponibilidad{font-size:14px;color:var(--verde);font-weight:700;margin-bottom:18px}.sin-stock{color:#b91c1c}.boton{border:0;border-radius:10px;padding:13px 18px;background:var(--naranja);color:#fff;font-weight:800;font-size:15px;cursor:pointer}.boton:hover{background:var(--naranja2)}.boton:disabled{background:#9ca3af;cursor:not-allowed}.aviso{font-size:12px;color:var(--gris);margin-top:10px}
-    .panel-carrito{margin-top:34px;border:1px solid var(--borde);background:#fffaf5;border-radius:16px;padding:20px;display:none}.panel-carrito.visible{display:block}.panel-carrito h2{margin:0 0 15px}.item-carrito{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #eee}.item-carrito small{display:block;color:var(--gris);margin-top:4px}.controles{display:flex;align-items:center;gap:8px}.controles button{width:30px;height:30px;border:1px solid #ddd;background:#fff;border-radius:7px;cursor:pointer}.total{font-size:21px;font-weight:900;text-align:right;margin:18px 0}.formulario{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.formulario input,.formulario textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:9px;font:inherit}.formulario textarea{grid-column:1/-1;min-height:80px;resize:vertical}.acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.secundario{background:#fff;color:#374151;border:1px solid #d1d5db}.estado{margin-top:12px;font-size:14px;line-height:1.5}.estado.error{color:#b91c1c}.estado.ok{color:var(--verde)}
-    footer{background:#1f2937;color:#e5e7eb;text-align:center;padding:25px 16px;font-size:14px}footer p{margin:5px}
-    @media(max-width:700px){.producto{grid-template-columns:1fr;padding:13px;gap:18px}.info-producto h3{font-size:22px}.formulario{grid-template-columns:1fr}.formulario textarea{grid-column:auto}.titulo-seccion{align-items:flex-start;flex-direction:column}.foto-principal{aspect-ratio:1/1}}
+    :root{
+      --naranja:#f97316;
+      --naranja2:#ea580c;
+      --oscuro:#1f2937;
+      --gris:#6b7280;
+      --fondo:#fff7ed;
+      --borde:#fed7aa;
+      --verde:#15803d
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--oscuro);
+      background:#fff
+    }
+
+    header{
+      background:linear-gradient(120deg,#f97316,#fb923c);
+      color:#fff;
+      padding:22px 16px;
+      box-shadow:0 3px 12px #00000018
+    }
+
+    .contenedor{
+      width:min(1120px,calc(100% - 32px));
+      margin:auto
+    }
+
+    .cabecera{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap
+    }
+
+    .marca{
+      font-size:clamp(25px,4vw,34px);
+      font-weight:900;
+      letter-spacing:-1px
+    }
+
+    .marca span{color:#7c2d12}
+
+    .submarca{
+      margin-top:4px;
+      font-size:14px;
+      color:#fff7ed
+    }
+
+    .carrito-top{
+      border:1px solid #ffffff80;
+      background:#ffffff20;
+      color:#fff;
+      padding:11px 16px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer
+    }
+
+    .hero{
+      padding:34px 0 24px;
+      background:var(--fondo)
+    }
+
+    .hero h1{
+      font-size:clamp(27px,5vw,42px);
+      margin:0 0 10px
+    }
+
+    .hero p{
+      margin:0;
+      color:#7c2d12;
+      font-size:17px;
+      line-height:1.5
+    }
+
+    main{padding:28px 0 56px}
+
+    .titulo-seccion{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:20px
+    }
+
+    .titulo-seccion h2{
+      margin:0;
+      font-size:27px
+    }
+
+    .titulo-seccion p{
+      margin:5px 0 0;
+      color:var(--gris);
+      font-size:14px
+    }
+
+    .producto{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      gap:26px;
+      border:1px solid #eee;
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 8px 28px #0000000b;
+      max-width:900px
+    }
+
+    .foto-principal{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:contain;
+      background:#fafafa;
+      border-radius:13px;
+      border:1px solid #eee;
+      display:block
+    }
+
+    .miniaturas{
+      display:flex;
+      gap:9px;
+      margin-top:10px;
+      flex-wrap:wrap
+    }
+
+    .miniatura{
+      width:68px;
+      height:68px;
+      object-fit:cover;
+      border:2px solid transparent;
+      border-radius:9px;
+      cursor:pointer;
+      background:#fafafa
+    }
+
+    .miniatura.activa{border-color:var(--naranja)}
+
+    .info-producto{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start
+    }
+
+    .etiqueta{
+      display:inline-block;
+      background:#ffedd5;
+      color:#9a3412;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:12px
+    }
+
+    .info-producto h3{
+      font-size:25px;
+      line-height:1.25;
+      margin:0 0 12px
+    }
+
+    .descripcion{
+      color:#4b5563;
+      line-height:1.65;
+      white-space:pre-line
+    }
+
+    /* Características comunes de todos los artículos */
+
+    .caracteristicas{
+      margin-top:14px;
+      padding:13px;
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:12px;
+      width:100%;
+      color:#7c2d12;
+      font-size:14px;
+      line-height:1.8
+    }
+
+    .caracteristicas strong{
+      display:block;
+      margin-bottom:5px;
+      color:#9a3412;
+      font-size:15px
+    }
+
+    .caracteristicas div{
+      display:flex;
+      align-items:center;
+      gap:8px
+    }
+
+    .precio{
+      font-size:32px;
+      font-weight:900;
+      color:var(--naranja2);
+      margin:18px 0 8px
+    }
+
+    .disponibilidad{
+      font-size:14px;
+      color:var(--verde);
+      font-weight:700;
+      margin-bottom:18px
+    }
+
+    .sin-stock{color:#b91c1c}
+
+    .boton{
+      border:0;
+      border-radius:10px;
+      padding:13px 18px;
+      background:var(--naranja);
+      color:#fff;
+      font-weight:800;
+      font-size:15px;
+      cursor:pointer
+    }
+
+    .boton:hover{background:var(--naranja2)}
+
+    .boton:disabled{
+      background:#9ca3af;
+      cursor:not-allowed
+    }
+
+    .aviso{
+      font-size:12px;
+      color:var(--gris);
+      margin-top:10px
+    }
+
+    .panel-carrito{
+      margin-top:34px;
+      border:1px solid var(--borde);
+      background:#fffaf5;
+      border-radius:16px;
+      padding:20px;
+      display:none
+    }
+
+    .panel-carrito.visible{display:block}
+
+    .panel-carrito h2{margin:0 0 15px}
+
+    .item-carrito{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid #eee
+    }
+
+    .item-carrito small{
+      display:block;
+      color:var(--gris);
+      margin-top:4px
+    }
+
+    .controles{
+      display:flex;
+      align-items:center;
+      gap:8px
+    }
+
+    .controles button{
+      width:30px;
+      height:30px;
+      border:1px solid #ddd;
+      background:#fff;
+      border-radius:7px;
+      cursor:pointer
+    }
+
+    .total{
+      font-size:21px;
+      font-weight:900;
+      text-align:right;
+      margin:18px 0
+    }
+
+    .formulario{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:18px
+    }
+
+    .formulario input,
+    .formulario textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid #d1d5db;
+      border-radius:9px;
+      font:inherit
+    }
+
+    .formulario textarea{
+      grid-column:1/-1;
+      min-height:80px;
+      resize:vertical
+    }
+
+    .acciones{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px
+    }
+
+    .secundario{
+      background:#fff;
+      color:#374151;
+      border:1px solid #d1d5db
+    }
+
+    .estado{
+      margin-top:12px;
+      font-size:14px;
+      line-height:1.5
+    }
+
+    .estado.error{color:#b91c1c}
+    .estado.ok{color:var(--verde)}
+
+    footer{
+      background:#1f2937;
+      color:#e5e7eb;
+      text-align:center;
+      padding:25px 16px;
+      font-size:14px
+    }
+
+    footer p{margin:5px}
+
+    @media(max-width:700px){
+      .producto{
+        grid-template-columns:1fr;
+        padding:13px;
+        gap:18px
+      }
+
+      .info-producto h3{font-size:22px}
+
+      .formulario{grid-template-columns:1fr}
+
+      .formulario textarea{grid-column:auto}
+
+      .titulo-seccion{
+        align-items:flex-start;
+        flex-direction:column
+      }
+
+      .foto-principal{aspect-ratio:1/1}
+    }
   </style>
 </head>
+
 <body>
-  <header><div class="contenedor cabecera"><div><div class="marca">Click<span>Oferta</span></div><div class="submarca">Ofertas y novedades para aprovechar</div></div><button class="carrito-top" onclick="mostrarCarrito()">🛒 Mi carrito (<span id="cantidad-carrito">0</span>)</button></div></header>
-  <section class="hero"><div class="contenedor"><h1>Encontrá tu próxima oferta</h1><p>Productos seleccionados, compra simple y atención personalizada.</p></div></section>
-  <main class="contenedor"><section><div class="titulo-seccion"><div><h2>Ofertas de la Semana</h2><p>Conocé nuestro producto destacado.</p></div></div><div id="productos"><p>Cargando productos...</p></div></section>
-    <section id="panel-carrito" class="panel-carrito"><h2>Tu pedido</h2><div id="detalle-carrito"></div><div class="total" id="total-carrito">Total: $ 0</div>
-      <form id="form-pedido" onsubmit="confirmarPedido(event)"><div class="formulario">
-        <input id="nombre" name="nombre" placeholder="Nombre y apellido" required maxlength="100">
-        <input id="telefono" name="telefono" placeholder="Teléfono / WhatsApp" required maxlength="40">
-        <input id="localidad" name="localidad" placeholder="Localidad" required maxlength="100">
-        <input id="direccion" name="direccion" placeholder="Dirección (opcional)" maxlength="180">
-        <textarea id="comentario" name="comentario" placeholder="Comentario u observaciones (opcional)" maxlength="500"></textarea>
-      </div><div class="acciones"><button class="boton" id="btn-confirmar" type="submit">Confirmar pedido</button><button class="boton secundario" type="button" onclick="vaciarCarrito()">Vaciar carrito</button></div><div id="estado-pedido" class="estado" aria-live="polite"></div></form>
-      <p class="aviso">Al confirmar, registramos el pedido y se abrirá WhatsApp para coordinar el pago y la entrega.</p>
+
+  <header>
+    <div class="contenedor cabecera">
+      <div>
+        <div class="marca">Click<span>Oferta</span></div>
+        <div class="submarca">Ofertas y novedades para aprovechar</div>
+      </div>
+
+      <button class="carrito-top" onclick="mostrarCarrito()">
+        🛒 Mi carrito (<span id="cantidad-carrito">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="contenedor">
+      <h1>Encontrá tu próxima oferta</h1>
+      <p>Productos seleccionados, compra simple y atención personalizada.</p>
+    </div>
+  </section>
+
+  <main class="contenedor">
+
+    <section>
+      <div class="titulo-seccion">
+        <div>
+          <h2>Ofertas de la Semana</h2>
+          <p>Conocé nuestro producto destacado.</p>
+        </div>
+      </div>
+
+      <div id="productos">
+        <p>Cargando productos...</p>
+      </div>
     </section>
+
+    <section id="panel-carrito" class="panel-carrito">
+
+      <h2>Tu pedido</h2>
+
+      <div id="detalle-carrito"></div>
+
+      <div class="total" id="total-carrito">Total: $ 0</div>
+
+      <form id="form-pedido" onsubmit="confirmarPedido(event)">
+
+        <div class="formulario">
+
+          <input id="nombre" name="nombre"
+            placeholder="Nombre y apellido"
+            required maxlength="100">
+
+          <input id="telefono" name="telefono"
+            placeholder="Teléfono / WhatsApp"
+            required maxlength="40">
+
+          <input id="localidad" name="localidad"
+            placeholder="Localidad"
+            required maxlength="100">
+
+          <input id="direccion" name="direccion"
+            placeholder="Dirección (opcional)"
+            maxlength="180">
+
+          <textarea id="comentario" name="comentario"
+            placeholder="Comentario u observaciones (opcional)"
+            maxlength="500"></textarea>
+
+        </div>
+
+        <div class="acciones">
+
+          <button class="boton" id="btn-confirmar" type="submit">
+            Confirmar pedido
+          </button>
+
+          <button class="boton secundario" type="button"
+            onclick="vaciarCarrito()">
+            Vaciar carrito
+          </button>
+
+        </div>
+
+        <div id="estado-pedido" class="estado" aria-live="polite"></div>
+
+      </form>
+
+      <p class="aviso">
+        Al confirmar, registramos el pedido y se abrirá WhatsApp
+        para coordinar el pago y la entrega.
+      </p>
+
+    </section>
+
   </main>
-  <footer><p><strong>ClickOferta</strong></p><p>Ofertas y novedades</p></footer>
+
+  <footer>
+    <p><strong>ClickOferta</strong></p>
+    <p>Ofertas y novedades</p>
+  </footer>
+
 <script>
-  // Configuración pública del proyecto Supabase. Nunca colocar aquí una clave sb_secret_ o service_role.
+
+  // CONFIGURACIÓN SUPABASE
+
   const SUPABASE_URL = 'https://zjdwxwlditeiukbewtmn.supabase.co';
+
   const SUPABASE_KEY = 'sb_publishable_C8novTwRW2I8Y7NV-LU7Zw_pv4esHWJ';
+
   const WHATSAPP = '5491164674811';
+
   const STORAGE_KEY = 'clickoferta_carrito';
+
   let productos = [];
+
   let carrito = cargarCarritoLocal();
 
-  function headers(extra={}) { return { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, ...extra }; }
-  function dinero(valor) { return new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(Number(valor)||0); }
-  function escapar(s) { return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  // FUNCIONES GENERALES
+
+  function headers(extra={}) {
+    return {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      ...extra
+    };
+  }
+
+  function dinero(valor) {
+    return new Intl.NumberFormat('es-AR',{
+      style:'currency',
+      currency:'ARS',
+      maximumFractionDigits:0
+    }).format(Number(valor)||0);
+  }
+
+  function escapar(s) {
+    return String(s??'').replace(/[&<>"']/g,c=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c]));
+  }
+
   function obtenerFotos(valor) {
-    if (Array.isArray(valor)) return valor.filter(x=>typeof x==='string' && x.trim()).map(x=>x.trim());
+
+    if (Array.isArray(valor)) {
+      return valor.filter(x=>typeof x==='string' && x.trim())
+        .map(x=>x.trim());
+    }
+
     if (!valor) return [];
-    if (typeof valor==='string') { try { const j=JSON.parse(valor); if(Array.isArray(j)) return j.filter(Boolean); } catch(e){} return valor.split('|').map(x=>x.trim()).filter(Boolean); }
+
+    if (typeof valor==='string') {
+      try {
+        const j=JSON.parse(valor);
+        if(Array.isArray(j)) return j.filter(Boolean);
+      } catch(e){}
+
+      return valor.split('|').map(x=>x.trim()).filter(Boolean);
+    }
+
     return [];
   }
+
+
+  // CARGAR PRODUCTOS DESDE SUPABASE
+
   async function cargarProductos() {
+
     const cont=document.getElementById('productos');
+
     try {
-      const url=SUPABASE_URL+'/rest/v1/productos?select=id,nombre,descripcion,precio,stock,imagenes,activo&activo=eq.true&order=creado_en.asc';
+
+      const url=SUPABASE_URL+
+        '/rest/v1/productos?select=id,nombre,descripcion,precio,stock,imagenes,activo&activo=eq.true&order=creado_en.asc';
+
       const r=await fetch(url,{headers:headers()});
+
       if(!r.ok) throw new Error(await r.text());
+
       productos=await r.json();
-      if(!productos.length){cont.innerHTML='<p>Por el momento no hay productos publicados.</p>';return;}
+
+      if(!productos.length) {
+        cont.innerHTML='<p>Por el momento no hay productos publicados.</p>';
+        return;
+      }
+
       cont.innerHTML=productos.map(p=>{
-        const fotos=obtenerFotos(p.imagenes); const sinStock=Number(p.stock)<=0;
+
+        const fotos=obtenerFotos(p.imagenes);
+
+        const sinStock=Number(p.stock)<=0;
+
         const principal=fotos[0]||'';
-        return `<article class="producto"><div><img class="foto-principal" id="foto-${escapar(p.id)}" src="${escapar(principal)}" alt="${escapar(p.nombre)}" onerror="this.style.objectFit='contain';this.alt='Foto no disponible';this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27400%27 height=%27400%27%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27%23f3f4f6%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 fill=%27%236b7280%27 font-size=%2720%27%3EFoto no disponible%3C/text%3E%3C/svg%3E'">${fotos.length>1?`<div class="miniaturas">${fotos.map((f,i)=>`<img class="miniatura ${i===0?'activa':''}" src="${escapar(f)}" alt="Vista ${i+1}" onclick="cambiarFoto('${escapar(p.id)}','${escapar(f)}',this)" onerror="this.style.display='none'">`).join('')}</div>`:''}</div><div class="info-producto"><span class="etiqueta">OFERTA DE LA SEMANA</span><h3>${escapar(p.nombre)}</h3><div class="descripcion">${escapar(p.descripcion||'')}</div><div class="precio">${dinero(p.precio)}</div><div class="disponibilidad ${sinStock?'sin-stock':''}">${sinStock?'Sin stock disponible':'Disponible'}</div><button class="boton" ${sinStock?'disabled':''} onclick="agregarCarrito('${escapar(p.id)}')">${sinStock?'Sin stock':'Agregar al carrito'}</button><div class="aviso">Las imágenes son ilustrativas del producto publicado.</div></div></article>`;
+
+        return `
+
+          <article class="producto">
+
+            <div>
+
+              <img
+                class="foto-principal"
+                id="foto-${escapar(p.id)}"
+                src="${escapar(principal)}"
+                alt="${escapar(p.nombre)}"
+                onerror="this.style.objectFit='contain';this.alt='Foto no disponible';this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27400%27 height=%27400%27%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27%23f3f4f6%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 fill=%27%236b7280%27 font-size=%2720%27%3EFoto no disponible%3C/text%3E%3C/svg%3E'">
+
+              ${fotos.length>1?`
+
+                <div class="miniaturas">
+
+                  ${fotos.map((f,i)=>`
+
+                    <img
+                      class="miniatura ${i===0?'activa':''}"
+                      src="${escapar(f)}"
+                      alt="Vista ${i+1}"
+                      onclick="cambiarFoto('${escapar(p.id)}','${escapar(f)}',this)"
+                      onerror="this.style.display='none'">
+
+                  `).join('')}
+
+                </div>
+
+              `:''}
+
+            </div>
+
+            <div class="info-producto">
+
+              <span class="etiqueta">OFERTA DE LA SEMANA</span>
+
+              <h3>${escapar(p.nombre)}</h3>
+
+              <div class="descripcion">
+                ${escapar(p.descripcion||'')}
+              </div>
+
+              <!-- CARACTERÍSTICAS COMUNES A TODOS LOS ARTÍCULOS -->
+
+              <div class="caracteristicas">
+
+                <strong>Características</strong>
+
+                <div>▦ Dos divisiones</div>
+
+                <div>🔒 Broche de metal a presión</div>
+
+                <div>📏 Medidas: 12 × 9 cm</div>
+
+              </div>
+
+              <div class="precio">${dinero(p.precio)}</div>
+
+              <div class="disponibilidad ${sinStock?'sin-stock':''}">
+                ${sinStock?'Sin stock disponible':'Disponible'}
+              </div>
+
+              <button
+                class="boton"
+                ${sinStock?'disabled':''}
+                onclick="agregarCarrito('${escapar(p.id)}')">
+
+                ${sinStock?'Sin stock':'Agregar al carrito'}
+
+              </button>
+
+              <div class="aviso">
+                Las imágenes son ilustrativas del producto publicado.
+              </div>
+
+            </div>
+
+          </article>
+
+        `;
+
       }).join('');
+
       actualizarCarrito();
-    } catch(e) { console.error(e); cont.innerHTML='<p>No se pudieron cargar los productos. Revisá la conexión con Supabase y las políticas de acceso.</p>'; }
+
+    } catch(e) {
+
+      console.error(e);
+
+      cont.innerHTML=
+        '<p>No se pudieron cargar los productos. Revisá la conexión con Supabase y las políticas de acceso.</p>';
+
+    }
+
   }
-  function cambiarFoto(id,url,el){const img=document.getElementById('foto-'+id);if(img)img.src=url;el.parentElement.querySelectorAll('.miniatura').forEach(x=>x.classList.remove('activa'));el.classList.add('activa');}
-  function cargarCarritoLocal(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return {}}}
-  function guardarCarrito(){localStorage.setItem(STORAGE_KEY,JSON.stringify(carrito));}
-  function agregarCarrito(id){const p=productos.find(x=>String(x.id)===String(id));if(!p||Number(p.stock)<=0)return;const actual=Number(carrito[id]?.cantidad||0);if(actual>=Number(p.stock)){alert('No hay más unidades disponibles de este producto.');return;}carrito[id]={cantidad:actual+1};guardarCarrito();actualizarCarrito();mostrarCarrito();}
-  function cambiarCantidad(id,delta){const p=productos.find(x=>String(x.id)===String(id));if(!p)return;const nueva=Number(carrito[id]?.cantidad||0)+delta;if(nueva<=0)delete carrito[id];else if(nueva<=Number(p.stock))carrito[id].cantidad=nueva;else alert('La cantidad supera el stock disponible.');guardarCarrito();actualizarCarrito();}
-  function actualizarCarrito(){let cantidad=0;Object.values(carrito).forEach(x=>cantidad+=Number(x.cantidad)||0);document.getElementById('cantidad-carrito').textContent=cantidad;const detalle=document.getElementById('detalle-carrito');let total=0;const ids=Object.keys(carrito);if(!ids.length){detalle.innerHTML='<p>Tu carrito está vacío.</p>';document.getElementById('total-carrito').textContent='Total: '+dinero(0);return;}detalle.innerHTML=ids.map(id=>{const p=productos.find(x=>String(x.id)===String(id));if(!p)return '';const q=Number(carrito[id].cantidad)||0;const sub=Number(p.precio)*q;total+=sub;return `<div class="item-carrito"><div><strong>${escapar(p.nombre)}</strong><small>${dinero(p.precio)} × ${q} = ${dinero(sub)}</small></div><div class="controles"><button type="button" onclick="cambiarCantidad('${escapar(id)}',-1)">−</button><strong>${q}</strong><button type="button" onclick="cambiarCantidad('${escapar(id)}',1)">+</button></div></div>`;}).join('');document.getElementById('total-carrito').textContent='Total estimado: '+dinero(total);}
-  function mostrarCarrito(){const panel=document.getElementById('panel-carrito');panel.classList.add('visible');panel.scrollIntoView({behavior:'smooth',block:'start'});}
-  function vaciarCarrito(){carrito={};guardarCarrito();actualizarCarrito();document.getElementById('estado-pedido').textContent='';}
-  async function confirmarPedido(ev){ev.preventDefault();const estado=document.getElementById('estado-pedido');const btn=document.getElementById('btn-confirmar');const ids=Object.keys(carrito).filter(id=>Number(carrito[id]?.cantidad)>0);if(!ids.length){estado.className='estado error';estado.textContent='El carrito está vacío.';return;}
-    const items=ids.map(id=>({producto_id:id,cantidad:Number(carrito[id].cantidad)}));
-    const total=items.reduce((s,it)=>{const p=productos.find(x=>String(x.id)===String(it.producto_id));return s+(p?Number(p.precio)*it.cantidad:0)},0);
-    const payload={p_nombre:document.getElementById('nombre').value.trim(),p_telefono:document.getElementById('telefono').value.trim(),p_localidad:document.getElementById('localidad').value.trim(),p_direccion:document.getElementById('direccion').value.trim(),p_comentario:document.getElementById('comentario').value.trim(),p_items:items};
-    btn.disabled=true;btn.textContent='Registrando pedido...';estado.className='estado';estado.textContent='Estamos registrando tu pedido. No cierres esta página.';
-    try{
-      const r=await fetch(SUPABASE_URL+'/rest/v1/rpc/crear_pedido',{method:'POST',headers:headers({'Content-Type':'application/json','Prefer':'return=representation'}),body:JSON.stringify(payload)});
-      const body=await r.text();if(!r.ok)throw new Error(body||'No se pudo registrar el pedido.');
-      let pedidoId=body;try{pedidoId=JSON.parse(body)}catch(e){};if(typeof pedidoId==='object'&&pedidoId!==null)pedidoId=pedidoId.crear_pedido||pedidoId.id||JSON.stringify(pedidoId);
-      const lineas=items.map(it=>{const p=productos.find(x=>String(x.id)===String(it.producto_id));return `- ${p?.nombre||'Producto'} x ${it.cantidad}`}).join('\n');
-      const mensaje=`Hola! Registré un pedido en ClickOferta.\nPedido: ${pedidoId}\n\n${lineas}\n\nTotal estimado: ${dinero(total)}\nNombre: ${payload.p_nombre}\nTeléfono: ${payload.p_telefono}\nLocalidad: ${payload.p_localidad}\nDirección: ${payload.p_direccion||'A coordinar'}\nComentario: ${payload.p_comentario||'-'}\n\nQuisiera coordinar el pago y la entrega.`;
-      vaciarCarrito();document.getElementById('form-pedido').reset();estado.className='estado ok';estado.textContent='¡Pedido registrado correctamente! Se abrirá WhatsApp para coordinar el pago y la entrega.';await cargarProductos();
-      const wa='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(mensaje);window.open(wa,'_blank','noopener');
-    }catch(e){console.error(e);estado.className='estado error';let msg=e.message||'Error desconocido';try{const j=JSON.parse(msg);msg=j.message||j.details||j.hint||msg}catch(x){};estado.textContent='No se pudo registrar el pedido: '+msg+' Si el problema continúa, contactanos.';}
-    finally{btn.disabled=false;btn.textContent='Confirmar pedido';}
+
+
+  // CAMBIAR FOTOGRAFÍA
+
+  function cambiarFoto(id,url,el) {
+
+    const img=document.getElementById('foto-'+id);
+
+    if(img) img.src=url;
+
+    el.parentElement.querySelectorAll('.miniatura')
+      .forEach(x=>x.classList.remove('activa'));
+
+    el.classList.add('activa');
+
   }
-  actualizarCarrito();cargarProductos();
+
+
+  // CARRITO LOCAL
+
+  function cargarCarritoLocal() {
+
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    } catch(e) {
+      return {};
+    }
+
+  }
+
+  function guardarCarrito() {
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(carrito));
+  }
+
+
+  function agregarCarrito(id) {
+
+    const p=productos.find(x=>String(x.id)===String(id));
+
+    if(!p||Number(p.stock)<=0) return;
+
+    const actual=Number(carrito[id]?.cantidad||0);
+
+    if(actual>=Number(p.stock)) {
+      alert('No hay más unidades disponibles de este producto.');
+      return;
+    }
+
+    carrito[id]={cantidad:actual+1};
+
+    guardarCarrito();
+
+    actualizarCarrito();
+
+    mostrarCarrito();
+
+  }
+
+
+  function cambiarCantidad(id,delta) {
+
+    const p=productos.find(x=>String(x.id)===String(id));
+
+    if(!p) return;
+
+    const nueva=Number(carrito[id]?.cantidad||0)+delta;
+
+    if(nueva<=0) {
+      delete carrito[id];
+    } else if(nueva<=Number(p.stock)) {
+      carrito[id].cantidad=nueva;
+    } else {
+      alert('La cantidad supera el stock disponible.');
+    }
+
+    guardarCarrito();
+
+    actualizarCarrito();
+
+  }
+
+
+  // ACTUALIZAR CARRITO
+
+  function actualizarCarrito() {
+
+    let cantidad=0;
+
+    Object.values(carrito).forEach(x=>{
+      cantidad+=Number(x.cantidad)||0;
+    });
+
+    document.getElementById('cantidad-carrito').textContent=cantidad;
+
+    const detalle=document.getElementById('detalle-carrito');
+
+    let total=0;
+
+    const ids=Object.keys(carrito);
+
+    if(!ids.length) {
+
+      detalle.innerHTML='<p>Tu carrito está vacío.</p>';
+
+      document.getElementById('total-carrito').textContent=
+        'Total: '+dinero(0);
+
+      return;
+    }
+
+    detalle.innerHTML=ids.map(id=>{
+
+      const p=productos.find(x=>String(x.id)===String(id));
+
+      if(!p) return '';
+
+      const q=Number(carrito[id].cantidad)||0;
+
+      const sub=Number(p.precio)*q;
+
+      total+=sub;
+
+      return `
+
+        <div class="item-carrito">
+
+          <div>
+
+            <strong>${escapar(p.nombre)}</strong>
+
+            <small>
+              ${dinero(p.precio)} × ${q} = ${dinero(sub)}
+            </small>
+
+          </div>
+
+          <div class="controles">
+
+            <button type="button"
+              onclick="cambiarCantidad('${escapar(id)}',-1)">−</button>
+
+            <strong>${q}</strong>
+
+            <button type="button"
+              onclick="cambiarCantidad('${escapar(id)}',1)">+</button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join('');
+
+    document.getElementById('total-carrito').textContent=
+      'Total estimado: '+dinero(total);
+
+  }
+
+
+  // MOSTRAR CARRITO
+
+  function mostrarCarrito() {
+
+    const panel=document.getElementById('panel-carrito');
+
+    panel.classList.add('visible');
+
+    panel.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+
+  }
+
+
+  // VACIAR CARRITO
+
+  function vaciarCarrito() {
+
+    carrito={};
+
+    guardarCarrito();
+
+    actualizarCarrito();
+
+    document.getElementById('estado-pedido').textContent='';
+
+  }
+
+
+  // CONFIRMAR PEDIDO
+
+  async function confirmarPedido(ev) {
+
+    ev.preventDefault();
+
+    const estado=document.getElementById('estado-pedido');
+
+    const btn=document.getElementById('btn-confirmar');
+
+    const ids=Object.keys(carrito).filter(
+      id=>Number(carrito[id]?.cantidad)>0
+    );
+
+    if(!ids.length) {
+
+      estado.className='estado error';
+
+      estado.textContent='El carrito está vacío.';
+
+      return;
+    }
+
+    const items=ids.map(id=>({
+
+      producto_id:id,
+
+      cantidad:Number(carrito[id].cantidad)
+
+    }));
+
+    const total=items.reduce((s,it)=>{
+
+      const p=productos.find(
+        x=>String(x.id)===String(it.producto_id)
+      );
+
+      return s+(p?Number(p.precio)*it.cantidad:0);
+
+    },0);
+
+
+    const payload={
+
+      p_nombre:document.getElementById('nombre').value.trim(),
+
+      p_telefono:document.getElementById('telefono').value.trim(),
+
+      p_localidad:document.getElementById('localidad').value.trim(),
+
+      p_direccion:document.getElementById('direccion').value.trim(),
+
+      p_comentario:document.getElementById('comentario').value.trim(),
+
+      p_items:items
+
+    };
+
+
+    btn.disabled=true;
+
+    btn.textContent='Registrando pedido...';
+
+    estado.className='estado';
+
+    estado.textContent=
+      'Estamos registrando tu pedido. No cierres esta página.';
+
+
+    try {
+
+      const r=await fetch(
+        SUPABASE_URL+'/rest/v1/rpc/crear_pedido',
+        {
+          method:'POST',
+
+          headers:headers({
+            'Content-Type':'application/json',
+            'Prefer':'return=representation'
+          }),
+
+          body:JSON.stringify(payload)
+        }
+      );
+
+      const body=await r.text();
+
+      if(!r.ok) {
+        throw new Error(body||'No se pudo registrar el pedido.');
+      }
+
+      let pedidoId=body;
+
+      try {
+        pedidoId=JSON.parse(body);
+      } catch(e){}
+
+      if(typeof pedidoId==='object'&&pedidoId!==null) {
+        pedidoId=
+          pedidoId.crear_pedido||
+          pedidoId.id||
+          JSON.stringify(pedidoId);
+      }
+
+
+      const lineas=items.map(it=>{
+
+        const p=productos.find(
+          x=>String(x.id)===String(it.producto_id)
+        );
+
+        return `- ${p?.nombre||'Producto'} x ${it.cantidad}`;
+
+      }).join('\n');
+
+
+      const mensaje=`Hola! Registré un pedido en ClickOferta.
+Pedido: ${pedidoId}
+
+${lineas}
+
+Total estimado: ${dinero(total)}
+Nombre: ${payload.p_nombre}
+Teléfono: ${payload.p_telefono}
+Localidad: ${payload.p_localidad}
+Dirección: ${payload.p_direccion||'A coordinar'}
+Comentario: ${payload.p_comentario||'-'}
+
+Quisiera coordinar el pago y la entrega.`;
+
+
+      vaciarCarrito();
+
+      document.getElementById('form-pedido').reset();
+
+      estado.className='estado ok';
+
+      estado.textContent=
+        '¡Pedido registrado correctamente! Se abrirá WhatsApp para coordinar el pago y la entrega.';
+
+      await cargarProductos();
+
+
+      const wa=
+        'https://wa.me/'+WHATSAPP+
+        '?text='+encodeURIComponent(mensaje);
+
+      window.open(wa,'_blank','noopener');
+
+
+    } catch(e) {
+
+      console.error(e);
+
+      estado.className='estado error';
+
+      let msg=e.message||'Error desconocido';
+
+      try {
+
+        const j=JSON.parse(msg);
+
+        msg=j.message||j.details||j.hint||msg;
+
+      } catch(x){}
+
+      estado.textContent=
+        'No se pudo registrar el pedido: '+msg+
+        ' Si el problema continúa, contactanos.';
+
+    } finally {
+
+      btn.disabled=false;
+
+      btn.textContent='Confirmar pedido';
+
+    }
+
+  }
+
+
+  // INICIAR TIENDA
+
+  actualizarCarrito();
+
+  cargarProductos();
+
 </script>
+
 </body>
 </html>
